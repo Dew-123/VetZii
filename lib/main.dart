@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: theme,
         translations: AppLocalization(),
-        locale: Get.deviceLocale, //for setting localization strings
+        locale: Get.deviceLocale, //for setting  localization strings
         fallbackLocale: Locale('en', 'US'),
         title: 'mihan_s_application1',
         initialBinding: InitialBindings(),
