@@ -83,6 +83,21 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     CustomElevatedButton(
                       width: 189.h,
                       text: "lbl_log_in".tr,
+<<<<<<< Updated upstream
+=======
+                      onPressed: ()=>{
+                         username = controller.userNameController.text,
+                         password = controller.passwordController.text,
+
+                        // Now you can use the username and password as needed
+                        print('Username: $username'),
+                        print('Password: $password'),
+
+                        Get.toNamed(AppRoutes.mainMenuContainerScreen)
+
+                      // Add your login logic here
+                      },
+>>>>>>> Stashed changes
                     ),
                     SizedBox(height: 5.v),
                   ],
