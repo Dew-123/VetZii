@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 ///
 /// This class ensures that the UserSignInController is created when the
 /// UserSignInScreen is first loaded.
-class UserSignInBinding extends Bindings {
+class UserSignInBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => UserSignInController());
+    Get.lazyPut<UserSignInController>(() => UserSignInController());
   }
 }

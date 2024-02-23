@@ -1,3 +1,6 @@
+import 'package:mihan_s_application1/presentation/main_menu_container_screen/main_menu_container_screen.dart';
+import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
+
 import 'controller/user_sign_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -7,6 +10,9 @@ import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
 class UserSignInScreen extends GetWidget<UserSignInController> {
+
+  String username="";
+  String password="";
   UserSignInScreen({Key? key})
       : super(
           key: key,
@@ -83,6 +89,18 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     CustomElevatedButton(
                       width: 189.h,
                       text: "lbl_log_in".tr,
+                      onPressed: ()=>{
+                         username = controller.userNameController.text,
+                         password = controller.passwordController.text,
+
+                        // Now you can use the username and password as needed
+                        print('Username: $username'),
+                        print('Password: $password'),
+
+                      Get.toNamed(AppRoutes.mainMenuContainerScreen)
+
+                      // Add your login logic here
+                      },
                     ),
                     SizedBox(height: 5.v),
                   ],

@@ -1,4 +1,4 @@
-import '../payment_page_screen/widgets/paymentmethods_item_widget.dart';
+import 'widgets/paymentmethods_item_widget.dart';
 import 'controller/payment_page_controller.dart';
 import 'models/paymentmethods_item_model.dart';
 import 'package:flutter/material.dart';

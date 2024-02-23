@@ -1,4 +1,4 @@
-import '../directory_vets_page/widgets/userprofile_item_widget.dart';
+import 'widgets/userprofile_item_widget.dart';
 import 'controller/directory_vets_controller.dart';
 import 'models/directory_vets_model.dart';
 import 'models/userprofile_item_model.dart';

@@ -1,4 +1,4 @@
-import '../notifications_have_screen/widgets/appointmentsuccess_item_widget.dart';
+import 'widgets/appointmentsuccess_item_widget.dart';
 import 'controller/notifications_have_controller.dart';
 import 'models/appointmentsuccess_item_model.dart';
 import 'package:flutter/material.dart';

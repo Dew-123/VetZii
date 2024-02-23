@@ -1,4 +1,4 @@
-import '../pet_owner_create_an_account_screen/widgets/petownercreateanaccount_item_widget.dart';
+import 'widgets/petownercreateanaccount_item_widget.dart';
 import 'controller/pet_owner_create_an_account_controller.dart';
 import 'models/petownercreateanaccount_item_model.dart';
 import 'package:flutter/material.dart';

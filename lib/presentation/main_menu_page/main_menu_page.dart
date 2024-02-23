@@ -1,4 +1,4 @@
-import '../main_menu_page/widgets/mainmenugrid_item_widget.dart';
+import 'widgets/mainmenugrid_item_widget.dart';
 import 'controller/main_menu_controller.dart';
 import 'models/main_menu_model.dart';
 import 'models/mainmenugrid_item_model.dart';

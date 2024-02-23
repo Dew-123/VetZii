@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         initialBinding: InitialBindings(),
         initialRoute: AppRoutes.initialRoute,
         getPages: AppRoutes.pages,
-      )
+      );
     });
   }
 }

@@ -8,6 +8,6 @@ import 'package:get/get.dart';
 class MainMenuContainerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => MainMenuContainerController());
+    Get.lazyPut<MainMenuContainerController>(() => MainMenuContainerController());
   }
 }

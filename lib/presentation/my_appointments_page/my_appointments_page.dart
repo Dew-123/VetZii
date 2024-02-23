@@ -1,4 +1,4 @@
-import '../my_appointments_page/widgets/appointmentcard_item_widget.dart';
+import 'widgets/appointmentcard_item_widget.dart';
 import 'controller/my_appointments_controller.dart';
 import 'models/appointmentcard_item_model.dart';
 import 'models/my_appointments_model.dart';

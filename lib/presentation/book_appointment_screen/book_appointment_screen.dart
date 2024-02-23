@@ -1,4 +1,4 @@
-import '../book_appointment_screen/widgets/hourstabs_item_widget.dart';
+import 'widgets/hourstabs_item_widget.dart';
 import 'controller/book_appointment_controller.dart';
 import 'models/hourstabs_item_model.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';

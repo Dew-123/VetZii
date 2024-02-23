@@ -8,6 +8,6 @@ import 'package:get/get.dart';
 class PetOwnerCreateAnAccountBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => PetOwnerCreateAnAccountController());
+    Get.lazyPut<PetOwnerCreateAnAccountController>(() => PetOwnerCreateAnAccountController());
   }
 }
