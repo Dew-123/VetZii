@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 /// This class manages the state of the PetOwnerCreateAnAccountScreen, including the
 /// current petOwnerCreateAnAccountModelObj
 class PetOwnerCreateAnAccountController extends GetxController {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
 
   TextEditingController nameOfThePetController = TextEditingController();

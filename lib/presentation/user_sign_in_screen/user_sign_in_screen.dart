@@ -94,9 +94,7 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                       email = controller.userNameController.text.removeAllWhitespace;
                       password = controller.passwordController.text.removeAllWhitespace;
 
-                      // Now you can use the username and password as needed
-                      print('Username: $email');
-                      print('Password: $password');
+
                       try {
                         List<dynamic> data = await fetchData(email,password);
                         print(data);

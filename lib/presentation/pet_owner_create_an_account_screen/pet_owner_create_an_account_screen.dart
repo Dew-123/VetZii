@@ -76,9 +76,9 @@ class PetOwnerCreateAnAccountScreen
                       ),
                     ),
                     SizedBox(height: 32.v),
-                    _buildFullName('first'),
+                    _buildFirstName(),
                     SizedBox(height: 20.v),
-                    _buildFullName('last'),
+                    _buildLasttName(),
                     SizedBox(height: 20.v),
                     _buildNameOfThePet(),
                     SizedBox(height: 20.v),
@@ -126,10 +126,23 @@ class PetOwnerCreateAnAccountScreen
   }
 
   /// Section Widget
-  Widget _buildFullName(String name) {
+  Widget _buildFirstName( ) {
     return CustomTextFormField(
-      controller: controller.fullNameController,
-      hintText: "${name} name".tr,
+      controller: controller.firstNameController,
+      hintText: "first name".tr,
+      hintStyle: theme.textTheme.titleSmall!,
+      validator: (value) {
+        if (!isText(value)) {
+          return "err_msg_please_enter_valid_text".tr;
+        }
+        return null;
+      },
+    );
+  }
+  Widget _buildLasttName( ) {
+    return CustomTextFormField(
+      controller: controller.firstNameController,
+      hintText: "last name".tr,
       hintStyle: theme.textTheme.titleSmall!,
       validator: (value) {
         if (!isText(value)) {
@@ -300,6 +313,9 @@ class PetOwnerCreateAnAccountScreen
   /// Section Widget
   Widget _buildCreateAccount() {
     return CustomElevatedButton(
+       onPressed: ()=>{
+         createAccount()
+       },
       width: 189.h,
       text: "lbl_create_account".tr,
       margin: EdgeInsets.only(
@@ -308,6 +324,32 @@ class PetOwnerCreateAnAccountScreen
         bottom: 42.v,
       ),
     );
+  }
+  void createAccount() {
+    // Retrieve values from controllers
+    String fullName = controller.fullNameController.text;
+    String email = controller.emailController.text;
+    String mobileNumber = controller.mobileNumberController.text;
+    String password = controller.passwordController.text;
+    String confirmPassword = controller.confirmPasswordController.text;
+    String nameOfThePet = controller.nameOfThePetController.text;
+    String petType = controller.petTypeController.text;
+    String selectedGender = _selectedGender.value;
+
+    // Now you have all the data collected, you can perform further operations
+    // For example, you can validate the data or send it to an API
+
+    // For now, let's just print the collected data
+    print('Full Name: $fullName');
+    print('Email: $email');
+    print('Mobile Number: $mobileNumber');
+    print('Password: $password');
+    print('Confirm Password: $confirmPassword');
+    print('Name of the Pet: $nameOfThePet');
+    print('Pet Type: $petType');
+    print('Selected Gender: $selectedGender');
+
+    // Add further logic as needed
   }
 
 }
