@@ -82,10 +82,10 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                       obscureText: true,
                     ),
                     SizedBox(height: 27.v),
-                    Text(
+                    GestureDetector(child: Text(
                       "msg_forgot_password".tr,
                       style: CustomTextStyles.titleSmallBlack90002,
-                    ),
+                    ),onTap: ()=>{print("yet to be made")},),
                     SizedBox(height: 22.v),
                   CustomElevatedButton(
                     width: 189.h,

@@ -9,10 +9,14 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle_one.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
+import 'package:get/get.dart';
+
 
 // ignore_for_file: must_be_immutable
 class PetOwnerCreateAnAccountScreen
     extends GetWidget<PetOwnerCreateAnAccountController> {
+
+  final RxString _selectedGender = RxString('');
   PetOwnerCreateAnAccountScreen({Key? key})
       : super(
           key: key,
@@ -72,7 +76,9 @@ class PetOwnerCreateAnAccountScreen
                       ),
                     ),
                     SizedBox(height: 32.v),
-                    _buildFullName(),
+                    _buildFullName('first'),
+                    SizedBox(height: 20.v),
+                    _buildFullName('last'),
                     SizedBox(height: 20.v),
                     _buildNameOfThePet(),
                     SizedBox(height: 20.v),
@@ -120,10 +126,10 @@ class PetOwnerCreateAnAccountScreen
   }
 
   /// Section Widget
-  Widget _buildFullName() {
+  Widget _buildFullName(String name) {
     return CustomTextFormField(
       controller: controller.fullNameController,
-      hintText: "lbl_full_name".tr,
+      hintText: "${name} name".tr,
       hintStyle: theme.textTheme.titleSmall!,
       validator: (value) {
         if (!isText(value)) {
@@ -153,40 +159,76 @@ class PetOwnerCreateAnAccountScreen
   }
 
   /// Section Widget
+  // Widget _buildPetOwnerCreateAnAccount() {
+  //   return SizedBox(
+  //     height: 20.v,
+  //     child: Obx(
+  //       () => ListView.separated(
+  //         padding: EdgeInsets.only(
+  //           left: 20.h,
+  //           right: 28.h,
+  //         ),
+  //         scrollDirection: Axis.horizontal,
+  //         separatorBuilder: (
+  //           context,
+  //           index,
+  //         ) {
+  //           return SizedBox(
+  //             width: 29.h,
+  //           );
+  //         },
+  //         itemCount: controller.petOwnerCreateAnAccountModelObj.value
+  //             .petownercreateanaccountItemList.value.length,
+  //         itemBuilder: (context, index) {
+  //           PetownercreateanaccountItemModel model = controller
+  //               .petOwnerCreateAnAccountModelObj
+  //               .value
+  //               .petownercreateanaccountItemList
+  //               .value[index];
+  //           return PetownercreateanaccountItemWidget(
+  //             model,
+  //           );
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
   Widget _buildPetOwnerCreateAnAccount() {
     return SizedBox(
       height: 20.v,
       child: Obx(
-        () => ListView.separated(
-          padding: EdgeInsets.only(
-            left: 20.h,
-            right: 28.h,
-          ),
-          scrollDirection: Axis.horizontal,
-          separatorBuilder: (
-            context,
-            index,
-          ) {
-            return SizedBox(
-              width: 29.h,
-            );
-          },
-          itemCount: controller.petOwnerCreateAnAccountModelObj.value
-              .petownercreateanaccountItemList.value.length,
-          itemBuilder: (context, index) {
-            PetownercreateanaccountItemModel model = controller
-                .petOwnerCreateAnAccountModelObj
-                .value
-                .petownercreateanaccountItemList
-                .value[index];
-            return PetownercreateanaccountItemWidget(
-              model,
-            );
-          },
+            () => Row(
+          children: [
+            Text(
+              'Pets Gender:', // Text indicating the purpose
+              style: TextStyle(fontSize: 14), // Adjust font size as needed
+            ),
+            SizedBox(width: 10), // Adjust spacing between text and radio buttons
+            Radio(
+              value: 'male',
+              groupValue: _selectedGender.value,
+              onChanged: (value) {
+                _selectedGender.value = value as String;
+              },
+            ),
+            Text('Male'),
+            SizedBox(width: 20), // Adjust spacing between radio buttons
+            Radio(
+              value: 'female',
+              groupValue: _selectedGender.value,
+              onChanged: (value) {
+                _selectedGender.value = value as String;
+              },
+            ),
+            Text('Female'),
+          ],
         ),
       ),
     );
   }
+
+
+
 
   /// Section Widget
   Widget _buildEmail() {
@@ -267,4 +309,5 @@ class PetOwnerCreateAnAccountScreen
       ),
     );
   }
+
 }
