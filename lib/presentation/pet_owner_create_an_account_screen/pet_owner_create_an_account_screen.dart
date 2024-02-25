@@ -10,6 +10,8 @@ import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 
 // ignore_for_file: must_be_immutable
@@ -141,7 +143,7 @@ class PetOwnerCreateAnAccountScreen
   }
   Widget _buildLasttName( ) {
     return CustomTextFormField(
-      controller: controller.firstNameController,
+      controller: controller.lastNameController,
       hintText: "last name".tr,
       hintStyle: theme.textTheme.titleSmall!,
       validator: (value) {
@@ -325,31 +327,53 @@ class PetOwnerCreateAnAccountScreen
       ),
     );
   }
-  void createAccount() {
+
+
+  void createAccount() async {
     // Retrieve values from controllers
-    String fullName = controller.fullNameController.text;
+    String firstName = controller.firstNameController.text;
+    String lastName = controller.lastNameController.text;
     String email = controller.emailController.text;
     String mobileNumber = controller.mobileNumberController.text;
     String password = controller.passwordController.text;
-    String confirmPassword = controller.confirmPasswordController.text;
     String nameOfThePet = controller.nameOfThePetController.text;
     String petType = controller.petTypeController.text;
     String selectedGender = _selectedGender.value;
 
-    // Now you have all the data collected, you can perform further operations
-    // For example, you can validate the data or send it to an API
+    try {
+      // Make POST request to the API endpoint
+      var response = await http.post(
+        Uri.parse('http://10.0.2.2:3000/dataAddUser'),
+        body:{
+          'Fname': firstName,
+          'Lname': lastName,
+          'nameOfThePet': nameOfThePet,
+          'petType': petType,
+          'gender': selectedGender,
+          'email': email,
+          'mobileNumber': mobileNumber,
+          'password': password,
+        },
+      );
+      print(response.body);
+      // Check the status code of the response
+      if (response.statusCode == 200) {
+        // Data added successfully
+        var responseData = jsonDecode(response.body);
+        print('Data added successfully. Inserted ID: ${responseData['insertedId']}');
+        // You can navigate to the main menu or perform any other action here
+      } else if (response.statusCode == 400) {
 
-    // For now, let's just print the collected data
-    print('Full Name: $fullName');
-    print('Email: $email');
-    print('Mobile Number: $mobileNumber');
-    print('Password: $password');
-    print('Confirm Password: $confirmPassword');
-    print('Name of the Pet: $nameOfThePet');
-    print('Pet Type: $petType');
-    print('Selected Gender: $selectedGender');
-
-    // Add further logic as needed
+      } else {
+        // Handle other status codes
+        print('Failed to add data. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle any errors that might occur during the HTTP request
+      print('Error creating account: $error');
+    }
   }
+
+
 
 }

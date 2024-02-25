@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 /// current petOwnerCreateAnAccountModelObj
 class PetOwnerCreateAnAccountController extends GetxController {
   TextEditingController firstNameController = TextEditingController();
+
   TextEditingController lastNameController = TextEditingController();
   TextEditingController fullNameController = TextEditingController();
 
