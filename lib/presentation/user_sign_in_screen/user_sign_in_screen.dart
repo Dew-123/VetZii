@@ -97,39 +97,35 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                       // Now you can use the username and password as needed
                       print('Username: $email');
                       print('Password: $password');
-                      Get.toNamed(AppRoutes.mainMenuContainerScreen);
-                      // try {
-                      //   List<dynamic> data = await fetchData(email,password);
-                      //   print(data);
-                      //   // Add your logic to handle the fetched data here
-                      //   // For example, you can navigate to another screen based on the data
-                      //   if (data.isNotEmpty) {
-                      //     // Assuming you want to navigate to MainMenuContainerScreen
-                      //     Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
-                      //   } else {
-                      //     // Handle case when no data is fetched
-                      //     showDialog(
-                      //       context: context,
-                      //       builder: (BuildContext context) {
-                      //         return AlertDialog(
-                      //           title: Text('No User Found'),
-                      //           content: Text('No user was found with the provided email and password.'),
-                      //           actions: [
-                      //             TextButton(
-                      //               onPressed: () {
-                      //                 Navigator.of(context).pop();
-                      //               },
-                      //               child: Text('OK'),
-                      //             ),
-                      //           ],
-                      //         );
-                      //       },
-                      //     );
-                      //   }
-                      // } catch (e) {
-                      //   // Handle any errors that might occur during data fetching
-                      //   print('Error fetching data: $e');
-                      // }
+                      try {
+                        List<dynamic> data = await fetchData(email,password);
+                        print(data);
+
+                        if (data.isNotEmpty) {
+                          Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('No User Found'),
+                                content: Text('No user was found with the provided email and password.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      } catch (e) {
+                        // Handle any errors that might occur during data fetching
+                        print('Error fetching data: $e');
+                      }
                     },
                   ),
                     SizedBox(height: 5.v),
@@ -154,7 +150,6 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
 
     if (response.statusCode == 200) {
       // Parse the JSON response body
-      print( json.decode(response.body));
       List<dynamic> data = json.decode(response.body);
 
       return data;
