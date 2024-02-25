@@ -50,7 +50,7 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
               CustomElevatedButton(
                 text: "lbl_log_in".tr,
                 onPressed: (){
-                  Get.to(()=>UserSignInScreen(),binding: UserSignInBinding());
+                  Get.toNamed(AppRoutes.userSignInScreen);
                 },
               ),
               SizedBox(height: 27.v),
@@ -69,7 +69,7 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
                       padding: EdgeInsets.only(left: 13.h),
                       child: GestureDetector(
                         onTap: () {
-                         Get.to(()=> PetOwnerCreateAnAccountScreen(),binding:PetOwnerCreateAnAccountBinding());
+                          Get.toNamed(AppRoutes.petOwnerCreateAnAccountScreen);
                         },
                         child: Text(
                           "lbl_sign_up".tr,
