@@ -91,6 +91,8 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     width: 189.h,
                     text: "lbl_log_in".tr,
                     onPressed: () async {
+
+                      print('testing');
                       email = controller.userNameController.text.removeAllWhitespace;
                       password = controller.passwordController.text;
 
@@ -164,3 +166,4 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
   }
 
 }
+
