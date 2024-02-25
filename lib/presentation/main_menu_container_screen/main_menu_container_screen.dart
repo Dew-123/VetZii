@@ -56,7 +56,7 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
     print(data);
     switch (currentRoute) {
       case AppRoutes.mainMenuPage:
-        return MainMenuPage(name: data[0]["fullName"],);
+        return MainMenuPage(name: data[0]["Fname"],);
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
