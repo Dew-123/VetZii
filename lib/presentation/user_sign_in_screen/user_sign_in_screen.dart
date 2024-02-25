@@ -92,7 +92,7 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     text: "lbl_log_in".tr,
                     onPressed: () async {
                       email = controller.userNameController.text.removeAllWhitespace;
-                      password = controller.passwordController.text;
+                      password = controller.passwordController.text.removeAllWhitespace;
 
                       // Now you can use the username and password as needed
                       print('Username: $email');
@@ -154,6 +154,7 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
 
     if (response.statusCode == 200) {
       // Parse the JSON response body
+      print( json.decode(response.body));
       List<dynamic> data = json.decode(response.body);
 
       return data;

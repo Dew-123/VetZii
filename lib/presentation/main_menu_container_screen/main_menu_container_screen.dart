@@ -53,10 +53,11 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     final List<dynamic> data= Get.arguments;
+
     print(data);
     switch (currentRoute) {
       case AppRoutes.mainMenuPage:
-        return MainMenuPage(name: data[0]["Fname"],);
+        return MainMenuPage(name:  data[0]['Fname'],);
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
