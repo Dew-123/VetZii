@@ -9,6 +9,7 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle_one.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -335,74 +336,62 @@ class PetOwnerCreateAnAccountScreen
     String email = controller.emailController.text;
     String mobileNumber = controller.mobileNumberController.text;
     String password = controller.passwordController.text;
+    String confirmPassword= controller.confirmPasswordController.text;
     String nameOfThePet = controller.nameOfThePetController.text;
     String petType = controller.petTypeController.text;
     String selectedGender = _selectedGender.value;
 
     try {
-      // Make POST request to the API endpoint
-      var response = await http.post(
-        Uri.parse('http://10.0.2.2:3000/dataAddUser'),
-        body:{
-          'Fname': firstName,
-          'Lname': lastName,
-          'nameOfThePet': nameOfThePet,
-          'petType': petType,
-          'gender': selectedGender,
-          'email': email,
-          'mobileNumber': mobileNumber,
-          'password': password,
-        },
-      );
-      print(response.body);
-      // Check the status code of the response
-      if (response.statusCode == 200) {
-        // Data added successfully
-        var responseData = jsonDecode(response.body);
-        print('Data added successfully. Inserted ID: ${responseData['insertedId']}');
-        // You can navigate to the main menu or perform any other action here
-      } else if (response.statusCode == 400) {
-        // Email already in use
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Email Already in Use'),
-              content: Text('The email provided is already associated with an existing account.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Failed to add data'),
-              content: Text('Issue with the server '),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      }
+     if(password==confirmPassword){
+       var response = await http.post(
+         Uri.parse('http://10.0.2.2:3000/dataAddUser'),
+         body:{
+           'Fname': firstName,
+           'Lname': lastName,
+           'nameOfThePet': nameOfThePet,
+           'petType': petType,
+           'gender': selectedGender,
+           'email': email,
+           'mobileNumber': mobileNumber,
+           'password': password,
+         },
+       );
+
+       if (response.statusCode == 200) {
+         ServerHandling server = new ServerHandling();
+         List<dynamic> data = await server.fetchUserData(email, password);
+         Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
+       } else if (response.statusCode == 400) {
+
+         showDialogBox(context,'Email Already in Use','The email provided is already associated with an existing account.');
+       } else {
+         showDialogBox(context,'Failed to add data','Issue with the server ');
+       }
+     }
+
     } catch (error) {
       // Handle any errors that might occur during the HTTP request
       print('Error creating account: $error');
     }
+  }
+  Future<dynamic> showDialogBox(BuildContext context,String tittle,String content) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(tittle),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
 

@@ -5,8 +5,7 @@ import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/core/utils/validation_functions.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 
 // ignore_for_file: must_be_immutable
@@ -96,7 +95,8 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
 
 
                       try {
-                        List<dynamic> data = await fetchData(email,password);
+                        ServerHandling server = new ServerHandling();
+                        List<dynamic> data = await server.fetchUserData(email,password);
                         print(data);
 
                         if (data.isNotEmpty) {
@@ -137,24 +137,5 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
     );
   }
 
-  Future<List<dynamic>> fetchData(String email,String password) async {
-    final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/dataGetUser'),
-      body: {
-        'email': email,
-        'password': password,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      // Parse the JSON response body
-      List<dynamic> data = json.decode(response.body);
-
-      return data;
-    } else {
-      // If the server returns an error response, throw an exception
-      throw Exception('Failed to load data');
-    }
-  }
 
 }
