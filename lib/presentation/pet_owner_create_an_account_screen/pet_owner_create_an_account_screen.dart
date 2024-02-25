@@ -342,33 +342,48 @@ class PetOwnerCreateAnAccountScreen
     String selectedGender = _selectedGender.value;
 
     try {
-     if(password==confirmPassword){
-       var response = await http.post(
-         Uri.parse('http://10.0.2.2:3000/dataAddUser'),
-         body:{
-           'Fname': firstName,
-           'Lname': lastName,
-           'nameOfThePet': nameOfThePet,
-           'petType': petType,
-           'gender': selectedGender,
-           'email': email,
-           'mobileNumber': mobileNumber,
-           'password': password,
-         },
-       );
+      if (password == confirmPassword) {
+        // Check if any field is empty
+        if (firstName.isEmpty ||
+            lastName.isEmpty ||
+            email.isEmpty ||
+            mobileNumber.isEmpty ||
+            password.isEmpty ||
+            confirmPassword.isEmpty ||
+            nameOfThePet.isEmpty ||
+            petType.isEmpty ||
+            selectedGender.isEmpty) {
+          // Show error dialog if any field is empty
+          showDialogBox(context, 'Error', 'Please fill in all fields');
+          return; // Exit the method
+        }
 
-       if (response.statusCode == 200) {
-         ServerHandling server = new ServerHandling();
-         List<dynamic> data = await server.fetchUserData(email, password);
-         Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
-       } else if (response.statusCode == 400) {
+        var response = await http.post(
+          Uri.parse('http://10.0.2.2:3000/dataAddUser'),
+          body:{
+            'Fname': firstName,
+            'Lname': lastName,
+            'nameOfThePet': nameOfThePet,
+            'petType': petType,
+            'gender': selectedGender,
+            'email': email,
+            'mobileNumber': mobileNumber,
+            'password': password,
+          },
+        );
 
-         showDialogBox(context,'Email Already in Use','The email provided is already associated with an existing account.');
-       } else {
-         showDialogBox(context,'Failed to add data','Issue with the server ');
-       }
-     }
-
+        if (response.statusCode == 200) {
+          ServerHandling server = new ServerHandling();
+          List<dynamic> data = await server.fetchUserData(email, password);
+          Get.toNamed(AppRoutes.mainMenuContainerScreen, arguments: data);
+        } else if (response.statusCode == 400) {
+          showDialogBox(context,'Email Already in Use','The email provided is already associated with an existing account.');
+        } else {
+          showDialogBox(context,'Failed to add data','Issue with the server');
+        }
+      } else {
+        showDialogBox(context, 'Password Mismatch', 'Passwords do not match');
+      }
     } catch (error) {
       // Handle any errors that might occur during the HTTP request
       print('Error creating account: $error');
