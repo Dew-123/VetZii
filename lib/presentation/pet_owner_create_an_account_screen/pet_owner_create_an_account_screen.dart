@@ -102,7 +102,7 @@ class PetOwnerCreateAnAccountScreen
             ),
           ),
         ),
-        bottomNavigationBar: _buildCreateAccount(),
+        bottomNavigationBar: _buildCreateAccount(context),
       ),
     );
   }
@@ -313,11 +313,9 @@ class PetOwnerCreateAnAccountScreen
   }
 
   /// Section Widget
-  Widget _buildCreateAccount() {
+  _buildCreateAccount(BuildContext context) {
     return CustomElevatedButton(
-       onPressed: ()=>{
-         createAccount()
-       },
+      onPressed: ()=> createAccount(context),
       width: 189.h,
       text: "lbl_create_account".tr,
       margin: EdgeInsets.only(
@@ -329,7 +327,8 @@ class PetOwnerCreateAnAccountScreen
   }
 
 
-  void createAccount() async {
+
+  void createAccount(BuildContext context) async {
     // Retrieve values from controllers
     String firstName = controller.firstNameController.text;
     String lastName = controller.lastNameController.text;
@@ -363,7 +362,24 @@ class PetOwnerCreateAnAccountScreen
         print('Data added successfully. Inserted ID: ${responseData['insertedId']}');
         // You can navigate to the main menu or perform any other action here
       } else if (response.statusCode == 400) {
-
+        // Email already in use
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Email Already in Use'),
+              content: Text('The email provided is already associated with an existing account.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       } else {
         // Handle other status codes
         print('Failed to add data. Status code: ${response.statusCode}');
