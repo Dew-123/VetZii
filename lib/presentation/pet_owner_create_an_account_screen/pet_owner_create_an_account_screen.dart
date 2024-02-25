@@ -381,8 +381,23 @@ class PetOwnerCreateAnAccountScreen
           },
         );
       } else {
-        // Handle other status codes
-        print('Failed to add data. Status code: ${response.statusCode}');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Failed to add data'),
+              content: Text('Issue with the server '),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (error) {
       // Handle any errors that might occur during the HTTP request
