@@ -136,8 +136,8 @@ class MainMenuPage extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisExtent: 201.v,
             crossAxisCount: 2,
-            mainAxisSpacing: 26.h,
-            crossAxisSpacing: 26.h,
+            mainAxisSpacing: 20.h,
+            crossAxisSpacing: 20.h,
           ),
           physics: NeverScrollableScrollPhysics(),
           itemCount: controller
