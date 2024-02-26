@@ -27,3 +27,23 @@ async function connectToMongoDB() {
     throw error; // Rethrow the error to handle it outside of this function
   }
 }
+
+async function getDataUsers(email,password) {
+    try {
+      // Access the database and collection
+      const database = client.db("vetzil"); // Update with your database name
+      const collection = database.collection("users"); // Update with your collection name
+  
+      const query = { email: email,password:password};
+      const cursor = collection.find(query);
+  
+      // Convert cursor to array
+      const data = await cursor.toArray();
+      
+      return data;
+      
+    } catch (error) {
+      console.error("Error fetching data from MongoDB:", error);
+      throw error;
+    }
+  }
