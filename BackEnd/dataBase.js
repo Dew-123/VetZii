@@ -102,4 +102,6 @@ async function getDataUsers(email,password) {
     }
   }
 
+  module.exports = { connectToMongoDB, getDataUsers ,addDataUsers,getDataVets,addDataVets};
+
   
