@@ -100,6 +100,47 @@ app.post('/dataAddUser', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  app.get('/dataAddVet', async (req, res) => {
+    try {
+      // Retrieve the data parameters from the request
+      const {fullName,addressOfTheClinic,fieldOfExpertise,email,mobileNumber,password } = req.query;
+  
+      // Validate if all required fields are provided
+      if (!fullName || !addressOfTheClinic  || !fieldOfExpertise || !email || !mobileNumber || !password) {
+        return res.status(400).json({ error: 'Missing required fields' });
+      }
+  
+      // Connect to MongoDB
+      await connectToMongoDB();
+  
+      // Check if the data already exists
+      const existingData = await getDataVets(email);
+      console.log(existingData[0]);
+      if (existingData[0]) {
+        return res.status(400).json({ error: 'Data already exists' });
+      }
+  
+      // Prepare the data object
+      const newData = {
+        fullName,
+        addressOfTheClinic,
+        fieldOfExpertise,
+        email,
+        mobileNumber,
+        password
+      };
+  
+      // Add data to MongoDB
+      const result = await addDataVets(newData);
+  
+      // Send the result as response
+      res.json({ message: 'Data added successfully', insertedId: result.insertedId });
+    } catch (error) {
+      console.error('Error handling API request:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
   
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
