@@ -40,6 +40,14 @@ import 'package:mihan_s_application1/presentation/disease_prediction_results_scr
 import 'package:mihan_s_application1/presentation/disease_prediction_results_screen/binding/disease_prediction_results_binding.dart';
 import 'package:mihan_s_application1/presentation/app_navigation_screen/app_navigation_screen.dart';
 import 'package:mihan_s_application1/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
+import '../presentation/forgot_password_one_screen/forgot_password_one_screen.dart';
+import '../presentation/forgot_password_one_screen/binding/forgot_password_one_binding.dart';
+import '../presentation/forgot_password_two_screen/forgot_password_two_screen.dart';
+import '../presentation/forgot_password_two_screen/binding/forgot_password_two_binding.dart';
+import '../presentation/forgot_password_three_screen/forgot_password_three_screen.dart';
+import '../presentation/forgot_password_three_screen/binding/forgot_password_three_binding.dart';
+import '../presentation/app_navigation_screen/app_navigation_screen.dart';
+import '../presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -114,6 +122,14 @@ class AppRoutes {
   static const String appNavigationScreen = '/app_navigation_screen';
 
   static const String initialRoute = '/initialRoute';
+
+  static const String forgotPasswordOneScreen = '/forgot_password_one_screen';
+
+  static const String forgotPasswordTwoScreen = '/forgot_password_two_screen';
+
+  static const String forgotPasswordThreeScreen =
+      '/forgot_password_three_screen';
+
 
   static List<GetPage> pages = [
     GetPage(
@@ -268,6 +284,40 @@ class AppRoutes {
       page: () => SplashScreen(),
       bindings: [
         SplashBinding(),
+      ],
+    ),GetPage(
+      name: forgotPasswordOneScreen,
+      page: () => ForgotPasswordOneScreen(),
+      bindings: [
+        ForgotPasswordOneBinding(),
+      ],
+    ),
+    GetPage(
+      name: forgotPasswordTwoScreen,
+      page: () => ForgotPasswordTwoScreen(),
+      bindings: [
+        ForgotPasswordTwoBinding(),
+      ],
+    ),
+    GetPage(
+      name: forgotPasswordThreeScreen,
+      page: () => ForgotPasswordThreeScreen(),
+      bindings: [
+        ForgotPasswordThreeBinding(),
+      ],
+    ),
+    GetPage(
+      name: appNavigationScreen,
+      page: () => AppNavigationScreen(),
+      bindings: [
+        AppNavigationBinding(),
+      ],
+    ),
+    GetPage(
+      name: initialRoute,
+      page: () => ForgotPasswordOneScreen(),
+      bindings: [
+        ForgotPasswordOneBinding(),
       ],
     )
   ];
