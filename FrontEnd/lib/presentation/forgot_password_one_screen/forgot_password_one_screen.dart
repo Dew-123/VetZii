@@ -44,7 +44,7 @@ class ForgotPasswordOneScreen extends GetWidget<ForgotPasswordOneController> {
                       width: 297.h,
                       margin: EdgeInsets.symmetric(horizontal: 6.h),
                       child: Text(
-                        "msg_please_enter_your".tr,
+                        "please enter your registered email below".tr,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
@@ -56,7 +56,7 @@ class ForgotPasswordOneScreen extends GetWidget<ForgotPasswordOneController> {
                     SizedBox(height: 86.v),
                     CustomElevatedButton(
                       width: 189.h,
-                      text: "lbl_send".tr,
+                      text: "send".tr,
                     ),
                     SizedBox(height: 5.v),
                   ],
@@ -84,7 +84,7 @@ class ForgotPasswordOneScreen extends GetWidget<ForgotPasswordOneController> {
       ),
       centerTitle: true,
       title: AppbarTitle(
-        text: "lbl_forgot_password".tr,
+        text: "Forgot Password".tr,
       ),
     );
   }

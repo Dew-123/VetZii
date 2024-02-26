@@ -1,5 +1,5 @@
 
-import 'controller/user_sign_in_controller.dart';
+import 'controller/vet_sign_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/core/utils/validation_functions.dart';
@@ -9,11 +9,11 @@ import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 
 // ignore_for_file: must_be_immutable
-class UserSignInScreen extends GetWidget<UserSignInController> {
+class VetSignInScreen extends GetWidget<VetSignInController> {
 
   String email="";
   String password="";
-  UserSignInScreen({Key? key})
+  VetSignInScreen({Key? key})
       : super(
           key: key,
         );
