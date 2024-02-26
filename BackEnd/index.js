@@ -84,6 +84,22 @@ app.post('/dataAddUser', async (req, res) => {
     }
   });
 
+  app.get('/dataGetVet', async (req, res) => {
+    try {
+      // Retrieve the name query parameter from the request
+      const email = req.query.email;
+  
+      // Connect to MongoDB and retrieve data
+      const db = await connectToMongoDB();
+      const data = await getDataVet(email);
+      console.log(data);
+      // Send the data as response
+      res.json(data);
+    } catch (error) {
+      console.error('Error handling API request:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
   
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
