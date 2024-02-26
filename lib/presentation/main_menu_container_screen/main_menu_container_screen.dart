@@ -8,10 +8,14 @@ import 'package:mihan_s_application1/presentation/my_appointments_page/my_appoin
 import 'package:mihan_s_application1/widgets/custom_bottom_bar.dart';
 
 class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
-  const MainMenuContainerScreen({Key? key}) : super(key: key);
+
+
+
+  const MainMenuContainerScreen( {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
         child: Scaffold(
             body: Navigator(
@@ -48,9 +52,10 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
 
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
+    final List<dynamic> data= Get.arguments;
     switch (currentRoute) {
       case AppRoutes.mainMenuPage:
-        return MainMenuPage();
+        return MainMenuPage(name: data[0]['Fname'] ,);
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:

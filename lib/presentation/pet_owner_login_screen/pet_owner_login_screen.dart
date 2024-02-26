@@ -1,3 +1,9 @@
+import 'package:mihan_s_application1/presentation/disease_prediction_enter_symptoms_screen/disease_prediction_enter_symptoms_screen.dart';
+import 'package:mihan_s_application1/presentation/pet_owner_create_an_account_screen/binding/pet_owner_create_an_account_binding.dart';
+import 'package:mihan_s_application1/presentation/pet_owner_create_an_account_screen/pet_owner_create_an_account_screen.dart';
+import 'package:mihan_s_application1/presentation/user_sign_in_screen/binding/user_sign_in_binding.dart';
+import 'package:mihan_s_application1/presentation/user_sign_in_screen/user_sign_in_screen.dart';
+
 import 'controller/pet_owner_login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -7,8 +13,8 @@ import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
   const PetOwnerLoginScreen({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,9 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
               SizedBox(height: 71.v),
               CustomElevatedButton(
                 text: "lbl_log_in".tr,
+                onPressed: (){
+                  Get.toNamed(AppRoutes.userSignInScreen);
+                },
               ),
               SizedBox(height: 27.v),
               Padding(
@@ -58,9 +67,14 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 13.h),
-                      child: Text(
-                        "lbl_sign_up".tr,
-                        style: CustomTextStyles.titleSmallIndigoA700,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.petOwnerCreateAnAccountScreen);
+                        },
+                        child: Text(
+                          "lbl_sign_up".tr,
+                          style: CustomTextStyles.titleSmallIndigoA700,
+                        ),
                       ),
                     ),
                   ],

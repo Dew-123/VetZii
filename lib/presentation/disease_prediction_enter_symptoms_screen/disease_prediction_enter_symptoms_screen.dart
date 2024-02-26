@@ -1,4 +1,4 @@
-import '../disease_prediction_enter_symptoms_screen/widgets/diseasepredictioncheckboxes_item_widget.dart';
+import 'widgets/diseasepredictioncheckboxes_item_widget.dart';
 import 'controller/disease_prediction_enter_symptoms_controller.dart';
 import 'models/diseasepredictioncheckboxes_item_model.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import '../notifications_have_screen/widgets/appointmentsuccess_item_widget.dart';
+import 'widgets/appointmentsuccess_item_widget.dart';
 import 'controller/notifications_have_controller.dart';
 import 'models/appointmentsuccess_item_model.dart';
 import 'package:flutter/material.dart';
@@ -231,8 +231,8 @@ class NotificationsHaveScreen extends GetWidget<NotificationsHaveController> {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.mainMenuPage:
-        return MainMenuPage();
+      // case AppRoutes.mainMenuPage:
+      //   return MainMenuPage();
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:

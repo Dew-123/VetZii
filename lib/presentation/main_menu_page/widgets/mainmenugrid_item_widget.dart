@@ -6,11 +6,11 @@ import 'package:mihan_s_application1/core/app_export.dart';
 // ignore: must_be_immutable
 class MainmenugridItemWidget extends StatelessWidget {
   MainmenugridItemWidget(
-    this.mainmenugridItemModelObj, {
-    Key? key,
-  }) : super(
-          key: key,
-        );
+      this.mainmenugridItemModelObj, {
+        Key? key,
+      }) : super(
+    key: key,
+  );
 
   MainmenugridItemModel mainmenugridItemModelObj;
 
@@ -21,7 +21,7 @@ class MainmenugridItemWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 23.h,
-        vertical: 34.v,
+        vertical: 16.v, // Adjust vertical padding as necessary
       ),
       decoration: AppDecoration.outlineBlack.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder15,
@@ -29,17 +29,17 @@ class MainmenugridItemWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 22.v),
+          SizedBox(height: 20.v),
           Obx(
-            () => CustomImageView(
+                () => CustomImageView(
               imagePath: mainmenugridItemModelObj.findaclinic!.value,
               height: 71.adaptSize,
               width: 71.adaptSize,
             ),
           ),
-          SizedBox(height: 13.v),
+          SizedBox(height: 8.v), // Adjust spacing if needed
           Obx(
-            () => Text(
+                () => Text(
               mainmenugridItemModelObj.findAClinic!.value,
               style: CustomTextStyles.titleMediumOnPrimaryContainer,
             ),

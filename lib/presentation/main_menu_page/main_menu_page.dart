@@ -1,4 +1,4 @@
-import '../main_menu_page/widgets/mainmenugrid_item_widget.dart';
+import 'widgets/mainmenugrid_item_widget.dart';
 import 'controller/main_menu_controller.dart';
 import 'models/main_menu_model.dart';
 import 'models/mainmenugrid_item_model.dart';
@@ -10,13 +10,12 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_trailing_image.dart'
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 
 class MainMenuPage extends StatelessWidget {
-  MainMenuPage({Key? key})
-      : super(
-          key: key,
-        );
+  final String name; // Parameter for the label
+
+  MainMenuPage({Key? key, required this.name}) : super(key: key);
 
   MainMenuController controller =
-      Get.put(MainMenuController(MainMenuModel().obs));
+  Get.put(MainMenuController(MainMenuModel().obs));
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +107,7 @@ class MainMenuPage extends StatelessWidget {
                       ),
                     ),
                     AppbarTitle(
-                      text: "lbl_john_brown".tr,
+                      text: "$name".tr, // Using the parameter here
                       margin: EdgeInsets.only(top: 18.v),
                     ),
                   ],
@@ -132,13 +131,13 @@ class MainMenuPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(right: 1.h),
       child: Obx(
-        () => GridView.builder(
+            () => GridView.builder(
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisExtent: 201.v,
             crossAxisCount: 2,
-            mainAxisSpacing: 26.h,
-            crossAxisSpacing: 26.h,
+            mainAxisSpacing: 20.h,
+            crossAxisSpacing: 20.h,
           ),
           physics: NeverScrollableScrollPhysics(),
           itemCount: controller

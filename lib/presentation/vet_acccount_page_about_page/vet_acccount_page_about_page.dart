@@ -1,4 +1,4 @@
-import '../vet_acccount_page_about_page/widgets/tablist_item_widget.dart';
+import 'widgets/tablist_item_widget.dart';
 import 'controller/vet_acccount_page_about_controller.dart';
 import 'models/tablist_item_model.dart';
 import 'models/vet_acccount_page_about_model.dart';

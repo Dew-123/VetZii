@@ -1,4 +1,4 @@
-import '../clinic_page_vets_page/widgets/userprofilelist_item_widget.dart';
+import 'widgets/userprofilelist_item_widget.dart';
 import 'controller/clinic_page_vets_controller.dart';
 import 'models/clinic_page_vets_model.dart';
 import 'models/userprofilelist_item_model.dart';

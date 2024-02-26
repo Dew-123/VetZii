@@ -92,14 +92,14 @@ class StartPageScreen extends GetWidget<StartPageController> {
             CustomElevatedButton(
               text: "lbl_pet_owner".tr,
               onPressed: (){
-                Get.to(()=>PetOwnerLoginScreen());
+                Get.toNamed(AppRoutes.petOwnerLoginScreen);
               },
             ),
             SizedBox(height: 10.v),
             CustomElevatedButton(
               text: "lbl_veterinarian".tr,
               onPressed: (){
-                Get.to(()=>VetLoginScreen());
+                Get.toNamed(AppRoutes.vetLoginScreen);
               },
             ),
           ],

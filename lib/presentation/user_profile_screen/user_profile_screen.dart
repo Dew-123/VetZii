@@ -245,8 +245,8 @@ class UserProfileScreen extends GetWidget<UserProfileController> {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.mainMenuPage:
-        return MainMenuPage();
+      // case AppRoutes.mainMenuPage:
+      //   return MainMenuPage();
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:

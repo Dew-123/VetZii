@@ -1,4 +1,4 @@
-import '../adoption_and_rehoming_screen/widgets/userprofile1_item_widget.dart';
+import 'widgets/userprofile1_item_widget.dart';
 import 'controller/adoption_and_rehoming_controller.dart';
 import 'models/userprofile1_item_model.dart';
 import 'package:flutter/material.dart';
@@ -180,8 +180,8 @@ class AdoptionAndRehomingScreen
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.mainMenuPage:
-        return MainMenuPage();
+      // case AppRoutes.mainMenuPage:
+      //   return MainMenuPage();
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:

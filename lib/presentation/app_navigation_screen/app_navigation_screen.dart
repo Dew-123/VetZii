@@ -1,7 +1,8 @@
 import 'controller/app_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
-
+import 'package:mihan_s_application1/core/app_export.dart';
+import 'controller/app_navigation_controller.dart';
 // ignore_for_file: must_be_immutable
 class AppNavigationScreen extends GetWidget<AppNavigationController> {
   const AppNavigationScreen({Key? key})
@@ -127,6 +128,21 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
                           screenTitle: "disease prediction results".tr,
                           onTapScreenTitle: () => onTapScreenTitle(
                               AppRoutes.diseasePredictionResultsScreen),
+                        ),
+                        _buildScreenTitle(
+                          screenTitle: "forgot password One".tr,
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              AppRoutes.forgotPasswordOneScreen),
+                        ),
+                        _buildScreenTitle(
+                          screenTitle: "forgot password Two".tr,
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              AppRoutes.forgotPasswordTwoScreen),
+                        ),
+                        _buildScreenTitle(
+                          screenTitle: "forgot password Three".tr,
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              AppRoutes.forgotPasswordThreeScreen),
                         ),
                       ],
                     ),
