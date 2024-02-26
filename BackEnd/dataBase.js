@@ -85,4 +85,21 @@ async function getDataUsers(email,password) {
     }
   }
 
+  async function addDataVets(newData) {
+    try {
+      // Access the database and collection
+      const database = client.db("vetzil"); // Update with your database name
+      const collection = database.collection("vet"); // Update with your collection name
+  
+      // Insert the new data into the collection
+      const result = await collection.insertOne(newData);
+      console.log("Inserted new data with ID:", result.insertedId);
+  
+      return result;
+    } catch (error) {
+      console.error("Error adding data to MongoDB:", error);
+      throw error;
+    }
+  }
+
   
