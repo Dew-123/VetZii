@@ -90,41 +90,40 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     width: 189.h,
                     text: "lbl_log_in".tr,
                     onPressed: () async {
-                      Get.toNamed(AppRoutes.mainMenuContainerScreen);
-                      // email = controller.userNameController.text.removeAllWhitespace;
-                      // password = controller.passwordController.text.removeAllWhitespace;
-                      //
-                      //
-                      // try {
-                      //   ServerHandling server = new ServerHandling();
-                      //   List<dynamic> data = await server.fetchUserData(email,password);
-                      //   print(data);
-                      //
-                      //   if (data.isNotEmpty) {
-                      //     Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
-                      //   } else {
-                      //     showDialog(
-                      //       context: context,
-                      //       builder: (BuildContext context) {
-                      //         return AlertDialog(
-                      //           title: Text('No User Found'),
-                      //           content: Text('No user was found with the provided email and password.'),
-                      //           actions: [
-                      //             TextButton(
-                      //               onPressed: () {
-                      //                 Navigator.of(context).pop();
-                      //               },
-                      //               child: Text('OK'),
-                      //             ),
-                      //           ],
-                      //         );
-                      //       },
-                      //     );
-                      //   }
-                      // } catch (e) {
-                      //   // Handle any errors that might occur during data fetching
-                      //   print('Error fetching data: $e');
-                      // }
+                      email = controller.userNameController.text.removeAllWhitespace;
+                      password = controller.passwordController.text.removeAllWhitespace;
+
+
+                      try {
+                        ServerHandling server = new ServerHandling();
+                        List<dynamic> data = await server.fetchUserData(email,password);
+                        print(data);
+
+                        if (data.isNotEmpty) {
+                          Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('No User Found'),
+                                content: Text('No user was found with the provided email and password.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      } catch (e) {
+                        // Handle any errors that might occur during data fetching
+                        print('Error fetching data: $e');
+                      }
                     },
                   ),
                     SizedBox(height: 5.v),
