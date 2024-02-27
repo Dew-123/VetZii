@@ -38,4 +38,22 @@ class ServerHandling {
       throw Exception('Failed to load data');
     }
   }
+
+  Future<List<dynamic>> recoverEmail(String email, String password) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:3000/recoverMailCodeSend'),
+      body: {
+        'email': email,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response body
+      List<dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      // If the server returns an error response, throw an exception
+      throw Exception('Failed to load data');
+    }
+  }
 }

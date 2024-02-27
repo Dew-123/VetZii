@@ -58,6 +58,7 @@ class ForgotPasswordOneScreen extends GetWidget<ForgotPasswordOneController> {
                       width: 189.h,
                       text: "send".tr,
                       onPressed: () {
+
                         Get.toNamed(AppRoutes.forgotPasswordTwoScreen);
                       }
                     ),

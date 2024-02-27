@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// This class manages the state of the UserProfileScreen, including the
 /// current userProfileModelObj
 class UserProfileController extends GetxController {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController()  ;
 
   TextEditingController phoneNumberController = TextEditingController();
 

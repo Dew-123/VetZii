@@ -32,7 +32,7 @@ class MainmenugridItemWidget extends StatelessWidget {
           SizedBox(height: 20.v),
           Obx(
                 () => CustomImageView(
-              imagePath: mainmenugridItemModelObj.findaclinic!.value,
+              imagePath: mainmenugridItemModelObj.image!.value,
               height: 71.adaptSize,
               width: 71.adaptSize,
             ),
@@ -40,7 +40,7 @@ class MainmenugridItemWidget extends StatelessWidget {
           SizedBox(height: 8.v), // Adjust spacing if needed
           Obx(
                 () => Text(
-              mainmenugridItemModelObj.findAClinic!.value,
+              mainmenugridItemModelObj.string!.value,
               style: CustomTextStyles.titleMediumOnPrimaryContainer,
             ),
           ),

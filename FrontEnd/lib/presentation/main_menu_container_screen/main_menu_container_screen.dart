@@ -11,8 +11,6 @@ import 'package:mihan_s_application1/widgets/custom_bottom_bar.dart';
 
 class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
 
-
-
   const MainMenuContainerScreen( {Key? key}) : super(key: key);
 
   @override

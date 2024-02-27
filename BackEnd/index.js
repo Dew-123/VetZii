@@ -1,6 +1,8 @@
 const express = require('express');
 const { connectToMongoDB, getDataUsers ,addDataUsers,getDataVets,addDataVets } = require('./dataBase');
 const bodyParser = require('body-parser');
+const sendEmail = require('./emailHandling');
+const e = require('express');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -82,6 +84,11 @@ app.post('/dataAddUser', async (req, res) => {
       console.error('Error handling API request:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
+  });
+
+  app.post('/recoverMailCodeSend', async (req, res) => {
+    const email=req.body;
+    await sendEmail(email);
   });
 
   app.get('/dataGetVet', async (req, res) => {
