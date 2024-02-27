@@ -236,7 +236,7 @@ class UserProfileScreen extends GetWidget<UserProfileController> {
       case BottomBarEnum.Thumbsupblack90002:
         return AppRoutes.directoryVetsPage;
       case BottomBarEnum.Lock:
-        return AppRoutes.myAppointmentsPage;
+        return AppRoutes.userProfileScreen;
       default:
         return "/";
     }
@@ -245,14 +245,14 @@ class UserProfileScreen extends GetWidget<UserProfileController> {
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      // case AppRoutes.mainMenuPage:
-      //   return MainMenuPage();
+      case AppRoutes.mainMenuPage:
+          return MainMenuPage(name: 'test');
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
         return DirectoryVetsPage();
-      case AppRoutes.myAppointmentsPage:
-        return MyAppointmentsPage();
+      case AppRoutes.userProfileScreen:
+        return UserProfileScreen();
       default:
         return DefaultWidget();
     }

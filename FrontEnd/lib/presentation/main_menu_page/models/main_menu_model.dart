@@ -5,9 +5,9 @@ import 'mainmenugrid_item_model.dart';
 /// and is typically used to hold data that is passed between different parts of the application.
 class MainMenuModel {
   Rx<List<MainmenugridItemModel>> mainmenugridItemList = Rx([
-    MainmenugridItemModel(
+    (MainmenugridItemModel(
         findaclinic: ImageConstant.location.obs,
-        findAClinic: "Find a clinic".obs),
+        findAClinic: "Find a clinic".obs)),
     MainmenugridItemModel(
         findaclinic: ImageConstant.directory.obs,
         findAClinic: "Find a vet".obs),
