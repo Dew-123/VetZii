@@ -6,17 +6,14 @@ import 'mainmenugrid_item_model.dart';
 class MainMenuModel {
   Rx<List<MainmenugridItemModel>> mainmenugridItemList = Rx([
     MainmenugridItemModel(
-        findaclinic: ImageConstant.location.obs,
+        findaclinic: ImageConstant.imgLinkedinOnprimarycontainer.obs,
         findAClinic: "Find a clinic".obs),
     MainmenugridItemModel(
-        findaclinic: ImageConstant.directory.obs,
+        findaclinic: ImageConstant.imgIconNewspaper.obs,
         findAClinic: "Find a vet".obs),
+    MainmenugridItemModel(findaclinic: ImageConstant.imgIconPostAdd.obs),
     MainmenugridItemModel(
-        findaclinic: ImageConstant.rehoming.obs,
-        findAClinic: "Adopt a pet".obs),
-    MainmenugridItemModel(
-        findaclinic: ImageConstant.stethascope.obs,
+        findaclinic: ImageConstant.imgVector.obs,
         findAClinic: "Predict the disease".obs)
   ]);
 }
-
