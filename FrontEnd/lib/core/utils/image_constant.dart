@@ -137,7 +137,7 @@ class ImageConstant {
 
   static String imgContrast = '$imagePath/img_contrast.svg';
 
-  static String imgIconNotifications = '$imagePath/img_icon_notifications.svg';
+  static String imgIconNotifications = '$imagePath/notification.png';
 
   static String imgLinkedinOnprimarycontainer =
       '$imagePath/img_linkedin_onprimarycontainer.svg';
@@ -166,4 +166,14 @@ class ImageConstant {
   static String imgGrid = '$imagePath/img_grid.svg';
 
   static String imageNotFound = 'assets/images/image_not_found.png';
+
+  static String stethascope = '$imagePath/stethascope.png';
+
+  static String rehoming = '$imagePath/rehoming.png';
+
+  static String notification = '$imagePath/notification.png';
+
+  static String location = '$imagePath/location3.png';
+
+  static String directory = '$imagePath/directory.png';
 }
