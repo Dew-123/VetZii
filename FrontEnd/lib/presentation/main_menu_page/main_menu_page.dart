@@ -15,7 +15,7 @@ class MainMenuPage extends StatelessWidget {
   MainMenuPage({Key? key, required this.name}) : super(key: key);
 
   MainMenuController controller =
-  Get.put(MainMenuController(MainMenuModel().obs));
+      Get.put(MainMenuController(MainMenuModel().obs));
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,7 @@ class MainMenuPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(right: 1.h),
       child: Obx(
-            () => GridView.builder(
+        () => GridView.builder(
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisExtent: 201.v,
@@ -145,9 +145,7 @@ class MainMenuPage extends StatelessWidget {
           itemBuilder: (context, index) {
             MainmenugridItemModel model = controller
                 .mainMenuModelObj.value.mainmenugridItemList.value[index];
-            return MainmenugridItemWidget(
-              model,
-            );
+            return MainmenugridItemWidget(model);
           },
         ),
       ),

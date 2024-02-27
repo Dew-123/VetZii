@@ -1,21 +1,26 @@
+import 'dart:html';
+
 import '../../../core/app_export.dart';
 
 /// This class is used in the [mainmenugrid_item_widget] screen.
 class MainmenugridItemModel {
   MainmenugridItemModel({
-    this.findaclinic,
-    this.findAClinic,
+    this.image,
+    this.text,
     this.id,
+    this.onTap
   }) {
-    findaclinic =
-        findaclinic ?? Rx(ImageConstant.imgLinkedinOnprimarycontainer);
-    findAClinic = findAClinic ?? Rx("Find a clinic");
+    image =
+        image ?? Rx(ImageConstant.imgLinkedinOnprimarycontainer);
+    text = text ?? Rx("Find a clinic");
     id = id ?? Rx("");
   }
 
-  Rx<String>? findaclinic;
+  Rx<String>? image;
 
-  Rx<String>? findAClinic;
+  Rx<String>? text;
 
   Rx<String>? id;
+
+  Function? onTap;
 }

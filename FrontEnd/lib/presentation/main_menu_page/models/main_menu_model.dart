@@ -6,17 +6,26 @@ import 'mainmenugrid_item_model.dart';
 class MainMenuModel {
   Rx<List<MainmenugridItemModel>> mainmenugridItemList = Rx([
     MainmenugridItemModel(
-        findaclinic: ImageConstant.location.obs,
-        findAClinic: "Find a clinic".obs),
+        image: ImageConstant.location.obs,
+        text: "Find a clinic".obs,
+        onTap: ()=>{Get.toNamed(AppRoutes.clinicPage)}
+    ),
     MainmenugridItemModel(
-        findaclinic: ImageConstant.directory.obs,
-        findAClinic: "Find a vet".obs),
+        image: ImageConstant.directory.obs,
+        text: "Find a vet".obs,
+        onTap: ()=>{Get.toNamed(AppRoutes.clinicPageVetsPage)}
+    ),
     MainmenugridItemModel(
-        findaclinic: ImageConstant.rehoming.obs,
-        findAClinic: "Adopt a pet".obs),
+        image: ImageConstant.rehoming.obs,
+        text: "Adopt a pet".obs,
+        onTap: ()=>{Get.toNamed(AppRoutes.adoptionAndRehomingScreen)}
+    ),
     MainmenugridItemModel(
-        findaclinic: ImageConstant.stethascope.obs,
-        findAClinic: "Predict the disease".obs)
+        image: ImageConstant.stethascope.obs,
+        text: "Predict the disease".obs,
+        onTap: ()=>{Get.toNamed(AppRoutes.diseasePredictionStartScreen)}
+
+    )
   ]);
 }
 
