@@ -84,7 +84,7 @@ class MainMenuPage extends StatelessWidget {
           children: [
             CustomImageView(
               imagePath: ImageConstant.imgVetzii01,
-              height: 145.v,
+              height: 135.v,
               width: 133.h,
               alignment: Alignment.centerRight,
               margin: EdgeInsets.only(right: 68.h),
