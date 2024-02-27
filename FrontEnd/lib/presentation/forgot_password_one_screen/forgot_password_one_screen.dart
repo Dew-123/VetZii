@@ -57,6 +57,9 @@ class ForgotPasswordOneScreen extends GetWidget<ForgotPasswordOneController> {
                     CustomElevatedButton(
                       width: 189.h,
                       text: "send".tr,
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.forgotPasswordTwoScreen);
+                      }
                     ),
                     SizedBox(height: 5.v),
                   ],

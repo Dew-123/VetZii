@@ -43,13 +43,13 @@ class ForgotPasswordThreeScreen
                 child: Column(
                   children: [
                     Text(
-                      "msg_please_enter_your2".tr,
+                      "Please enter your new password".tr,
                       style: CustomTextStyles.titleSmallPoppinsBlack90002,
                     ),
                     SizedBox(height: 58.v),
                     CustomTextFormField(
                       controller: controller.newpasswordController,
-                      hintText: "lbl_new_password".tr,
+                      hintText: "new password".tr,
                       textInputType: TextInputType.visiblePassword,
                       validator: (value) {
                         if (value == null ||
@@ -63,7 +63,7 @@ class ForgotPasswordThreeScreen
                     SizedBox(height: 37.v),
                     CustomTextFormField(
                       controller: controller.confirmpasswordController,
-                      hintText: "msg_confirm_password".tr,
+                      hintText: "confirm password".tr,
                       textInputAction: TextInputAction.done,
                       textInputType: TextInputType.visiblePassword,
                       validator: (value) {
@@ -78,7 +78,10 @@ class ForgotPasswordThreeScreen
                     SizedBox(height: 63.v),
                     CustomElevatedButton(
                       width: 189.h,
-                      text: "lbl_reset_password".tr,
+                      text: "Reset Password".tr,
+                        onPressed: () {
+                          _showResetSuccessPopup(context);
+                        }
                     ),
                     SizedBox(height: 5.v),
                   ],
@@ -106,8 +109,28 @@ class ForgotPasswordThreeScreen
       ),
       centerTitle: true,
       title: AppbarTitle(
-        text: "lbl_verification".tr,
+        text: "Confirmation".tr,
       ),
+    );
+  }
+
+  void _showResetSuccessPopup(BuildContext context) {
+    Get.defaultDialog(
+      title: "Reset Password Completed",
+      middleText: "Your password has been reset successfully!",
+      actions: [
+        TextButton(
+          onPressed: () {
+            // Close the dialog
+            Get.back();
+            // Delayed navigation to userSignInScreen
+            Future.delayed(Duration(seconds: 1), () {
+              Get.offNamed(AppRoutes.userSignInScreen);
+            });
+          },
+          child: Text('OK'),
+        ),
+      ],
     );
   }
 }

@@ -37,7 +37,7 @@ class ForgotPasswordTwoScreen extends GetWidget<ForgotPasswordTwoController> {
                   right: 22.h,
                 ),
                 child: Text(
-                  "msg_please_enter_the".tr,
+                  "Please enter the verification code you received".tr,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
@@ -47,13 +47,16 @@ class ForgotPasswordTwoScreen extends GetWidget<ForgotPasswordTwoController> {
               SizedBox(height: 94.v),
               CustomTextFormField(
                 controller: controller.codevalueController,
-                hintText: "lbl_code".tr,
+                hintText: "code".tr,
                 textInputAction: TextInputAction.done,
               ),
               SizedBox(height: 86.v),
               CustomElevatedButton(
                 width: 189.h,
-                text: "lbl_verify".tr,
+                text: "Verify".tr,
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.forgotPasswordThreeScreen);
+                  }
               ),
               SizedBox(height: 5.v),
             ],
@@ -77,7 +80,7 @@ class ForgotPasswordTwoScreen extends GetWidget<ForgotPasswordTwoController> {
       ),
       centerTitle: true,
       title: AppbarTitle(
-        text: "lbl_verification".tr,
+        text: "Verification".tr,
       ),
     );
   }
