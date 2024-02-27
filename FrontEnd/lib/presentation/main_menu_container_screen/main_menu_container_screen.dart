@@ -1,3 +1,5 @@
+import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
+
 import 'controller/main_menu_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -44,7 +46,7 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
       case BottomBarEnum.Thumbsupblack90002:
         return AppRoutes.directoryVetsPage;
       case BottomBarEnum.Lock:
-        return AppRoutes.myAppointmentsPage;
+        return AppRoutes.userProfileScreen;
       default:
         return "/";
     }
@@ -61,8 +63,8 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
         return DirectoryVetsPage();
-      case AppRoutes.myAppointmentsPage:
-        return MyAppointmentsPage();
+      case AppRoutes.userProfileScreen:
+        return UserProfileScreen();
       default:
         return DefaultWidget();
     }

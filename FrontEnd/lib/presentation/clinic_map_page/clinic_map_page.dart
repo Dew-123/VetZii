@@ -22,7 +22,7 @@ class ClinicMapPage extends StatelessWidget {
       child: Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
-        
+
         backgroundColor: Colors.transparent,
         body: Container(
           width: SizeUtils.width,
