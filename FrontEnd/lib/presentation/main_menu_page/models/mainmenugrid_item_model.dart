@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import '../../../core/app_export.dart';
 
 /// This class is used in the [mainmenugrid_item_widget] screen.
@@ -8,10 +6,9 @@ class MainmenugridItemModel {
     this.image,
     this.text,
     this.id,
-    this.onTap
+    this.onTap,
   }) {
-    image =
-        image ?? Rx(ImageConstant.imgLinkedinOnprimarycontainer);
+    image = image ?? Rx(ImageConstant.imgLinkedinOnprimarycontainer);
     text = text ?? Rx("Find a clinic");
     id = id ?? Rx("");
   }

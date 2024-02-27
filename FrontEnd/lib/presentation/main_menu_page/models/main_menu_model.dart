@@ -8,24 +8,18 @@ class MainMenuModel {
     MainmenugridItemModel(
         image: ImageConstant.location.obs,
         text: "Find a clinic".obs,
-        onTap: ()=>{Get.toNamed(AppRoutes.clinicPage)}
-    ),
+        onTap: () => {Get.toNamed(AppRoutes.clinicPage)}),
     MainmenugridItemModel(
         image: ImageConstant.directory.obs,
         text: "Find a vet".obs,
-        onTap: ()=>{Get.toNamed(AppRoutes.clinicPageVetsPage)}
-    ),
+        onTap: () => {Get.toNamed(AppRoutes.clinicPageVetsPage)}),
     MainmenugridItemModel(
         image: ImageConstant.rehoming.obs,
         text: "Adopt a pet".obs,
-        onTap: ()=>{Get.toNamed(AppRoutes.adoptionAndRehomingScreen)}
-    ),
+        onTap: () => {Get.toNamed(AppRoutes.adoptionAndRehomingScreen)}),
     MainmenugridItemModel(
         image: ImageConstant.stethascope.obs,
         text: "Predict the disease".obs,
-        onTap: ()=>{Get.toNamed(AppRoutes.diseasePredictionStartScreen)}
-
-    )
+        onTap: () => {Get.toNamed(AppRoutes.diseasePredictionStartScreen)})
   ]);
 }
-

@@ -19,7 +19,9 @@ class MainmenugridItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: mainmenugridItemModelObj.onTap,
+      onTap: () {
+        mainmenugridItemModelObj.onTap?.call();
+      },
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: 23.h,
