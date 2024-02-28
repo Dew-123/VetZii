@@ -7,7 +7,7 @@ import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 import 'controller/forgot_password_three_controller.dart';
-
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 // ignore_for_file: must_be_immutable
 class ForgotPasswordThreeScreen
@@ -79,9 +79,17 @@ class ForgotPasswordThreeScreen
                     CustomElevatedButton(
                       width: 189.h,
                       text: "Reset Password".tr,
-                        onPressed: () {
+                        onPressed: () async {
+                        String newPassword = controller.newpasswordController.text;
+                        String confirmPassword = controller.confirmpasswordController.text;
+                        String email = Get.arguments;
+                        print(email);
+                        if(newPassword == confirmPassword){
+
+                          ServerHandling serverHandling = new ServerHandling();
+                          await serverHandling.changeUserPassword(email,newPassword);
                           _showResetSuccessPopup(context);
-                        }
+                        }}
                     ),
                     SizedBox(height: 5.v),
                   ],
@@ -133,4 +141,6 @@ class ForgotPasswordThreeScreen
       ],
     );
   }
+
+
 }

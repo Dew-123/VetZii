@@ -1,8 +1,8 @@
 const express = require('express');
-const { connectToMongoDB, getDataUsers ,addDataUsers,getDataVets,addDataVets } = require('./dataBase');
+const { connectToMongoDB, getDataUsers ,addDataUsers,getDataVets,addDataVets, updateUserPassword } = require('./dataBase');
 const bodyParser = require('body-parser');
-const sendEmail = require('./emailHandling');
-const e = require('express');
+const recover = require('./emailHandling');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +23,6 @@ app.post('/dataGetUser', async (req, res) => {
     // Connect to MongoDB and retrieve data
   
     const data = await getDataUsers(email, password);
-    
     // Send the data as response
     res.json(data);
   } catch (error) {
@@ -87,9 +86,22 @@ app.post('/dataAddUser', async (req, res) => {
   });
 
   app.post('/recoverMailCodeSend', async (req, res) => {
-    const email=req.body;
-    await sendEmail(email);
-  });
+    const email = req.body.email; // Assuming 'email' is the key for the email address in the request body
+    console.log(email);
+    const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
+    recover.sendEmail(email, recoveryCode);
+    res.json(recoveryCode);
+});
+
+app.post('/changeEmail', async (req, res) => {
+  const {email,password} = req.body; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
+  console.log(password);
+  data =await updateUserPassword(email,password);
+
+  res.send(data);
+});
+
 
   app.get('/dataGetVet', async (req, res) => {
     try {
@@ -152,3 +164,10 @@ app.post('/dataAddUser', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
+
+
+  function generateRandomCode() {
+    const min = 1000;
+    const max = 9999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

@@ -35,11 +35,22 @@ async function getDataUsers(email, password) {
     const database = client.db("vetzil"); // Update with your database name
     const collection = database.collection("users"); // Update with your collection name
 
-    const query = { email: email, password: password };
+    let query;
+    if (password) {
+      query = { email: email, password: password };
+    } else {
+      query = { email: email };
+    }
+    console.log(query);
     const cursor = collection.find(query);
 
     // Convert cursor to array
     const data = await cursor.toArray();
+    console.log(data);
+    if (!password) {
+      // If password is null, extract only the email field from the data
+      return data.map((entry) => ({ email: entry.email }));
+    }
 
     return data;
   } catch (error) {
@@ -61,6 +72,42 @@ async function addDataUsers(newData) {
     return result;
   } catch (error) {
     console.error("Error adding data to MongoDB:", error);
+    throw error;
+  }
+}
+
+async function updateUserPassword(email, newPassword) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+
+    // Access the database and collection
+    const database = client.db("vetzil");
+    const collection = database.collection("users");
+
+    // Find the user by email
+    const query = { email: email };
+    const user = await collection.findOne(query);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Update user's password
+    const result = await collection.updateOne(
+      { _id: user._id },
+      { $set: { password: newPassword } }
+    );
+
+    if (result.modifiedCount === 0) {
+      throw new Error("Failed to update password");
+    }
+
+    console.log("Password updated successfully");
+
+    return result;
+  } catch (error) {
+    console.error("Error updating user password:", error);
     throw error;
   }
 }
@@ -107,4 +154,5 @@ module.exports = {
   addDataUsers,
   getDataVets,
   addDataVets,
+  updateUserPassword,
 };

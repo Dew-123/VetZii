@@ -12,11 +12,11 @@ let transporter = nodemailer.createTransport({
 });
 
 // Function to send email
-function sendEmail(to, subject, text) {
+function sendEmail(to, text) {
   let mailOptions = {
     from: "mihanfernando23@gmail.com",
     to: to,
-    subject: subject,
+    subject: "Recovery code for your account",
     text: text,
   };
 

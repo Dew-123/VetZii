@@ -6,6 +6,7 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_title.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import 'controller/forgot_password_one_controller.dart';
 
 // ignore_for_file: must_be_immutable
@@ -57,9 +58,36 @@ class ForgotPasswordOneScreen extends GetWidget<ForgotPasswordOneController> {
                     CustomElevatedButton(
                       width: 189.h,
                       text: "send".tr,
-                      onPressed: () {
+                      onPressed: () async {
+                        ServerHandling server = new ServerHandling();
+                        String email =controller.emailController.text;
+                        print(email);
+                        bool isavailble =await server.checkUser(email);
+                        print(isavailble);
+                        if(isavailble){
+                          String recoverCode= await server.recoverEmail(controller.emailController.text);
+                          print(recoverCode);
+                          Get.toNamed(AppRoutes.forgotPasswordTwoScreen,arguments:[recoverCode,email]);
+                        }else{
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('No User Found'),
+                                content: Text('No user was found with the provided email.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
 
-                        Get.toNamed(AppRoutes.forgotPasswordTwoScreen);
                       }
                     ),
                     SizedBox(height: 5.v),

@@ -54,10 +54,34 @@ class ForgotPasswordTwoScreen extends GetWidget<ForgotPasswordTwoController> {
               CustomElevatedButton(
                 width: 189.h,
                 text: "Verify".tr,
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.forgotPasswordThreeScreen);
+                onPressed: () {
+                  if(controller.codevalueController.text == Get.arguments[0]){
+                    Get.toNamed(AppRoutes.forgotPasswordThreeScreen,arguments: Get.arguments[1]);
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Invalid code'),
+                          content: Text('The code you entered below is not valid.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    Future.delayed(Duration(seconds: 2), () {
+                      Get.toNamed(AppRoutes.forgotPasswordOneScreen);
+                    });
                   }
-              ),
+                },
+              )
+              ,
               SizedBox(height: 5.v),
             ],
           ),
