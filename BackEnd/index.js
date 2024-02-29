@@ -129,7 +129,7 @@ app.post("/changeEmailUser", async (req, res) => {
   res.send(data);
 });
 
-app.get("/dataGetVet", async (req, res) => {
+app.post("/dataGetVet", async (req, res) => {
   try {
     // Retrieve the name query parameter from the request
     const email = req.query.email;
@@ -146,7 +146,7 @@ app.get("/dataGetVet", async (req, res) => {
   }
 });
 
-app.get("/dataAddVet", async (req, res) => {
+app.post("/dataAddVet", async (req, res) => {
   try {
     // Retrieve the data parameters from the request
     const {
