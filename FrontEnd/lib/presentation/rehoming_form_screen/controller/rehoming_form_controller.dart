@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/rehoming_form_screen/models/rehoming_form_model.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,10 @@ import 'package:flutter/material.dart';
 /// This class manages the state of the RehomingFormScreen, including the
 /// current rehomingFormModelObj
 class RehomingFormController extends GetxController {
-  TextEditingController nameDescriptionController = TextEditingController();
+
+  TextEditingController nameController = TextEditingController();
+
+  TextEditingController descriptionController = TextEditingController();
 
   TextEditingController enterDetailsController = TextEditingController();
 
@@ -18,7 +22,8 @@ class RehomingFormController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    nameDescriptionController.dispose();
+    nameController.dispose();
+    descriptionController.dispose();
     enterDetailsController.dispose();
     uploadImageController.dispose();
   }

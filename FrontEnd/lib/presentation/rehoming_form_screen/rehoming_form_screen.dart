@@ -62,10 +62,19 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
   }
 
   /// Section Widget
-  Widget _buildNameDescription() {
+  Widget _buildName() {
     return CustomTextFormField(
       width: 200.h,
-      controller: controller.nameDescriptionController,
+      controller: controller.nameController,
+      borderDecoration: TextFormFieldStyleHelper.outlineBlack1,
+      filled: false,
+    );
+  }
+
+  Widget _buildDescription() {
+    return CustomTextFormField(
+      width: 200.h,
+      controller: controller.descriptionController,
       borderDecoration: TextFormFieldStyleHelper.outlineBlack1,
       filled: false,
     );
@@ -118,11 +127,10 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
           padding: EdgeInsets.only(left: 9.h),
           child: Column(
             children: [
-              _buildNameDescription(),
+              _buildName(),
               SizedBox(height: 12.v),
+              _buildDescription(),
               Container(
-                height: 87.v,
-                width: 200.h,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: appTheme.black90002.withOpacity(0.4),
@@ -152,4 +160,65 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
       ),
     );
   }
+
+  // void createAccount(BuildContext context) async {
+  //   // Retrieve values from controllers
+  //   String firstName = controller.firstNameController.text;
+  //   String lastName = controller.lastNameController.text;
+  //   String email = controller.emailController.text;
+  //   String mobileNumber = controller.mobileNumberController.text;
+  //   String password = controller.passwordController.text;
+  //   String confirmPassword= controller.confirmPasswordController.text;
+  //   String nameOfThePet = controller.nameOfThePetController.text;
+  //   String petType = controller.petTypeController.text;
+  //   String selectedGender = _selectedGender.value;
+  //
+  //   try {
+  //     if (password == confirmPassword) {
+  //       // Check if any field is empty
+  //       if (firstName.isEmpty ||
+  //           lastName.isEmpty ||
+  //           email.isEmpty ||
+  //           mobileNumber.isEmpty ||
+  //           password.isEmpty ||
+  //           confirmPassword.isEmpty ||
+  //           nameOfThePet.isEmpty ||
+  //           petType.isEmpty ||
+  //           selectedGender.isEmpty) {
+  //         // Show error dialog if any field is empty
+  //         showDialogBox(context, 'Error', 'Please fill in all fields');
+  //         return; // Exit the method
+  //       }
+  //
+  //       var response = await http.post(
+  //         Uri.parse('http://10.0.2.2:3000/dataAddUser'),
+  //         body:{
+  //           'Fname': firstName,
+  //           'Lname': lastName,
+  //           'nameOfThePet': nameOfThePet,
+  //           'petType': petType,
+  //           'gender': selectedGender,
+  //           'email': email,
+  //           'mobileNumber': mobileNumber,
+  //           'password': password,
+  //         },
+  //       );
+  //
+  //       if (response.statusCode == 200) {
+  //         ServerHandling server = new ServerHandling();
+  //         List<dynamic> data = await server.fetchUserData(email, password);
+  //         Get.toNamed(AppRoutes.mainMenuContainerScreen, arguments: data);
+  //       } else if (response.statusCode == 400) {
+  //         showDialogBox(context,'Email Already in Use','The email provided is already associated with an existing account.');
+  //       } else {
+  //         showDialogBox(context,'Failed to add data','Issue with the server');
+  //       }
+  //     } else {
+  //       showDialogBox(context, 'Password Mismatch', 'Passwords do not match');
+  //     }
+  //   } catch (error) {
+  //     // Handle any errors that might occur during the HTTP request
+  //     print('Error creating account: $error');
+  //   }
+  // }
 }
