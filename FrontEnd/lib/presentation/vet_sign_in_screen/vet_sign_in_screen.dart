@@ -11,8 +11,7 @@ import 'package:mihan_s_application1/http_req/serverHandling.dart';
 // ignore_for_file: must_be_immutable
 class VetSignInScreen extends GetWidget<VetSignInController> {
 
-  String email="";
-  String password="";
+
   VetSignInScreen({Key? key})
       : super(
           key: key,
@@ -90,8 +89,8 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                     width: 189.h,
                     text: "lbl_log_in".tr,
                     onPressed: () async {
-                      email = controller.userNameController.text.removeAllWhitespace;
-                      password = controller.passwordController.text.removeAllWhitespace;
+                      String email = controller.userNameController.text.removeAllWhitespace;
+                      String password = controller.passwordController.text.removeAllWhitespace;
 
 
                       try {

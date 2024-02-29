@@ -1,6 +1,7 @@
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/user_profile_screen/models/user_profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// A controller class for the UserProfileScreen.
 ///

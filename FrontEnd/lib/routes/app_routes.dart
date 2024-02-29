@@ -10,6 +10,8 @@ import 'package:mihan_s_application1/presentation/user_sign_in_screen/user_sign_
 import 'package:mihan_s_application1/presentation/user_sign_in_screen/binding/user_sign_in_binding.dart';
 import 'package:mihan_s_application1/presentation/pet_owner_create_an_account_screen/pet_owner_create_an_account_screen.dart';
 import 'package:mihan_s_application1/presentation/pet_owner_create_an_account_screen/binding/pet_owner_create_an_account_binding.dart';
+import 'package:mihan_s_application1/presentation/vet_sign_in_screen/binding/vet_sign_in_binding.dart';
+import 'package:mihan_s_application1/presentation/vet_sign_in_screen/vet_sign_in_screen.dart';
 import 'package:mihan_s_application1/presentation/veterinarian_create_an_account_screen/veterinarian_create_an_account_screen.dart';
 import 'package:mihan_s_application1/presentation/veterinarian_create_an_account_screen/binding/veterinarian_create_an_account_binding.dart';
 import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
@@ -66,6 +68,8 @@ class AppRoutes {
 
   static const String veterinarianCreateAnAccountScreen =
       '/veterinarian_create_an_account_screen';
+
+  static const String vetSignIn='/vet_sign_in__screen';
 
   static const String userProfileScreen = '/user_profile_screen';
 
@@ -161,6 +165,13 @@ class AppRoutes {
       ],
     ),
     GetPage(
+      name: vetSignIn,
+      page: () => VetSignInScreen(),
+      bindings: [
+        VetSignInBinding(),
+      ],
+    ),
+    GetPage(
       name: userSignInScreen,
       page: () => UserSignInScreen(),
       bindings: [
@@ -184,9 +195,7 @@ class AppRoutes {
     GetPage(
       name: userProfileScreen,
       page: () => UserProfileScreen(),
-      bindings: [
-        UserProfileBinding(),
-      ],
+      binding: UserProfileBinding() ,
     ),
     GetPage(
       name: mainMenuContainerScreen,

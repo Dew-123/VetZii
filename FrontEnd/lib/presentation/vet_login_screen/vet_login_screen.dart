@@ -2,7 +2,7 @@ import 'controller/vet_login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
-
+import 'package:get/get.dart';
 // ignore_for_file: must_be_immutable
 class VetLoginScreen extends GetWidget<VetLoginController> {
   const VetLoginScreen({Key? key})
@@ -43,6 +43,9 @@ class VetLoginScreen extends GetWidget<VetLoginController> {
               SizedBox(height: 60.v),
               CustomElevatedButton(
                 text: "lbl_log_in".tr,
+                onPressed: (){
+                  Get.toNamed(AppRoutes.vetSignIn);
+                },
               ),
               SizedBox(height: 27.v),
               Padding(
@@ -58,10 +61,11 @@ class VetLoginScreen extends GetWidget<VetLoginController> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 13.h),
-                      child: Text(
+                      child: GestureDetector(child:Text(
                         "lbl_sign_up".tr,
                         style: CustomTextStyles.titleSmallIndigoA700,
                       ),
+                      onTap:() {Get.toNamed(AppRoutes.veterinarianCreateAnAccountScreen);}),
                     ),
                   ],
                 ),
