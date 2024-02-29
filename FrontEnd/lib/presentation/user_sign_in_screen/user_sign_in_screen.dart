@@ -92,7 +92,7 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     text: "lbl_log_in".tr,
                     onPressed: () async {
                       Get.toNamed(AppRoutes.mainMenuContainerScreen);
-                      // Get.toNamed(AppRoutes.mainMenuContainerScreen);
+
                       // email = controller.userNameController.text.removeAllWhitespace;
                       // password = controller.passwordController.text.removeAllWhitespace;
 
