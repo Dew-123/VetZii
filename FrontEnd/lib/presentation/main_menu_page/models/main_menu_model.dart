@@ -5,18 +5,21 @@ import 'mainmenugrid_item_model.dart';
 /// and is typically used to hold data that is passed between different parts of the application.
 class MainMenuModel {
   Rx<List<MainmenugridItemModel>> mainmenugridItemList = Rx([
-    (MainmenugridItemModel(
+    MainmenugridItemModel(
         image: ImageConstant.location.obs,
-        string: "Find a clinic".obs)),
+        text: "Find a clinic".obs,
+        onTap: () => {Get.toNamed(AppRoutes.clinicPage)}),
     MainmenugridItemModel(
         image: ImageConstant.directory.obs,
-        string: "Find a vet".obs),
+        text: "Find a vet".obs,
+        onTap: () => {Get.toNamed(AppRoutes.clinicPageVetsPage)}),
     MainmenugridItemModel(
         image: ImageConstant.rehoming.obs,
-        string: "Adopt a pet".obs),
+        text: "Adopt a pet".obs,
+        onTap: () => {Get.toNamed(AppRoutes.adoptionAndRehomingScreen)}),
     MainmenugridItemModel(
         image: ImageConstant.stethascope.obs,
-        string: "Predict the disease".obs)
+        text: "Predict the disease".obs,
+        onTap: () => {Get.toNamed(AppRoutes.diseasePredictionStartScreen)})
   ]);
 }
-

@@ -4,18 +4,20 @@ import '../../../core/app_export.dart';
 class MainmenugridItemModel {
   MainmenugridItemModel({
     this.image,
-    this.string,
+    this.text,
     this.id,
+    this.onTap,
   }) {
-    image =
-        image ?? Rx(ImageConstant.imgLinkedinOnprimarycontainer);
-    string = string ?? Rx("Find a clinic");
+    image = image ?? Rx(ImageConstant.imgLinkedinOnprimarycontainer);
+    text = text ?? Rx("Find a clinic");
     id = id ?? Rx("");
   }
 
   Rx<String>? image;
 
-  Rx<String>? string;
+  Rx<String>? text;
 
   Rx<String>? id;
+
+  Function? onTap;
 }
