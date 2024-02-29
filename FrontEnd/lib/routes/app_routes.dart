@@ -331,8 +331,13 @@ class AppRoutes {
         ForgotPasswordOneBinding(),
       ],
     ),
-    GetPage(name: AppRoutes.clinicMapPage, page: () => ClinicMapPage()),
-    GetPage(name: AppRoutes.myAppointmentsPage, page: () => MyAppointmentsPage()),
+    GetPage(
+        name: AppRoutes.clinicMapPage
+        , page: () => ClinicMapPage()
+    ),
+    GetPage(name: AppRoutes.myAppointmentsPage,
+        page: () => MyAppointmentsPage()
+    ),
 
 
   ];

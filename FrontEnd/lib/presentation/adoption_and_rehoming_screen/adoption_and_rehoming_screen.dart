@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import 'widgets/userprofile1_item_widget.dart';
 import 'controller/adoption_and_rehoming_controller.dart';
 import 'models/userprofile1_item_model.dart';
@@ -77,11 +79,14 @@ class AdoptionAndRehomingScreen
                   ),
                 ),
               ),
-              CustomImageView(
-                imagePath: ImageConstant.imgSettingsBlack90002,
-                height: 40.adaptSize,
-                width: 40.adaptSize,
-                alignment: Alignment.topRight,
+              GestureDetector(
+                child: CustomImageView(
+                  imagePath: ImageConstant.imgSettingsBlack90002,
+                  height: 40.adaptSize,
+                  width: 40.adaptSize,
+                  alignment: Alignment.topRight,
+                  onTap: ()=>{Get.toNamed(AppRoutes.rehomingFormScreen)} ,
+                ),
               ),
               _buildUserProfile(),
             ],

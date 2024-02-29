@@ -95,7 +95,7 @@ class ImageConstant {
 
   // adoption and rehoming images
   static String imgSettingsBlack90002 =
-      '$imagePath/img_settings_black_900_02.svg';
+      '$imagePath/img_settings_black_900_02.png';
 
   static String imgRectangle4235 = '$imagePath/img_rectangle_4235.png';
 
