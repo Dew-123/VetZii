@@ -132,7 +132,7 @@ app.post("/changeEmailUser", async (req, res) => {
 app.post("/dataGetVet", async (req, res) => {
   try {
     // Retrieve the name query parameter from the request
-    const email = req.query.email;
+    const email = req.body.email;
 
     // Connect to MongoDB and retrieve data
     const db = await connectToMongoDB();
@@ -156,7 +156,7 @@ app.post("/dataAddVet", async (req, res) => {
       email,
       mobileNumber,
       password,
-    } = req.query;
+    } = req.body;
 
     // Validate if all required fields are provided
     if (
