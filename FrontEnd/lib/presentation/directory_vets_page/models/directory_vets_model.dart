@@ -19,6 +19,19 @@ class DirectoryVetsModel {
     UserprofileItemModel(
         userText: "veterinarian / SURGEON".obs, userText1: "Dr. Samson".obs),
     UserprofileItemModel(
+        userText: "veterinarian ".obs, userText1: "Dr. Swanson".obs),UserprofileItemModel(
+        userImage: ImageConstant.imgImage81.obs,
+        userImage1: ImageConstant.imgImage85.obs,
+        userImage2: ImageConstant.imgImage86.obs,
+        userText: "veterinarian / SURGEON".obs,
+        userText1: "Dr. Scott".obs),
+    UserprofileItemModel(
+        userText: "veterinarian ".obs, userText1: "Dr. Brown".obs),
+    UserprofileItemModel(
+        userText: "veterinarian / SURGEON".obs, userText1: "Dr. William".obs),
+    UserprofileItemModel(
+        userText: "veterinarian / SURGEON".obs, userText1: "Dr. Samson".obs),
+    UserprofileItemModel(
         userText: "veterinarian ".obs, userText1: "Dr. Swanson".obs)
   ]);
 }
