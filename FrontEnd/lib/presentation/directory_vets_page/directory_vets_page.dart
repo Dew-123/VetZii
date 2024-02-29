@@ -79,9 +79,8 @@ class DirectoryVetsPage extends StatelessWidget {
   }
 
   /// Section Widget
+  /// Section Widget
   Widget _buildUserProfile() {
-
-
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -89,32 +88,35 @@ class DirectoryVetsPage extends StatelessWidget {
           top: 67.v,
           right: 1.h,
         ),
-        child: Obx(
-          () => ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            separatorBuilder: (
-              context,
-              index,
-            ) {
-              return SizedBox(
-                height: 19.v,
-              );
-            },
-            itemCount: controller
-                .directoryVetsModelObj.value.userprofileItemList.value.length,
-            itemBuilder: (context, index) {
-              UserprofileItemModel model = controller
-                  .directoryVetsModelObj.value.userprofileItemList.value[index];
-              return UserprofileItemWidget(
-                model,
-              );
-            },
+        child: SingleChildScrollView( // Wrap with SingleChildScrollView
+          child: Obx(
+                () => ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              separatorBuilder: (
+                  context,
+                  index,
+                  ) {
+                return SizedBox(
+                  height: 19.v,
+                );
+              },
+              itemCount: controller
+                  .directoryVetsModelObj.value.userprofileItemList.value.length,
+              itemBuilder: (context, index) {
+                UserprofileItemModel model = controller
+                    .directoryVetsModelObj.value.userprofileItemList.value[index];
+                return UserprofileItemWidget(
+                  model,
+                );
+              },
+            ),
           ),
         ),
       ),
     );
   }
+
 
   /// Section Widget
   Widget _buildFilters() {
