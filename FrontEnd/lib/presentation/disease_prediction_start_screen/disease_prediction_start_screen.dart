@@ -80,6 +80,10 @@ class DiseasePredictionStartScreen
         right: 49.h,
         bottom: 42.v,
       ),
+      onPressed: () {
+        // Navigate to the relevant page (e.g., diseasePredictionEnterScreen)
+        Get.toNamed(AppRoutes.diseasePredictionEnterSymptomsScreen);
+      },
     );
   }
 }

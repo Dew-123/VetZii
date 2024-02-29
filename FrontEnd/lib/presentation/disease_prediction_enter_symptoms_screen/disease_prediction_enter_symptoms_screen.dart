@@ -98,12 +98,15 @@ class DiseasePredictionEnterSymptomsScreen
   /// Section Widget
   Widget _buildPredictButton() {
     return CustomElevatedButton(
-      text: "msg_predict_the_disease2".tr,
-      margin: EdgeInsets.only(
-        left: 50.h,
-        right: 49.h,
-        bottom: 42.v,
-      ),
-    );
+        text: "msg_predict_the_disease2".tr,
+        margin: EdgeInsets.only(
+          left: 50.h,
+          right: 49.h,
+          bottom: 42.v,
+        ),
+        onPressed: () {
+          // Navigate to the relevant page (e.g., diseasePredictionEnterScreen)
+          Get.toNamed(AppRoutes.diseasePredictionResultsScreen);
+        });
   }
 }

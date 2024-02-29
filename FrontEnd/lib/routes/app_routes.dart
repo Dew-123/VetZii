@@ -1,4 +1,5 @@
 import 'package:mihan_s_application1/presentation/clinic_map_page/clinic_map_page.dart';
+import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
 import 'package:mihan_s_application1/presentation/my_appointments_page/my_appointments_page.dart';
 import 'package:mihan_s_application1/presentation/splash_screen/splash_screen.dart';
 import 'package:mihan_s_application1/presentation/splash_screen/binding/splash_binding.dart';
@@ -338,6 +339,11 @@ class AppRoutes {
     GetPage(name: AppRoutes.myAppointmentsPage,
         page: () => MyAppointmentsPage()
     ),
+    GetPage(
+      name: mainMenuPage,
+      page: () => MainMenuPage(name: 'TEST'),
+      bindings: []
+    )
 
 
   ];
