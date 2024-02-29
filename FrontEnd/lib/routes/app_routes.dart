@@ -1,3 +1,5 @@
+import 'package:mihan_s_application1/presentation/clinic_map_page/clinic_map_page.dart';
+import 'package:mihan_s_application1/presentation/my_appointments_page/my_appointments_page.dart';
 import 'package:mihan_s_application1/presentation/splash_screen/splash_screen.dart';
 import 'package:mihan_s_application1/presentation/splash_screen/binding/splash_binding.dart';
 import 'package:mihan_s_application1/presentation/start_page_screen/start_page_screen.dart';
@@ -328,6 +330,10 @@ class AppRoutes {
       bindings: [
         ForgotPasswordOneBinding(),
       ],
-    )
+    ),
+    GetPage(name: AppRoutes.clinicMapPage, page: () => ClinicMapPage()),
+    GetPage(name: AppRoutes.myAppointmentsPage, page: () => MyAppointmentsPage()),
+
+
   ];
 }
