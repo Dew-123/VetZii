@@ -75,7 +75,7 @@ class ServerHandling {
 
   Future<void> changeUserPassword(String email,String newPassword) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/changeEmail'),
+      Uri.parse('http://10.0.2.2:3000/changeEmailUser'),
       body: {
         'email': email,
         'password':newPassword,
