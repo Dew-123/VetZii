@@ -79,7 +79,6 @@ class DirectoryVetsPage extends StatelessWidget {
   }
 
   /// Section Widget
-  /// Section Widget
   Widget _buildUserProfile() {
     return Align(
       alignment: Alignment.bottomCenter,
