@@ -34,4 +34,7 @@ class DirectoryVetsModel {
     UserprofileItemModel(
         userText: "veterinarian ".obs, userText1: "Dr. Swanson".obs)
   ]);
+
+
+  
 }

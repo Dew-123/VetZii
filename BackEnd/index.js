@@ -129,14 +129,14 @@ app.post("/changeEmailUser", async (req, res) => {
   res.send(data);
 });
 
-app.get("/dataGetVet", async (req, res) => {
+app.post("/dataGetVet", async (req, res) => {
   try {
     // Retrieve the name query parameter from the request
-    const email = req.query.email;
+    const {email,password} = req.body.email;
 
     // Connect to MongoDB and retrieve data
     const db = await connectToMongoDB();
-    const data = await getDataVet(email);
+    const data = await getDataVets(email,password);
     console.log(data);
     // Send the data as response
     res.json(data);
@@ -145,6 +145,23 @@ app.get("/dataGetVet", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+
+app.post("/dataGetVets", async (req, res) => {
+  try {
+  
+    // Connect to MongoDB and retrieve data
+    const db = await connectToMongoDB();
+    const data = await getDataVets();
+    console.log(data);
+    // Send the data as response
+    res.json(data);
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 app.get("/dataAddVet", async (req, res) => {
   try {
