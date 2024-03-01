@@ -5,6 +5,7 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_leading_image.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
+import 'package:http/http.dart' as http;
 
 // ignore_for_file: must_be_immutable
 class RehomingFormScreen extends GetWidget<RehomingFormController> {
@@ -152,6 +153,7 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
   /// Section Widget
   Widget _buildAddYourPet() {
     return CustomElevatedButton(
+      onPressed: ()=> addPetData(),
       text: "lbl_add_your_pet".tr,
       margin: EdgeInsets.only(
         left: 50.h,
@@ -161,64 +163,36 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
     );
   }
 
-  // void createAccount(BuildContext context) async {
-  //   // Retrieve values from controllers
-  //   String firstName = controller.firstNameController.text;
-  //   String lastName = controller.lastNameController.text;
-  //   String email = controller.emailController.text;
-  //   String mobileNumber = controller.mobileNumberController.text;
-  //   String password = controller.passwordController.text;
-  //   String confirmPassword= controller.confirmPasswordController.text;
-  //   String nameOfThePet = controller.nameOfThePetController.text;
-  //   String petType = controller.petTypeController.text;
-  //   String selectedGender = _selectedGender.value;
-  //
-  //   try {
-  //     if (password == confirmPassword) {
-  //       // Check if any field is empty
-  //       if (firstName.isEmpty ||
-  //           lastName.isEmpty ||
-  //           email.isEmpty ||
-  //           mobileNumber.isEmpty ||
-  //           password.isEmpty ||
-  //           confirmPassword.isEmpty ||
-  //           nameOfThePet.isEmpty ||
-  //           petType.isEmpty ||
-  //           selectedGender.isEmpty) {
-  //         // Show error dialog if any field is empty
-  //         showDialogBox(context, 'Error', 'Please fill in all fields');
-  //         return; // Exit the method
-  //       }
-  //
-  //       var response = await http.post(
-  //         Uri.parse('http://10.0.2.2:3000/dataAddUser'),
-  //         body:{
-  //           'Fname': firstName,
-  //           'Lname': lastName,
-  //           'nameOfThePet': nameOfThePet,
-  //           'petType': petType,
-  //           'gender': selectedGender,
-  //           'email': email,
-  //           'mobileNumber': mobileNumber,
-  //           'password': password,
-  //         },
-  //       );
-  //
-  //       if (response.statusCode == 200) {
-  //         ServerHandling server = new ServerHandling();
-  //         List<dynamic> data = await server.fetchUserData(email, password);
-  //         Get.toNamed(AppRoutes.mainMenuContainerScreen, arguments: data);
-  //       } else if (response.statusCode == 400) {
-  //         showDialogBox(context,'Email Already in Use','The email provided is already associated with an existing account.');
-  //       } else {
-  //         showDialogBox(context,'Failed to add data','Issue with the server');
-  //       }
-  //     } else {
-  //       showDialogBox(context, 'Password Mismatch', 'Passwords do not match');
-  //     }
-  //   } catch (error) {
-  //     // Handle any errors that might occur during the HTTP request
-  //     print('Error creating account: $error');
-  //   }
-  // }
+  void addPetData() async {
+    // Retrieve values from controllers
+    String name = controller.nameController.text;
+    String description = controller.descriptionController.text;
+    String contactNo = controller.enterDetailsController.text;
+    // String uploadImage = controller.uploadImageController.text;
+
+    try {
+      var response = await http.post(
+        Uri.parse('http://10.0.2.2:3000/addPet'), // Update with your API endpoint
+        body: {
+          'name': name,
+          'description': description,
+          'contactNo': contactNo,
+          //'uploadImage': uploadImage,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Pet data added successfully
+        print('Pet data added successfully');
+        Get.toNamed(AppRoutes.adoptionAndRehomingScreen);
+      } else {
+        // Failed to add pet data
+        print('Failed to add pet data: ${response.body}');
+      }
+    } catch (error) {
+      // Handle any errors that might occur during the HTTP request
+      print('Error adding pet data: $error');
+    }
+  }
+
 }
