@@ -8,7 +8,6 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_leading_image.dart';
 import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
-import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 class DirectoryVetsPage extends StatelessWidget {
   DirectoryVetsPage({Key? key})
@@ -16,52 +15,60 @@ class DirectoryVetsPage extends StatelessWidget {
     key: key,
   );
 
-  //DirectoryVetsController controller =Get.put(DirectoryVetsController(DirectoryVetsModel().obs));
-
-  // Initialize userprofileItemList as RxList<UserprofileItemModel>
-  List<UserprofileItemModel> userprofileItemList = <UserprofileItemModel>[].obs;
+  DirectoryVetsController controller =Get.put(DirectoryVetsController(DirectoryVetsModel().obs));
 
   @override
   Widget build(BuildContext context) {
-    _buildVets();// this need to wait until its complete
-
-    //wait until _buildVets
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Container(
-          height: 637.v,
-          width: double.maxFinite,
-          padding: EdgeInsets.symmetric(horizontal: 16.h),
-          child: Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              _buildUserProfile(),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Opacity(
-                  opacity: 0.3,
-                  child: Container(
-                    width: 94.h,
-                    margin: EdgeInsets.only(
-                      left: 46.h,
-                      top: 17.v,
-                    ),
-                    child: Text(
-                      "lbl_search".tr,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.headlineSmall,
-                    ),
-                  ),
-                ),
-              ),
-              _buildFilters(),
-            ],
-          ),
+        body: FutureBuilder<void>(
+          future: _fetchDataFromDatabase(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return _buildBody();
+            }
+          },
         ),
       ),
     );
+  }
+  Widget _buildBody() {
+    return Container(
+      height: 637.v,
+      width: double.maxFinite,
+      padding: EdgeInsets.symmetric(horizontal: 16.h),
+      child: Column(
+        children: [
+          _buildSearchBar(),
+          SizedBox(height: 20.v),
+          Expanded(
+            child: _buildUserProfile(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'Search',
+        prefixIcon: Icon(Icons.search),
+        border: OutlineInputBorder(),
+      ),
+      onChanged: (value) {
+        // Implement search functionality here
+      },
+    );
+  }
+
+  Future<void> _fetchDataFromDatabase() async {
+    await controller.directoryVetsModelObj.value.fetchDataFromDatabase();
   }
 
   PreferredSizeWidget _buildAppBar() {
@@ -81,7 +88,6 @@ class DirectoryVetsPage extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildUserProfile() {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -102,9 +108,9 @@ class DirectoryVetsPage extends StatelessWidget {
                 height: 19.v,
               );
             },
-            itemCount: userprofileItemList.length,
+            itemCount: controller.directoryVetsModelObj.value.userprofileItemList.value.length,
             itemBuilder: (context, index) {
-              UserprofileItemModel model = userprofileItemList[index];
+              UserprofileItemModel model = controller.directoryVetsModelObj.value.userprofileItemList.value[index];
               return UserprofileItemWidget(
                 model,
               );
@@ -114,7 +120,6 @@ class DirectoryVetsPage extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildFilters() {
     return Align(
       alignment: Alignment.topCenter,
@@ -165,27 +170,5 @@ class DirectoryVetsPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _buildVets() async {
-    ServerHandling serverHandling = ServerHandling();
-
-    try {
-      List<dynamic> dataSet = await serverHandling.fetchVetsData();
-
-      for (var data in dataSet) {
-        print(data['fieldOfExpertise']);
-        print(data['fullName']);
-
-        // userprofileItemList.add(new UserprofileItemModel(
-        //   userText: data['fieldOfExpertise'],
-        //   userText1: data['fullName'],
-        // ));
-
-      }
-    } catch (e) {
-      print("Error fetching vets data: $e");
-      // Handle error appropriately, like showing a message to the user
-    }
   }
 }
