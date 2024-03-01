@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import '../../../core/app_export.dart';
 
 /// This class is used in the [userprofile_item_widget] screen.
@@ -9,6 +10,7 @@ class UserprofileItemModel {
     this.userText,
     this.userText1,
     this.id,
+    this.onTap,
   }) {
     userImage = userImage ?? Rx(ImageConstant.imgImage81);
     userImage1 = userImage1 ?? Rx(ImageConstant.imgImage85);
@@ -19,14 +21,10 @@ class UserprofileItemModel {
   }
 
   Rx<String>? userImage;
-
   Rx<String>? userImage1;
-
   Rx<String>? userImage2;
-
   Rx<String>? userText;
-
   Rx<String>? userText1;
-
   Rx<String>? id;
+  VoidCallback? onTap;
 }

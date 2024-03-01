@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'links.dart';
 
 class ServerHandling {
 
   Future<bool> checkUser(String email) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/dataGetUser'),
+      Uri.parse(Links.dataGetUser),
       body: {
         'email': email,
       },
@@ -19,7 +20,7 @@ class ServerHandling {
 
   Future<List<dynamic>> fetchUserData(String email, String password) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/dataGetUser'),
+      Uri.parse(Links.dataGetUser),
       body: {
         'email': email,
         'password': password,
@@ -27,18 +28,16 @@ class ServerHandling {
     );
 
     if (response.statusCode == 200) {
-      // Parse the JSON response body
       List<dynamic> data = json.decode(response.body);
       return data;
     } else {
-      // If the server returns an error response, throw an exception
       throw Exception('Failed to load data');
     }
   }
 
   Future<List<dynamic>> fetchVetData(String email, String password) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/dataGetVet'),
+      Uri.parse(Links.dataGetVet),
       body: {
         'email': email,
         'password': password,
@@ -46,61 +45,54 @@ class ServerHandling {
     );
 
     if (response.statusCode == 200) {
-      // Parse the JSON response body
       List<dynamic> data = json.decode(response.body);
       return data;
     } else {
-      // If the server returns an error response, throw an exception
       throw Exception('Failed to load data');
     }
   }
 
   Future<List<dynamic>> fetchVetsData() async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/dataGetVets'),
+      Uri.parse(Links.dataGetVets),
     );
 
     if (response.statusCode == 200) {
-      // Parse the JSON response body
       List<dynamic> data = json.decode(response.body);
       return data;
     } else {
-      // If the server returns an error response, throw an exception
       throw Exception('Failed to load data');
     }
   }
 
   Future<String> recoverEmail(String email) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/recoverMailCodeSend'),
+      Uri.parse(Links.recoverMailCodeSend),
       body: {
         'email': email,
       },
     );
 
     if (response.statusCode == 200) {
-      // Parse the JSON response body
       String data = json.decode(response.body);
       return data;
     } else {
-      // If the server returns an error response, throw an exception
       throw Exception('Failed to load data');
     }
   }
 
   Future<void> changeUserPassword(String email,String newPassword) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/changeEmailUser'),
+      Uri.parse(Links.changeEmailUser),
       body: {
         'email': email,
-        'password':newPassword,
+        'password': newPassword,
       },
     );
 
     if (response.statusCode == 200) {
       print(response.body);
     } else {
-      // If the server returns an error response, throw an exception
       throw Exception('Failed to load data');
     }
   }

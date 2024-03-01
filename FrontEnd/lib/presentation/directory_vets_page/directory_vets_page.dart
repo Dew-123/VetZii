@@ -13,14 +13,19 @@ import 'package:mihan_s_application1/http_req/serverHandling.dart';
 class DirectoryVetsPage extends StatelessWidget {
   DirectoryVetsPage({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
-  DirectoryVetsController controller =
-      Get.put(DirectoryVetsController(DirectoryVetsModel().obs));
+  //DirectoryVetsController controller =Get.put(DirectoryVetsController(DirectoryVetsModel().obs));
+
+  // Initialize userprofileItemList as RxList<UserprofileItemModel>
+  List<UserprofileItemModel> userprofileItemList = <UserprofileItemModel>[].obs;
 
   @override
   Widget build(BuildContext context) {
+    _buildVets();// this need to wait until its complete
+
+    //wait until _buildVets
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
@@ -59,7 +64,6 @@ class DirectoryVetsPage extends StatelessWidget {
     );
   }
 
-  /// Section Widget
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       leadingWidth: 47.h,
@@ -78,7 +82,6 @@ class DirectoryVetsPage extends StatelessWidget {
     );
   }
 
-  /// Section Widget
   Widget _buildUserProfile() {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -87,37 +90,31 @@ class DirectoryVetsPage extends StatelessWidget {
           top: 67.v,
           right: 1.h,
         ),
-        child: SingleChildScrollView( // Wrap with SingleChildScrollView
-          child: Obx(
-                () => ListView.separated(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              separatorBuilder: (
-                  context,
-                  index,
-                  ) {
-                return SizedBox(
-                  height: 19.v,
-                );
-              },
-              itemCount: controller
-                  .directoryVetsModelObj.value.userprofileItemList.value.length,
-              itemBuilder: (context, index) {
-                UserprofileItemModel model = controller
-                    .directoryVetsModelObj.value.userprofileItemList.value[index];
-                return UserprofileItemWidget(
-                  model,
-                );
-              },
-            ),
+        child: Obx(
+              () => ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            separatorBuilder: (
+                context,
+                index,
+                ) {
+              return SizedBox(
+                height: 19.v,
+              );
+            },
+            itemCount: userprofileItemList.length,
+            itemBuilder: (context, index) {
+              UserprofileItemModel model = userprofileItemList[index];
+              return UserprofileItemWidget(
+                model,
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-
-  /// Section Widget
   Widget _buildFilters() {
     return Align(
       alignment: Alignment.topCenter,
@@ -170,5 +167,25 @@ class DirectoryVetsPage extends StatelessWidget {
     );
   }
 
+  void _buildVets() async {
+    ServerHandling serverHandling = ServerHandling();
 
+    try {
+      List<dynamic> dataSet = await serverHandling.fetchVetsData();
+
+      for (var data in dataSet) {
+        print(data['fieldOfExpertise']);
+        print(data['fullName']);
+
+        // userprofileItemList.add(new UserprofileItemModel(
+        //   userText: data['fieldOfExpertise'],
+        //   userText1: data['fullName'],
+        // ));
+
+      }
+    } catch (e) {
+      print("Error fetching vets data: $e");
+      // Handle error appropriately, like showing a message to the user
+    }
+  }
 }
