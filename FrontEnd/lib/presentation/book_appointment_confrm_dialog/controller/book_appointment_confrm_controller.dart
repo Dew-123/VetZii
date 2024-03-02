@@ -6,6 +6,6 @@ import 'package:mihan_s_application1/presentation/book_appointment_confrm_dialog
 /// This class manages the state of the BookAppointmentConfrmDialog, including the
 /// current bookAppointmentConfrmModelObj
 class BookAppointmentConfrmController extends GetxController {
-  Rx<BookAppointmentConfrmModel> bookAppointmentConfrmModelObj =
-      BookAppointmentConfrmModel().obs;
+  Rx<BookAppointmentConfirmModel> bookAppointmentConfrmModelObj =
+      BookAppointmentConfirmModel().obs;
 }

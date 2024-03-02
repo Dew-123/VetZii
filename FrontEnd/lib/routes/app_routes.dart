@@ -45,6 +45,8 @@ import 'package:mihan_s_application1/presentation/disease_prediction_results_scr
 import 'package:mihan_s_application1/presentation/disease_prediction_results_screen/binding/disease_prediction_results_binding.dart';
 import 'package:mihan_s_application1/presentation/app_navigation_screen/app_navigation_screen.dart';
 import 'package:mihan_s_application1/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
+import '../presentation/book_appointment_confrm_dialog/binding/book_appointment_confrm_controller_binding.dart';
+import '../presentation/book_appointment_confrm_dialog/book_appointment_confrm_dialog.dart';
 import '../presentation/forgot_password_one_screen/forgot_password_one_screen.dart';
 import '../presentation/forgot_password_one_screen/binding/forgot_password_one_binding.dart';
 import '../presentation/forgot_password_two_screen/forgot_password_two_screen.dart';
@@ -103,6 +105,7 @@ class AppRoutes {
       '/vet_acccount_page_reviews_page';
 
   static const String bookAppointmentScreen = '/book_appointment_screen';
+  static const String bookAppointmentConfirmDialog = '/book_appointment_confirm_dialog';
 
   static const String paymentPageScreen = '/payment_page_screen';
 
@@ -234,6 +237,14 @@ class AppRoutes {
       bindings: [
         PaymentPageBinding(),
       ],
+    ),
+    GetPage(
+      name: bookAppointmentConfirmDialog,
+      page: () => BookAppointmentConfrmDialog(),
+      bindings: [
+        BookAppointmentConfirmBinding(),
+      ],
+
     ),
     GetPage(
       name: notificationsNoScreen,

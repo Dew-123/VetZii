@@ -1,3 +1,4 @@
+import '../book_appointment_confrm_dialog/book_appointment_confrm_dialog.dart';
 import 'widgets/hourstabs_item_widget.dart';
 import 'controller/book_appointment_controller.dart';
 import 'models/hourstabs_item_model.dart';
@@ -129,26 +130,28 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
     );
   }
 
-  /// Section Widget
+
   Widget _buildHoursTabs() {
     return Align(
       alignment: Alignment.center,
-      child: Obx(
-        () => Wrap(
-          runSpacing: 8.v,
-          spacing: 8.h,
-          children: List<Widget>.generate(
-            controller
-                .bookAppointmentModelObj.value.hourstabsItemList.value.length,
-            (index) {
-              HourstabsItemModel model = controller
-                  .bookAppointmentModelObj.value.hourstabsItemList.value[index];
-
-              return HourstabsItemWidget(
-                model,
-              );
-            },
-          ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            Wrap(
+              runSpacing: 8.v,
+              spacing: 8.h,
+              children: List<Widget>.generate(
+                controller.bookAppointmentModelObj.value.hourstabsItemList.value.length,
+                    (index) {
+                  HourstabsItemModel model = controller.bookAppointmentModelObj.value.hourstabsItemList.value[index];
+                  return HourstabsItemWidget(
+                    model,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -163,6 +166,30 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
         right: 49.h,
         bottom: 42.v,
       ),
+      onPressed:_getData,
     );
   }
+
+  void _getData() {
+    List<HourstabsItemModel> selectedItems = [];
+
+    // Iterate through the list of HourstabsItemModel objects
+    for (HourstabsItemModel model in controller.bookAppointmentModelObj.value.hourstabsItemList.value) {
+      // Check if the item is selected
+      if (model.isSelected?.value == true) {
+        selectedItems.add(model);
+      }
+    }
+
+    // Now you have a list of selected items, you can extract the selected times
+    List<String> selectedTimes = selectedItems.map((item) => item.tabVar?.value ?? "").toList();
+
+    // Print or use the selected times as required
+    print('Selected Times: $selectedTimes');
+
+    Get.toNamed(AppRoutes.bookAppointmentConfirmDialog);
+    // Add more logic here based on your requirements
+  }
+
+
 }

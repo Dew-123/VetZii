@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 
+
 class BookAppointmentConfrmDialog extends StatelessWidget {
-  BookAppointmentConfrmDialog(
-    this.controller, {
-    Key? key,
-  }) : super(
+  BookAppointmentConfrmDialog({Key? key,})
+      : super(
           key: key,
         );
 
-  BookAppointmentConfrmController controller;
+  BookAppointmentConfrmController controller = Get.put(BookAppointmentConfrmController());
 
   @override
   Widget build(BuildContext context) {

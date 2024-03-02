@@ -1,8 +1,15 @@
-import '../../../core/app_export.dart';
+import 'package:get/get.dart';
 
-/// This class is used in the [hourstabs_item_widget] screen.
 class HourstabsItemModel {
-  Rx<String>? tabVar = Rx("09.00 AM");
+  Rx<String>? tabVar;
+  Rx<bool>? isSelected;
 
-  Rx<bool>? isSelected = Rx(false);
+  // Constructor with named parameters
+  HourstabsItemModel({
+    String time = "09:00 AM", // Default time
+    bool selected = false,    // Default selection status
+  }) {
+    tabVar = Rx(time);
+    isSelected = Rx(selected);
+  }
 }

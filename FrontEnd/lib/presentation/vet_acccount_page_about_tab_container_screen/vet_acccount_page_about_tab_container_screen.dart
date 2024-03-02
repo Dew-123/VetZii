@@ -1,3 +1,5 @@
+import 'package:mihan_s_application1/presentation/vet_acccount_page_book_page/vet_acccount_page_book_page.dart';
+
 import 'controller/vet_acccount_page_about_tab_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -85,7 +87,7 @@ class VetAcccountPageAboutTabContainerScreen
                   child: TabBarView(
                     controller: controller.tabviewController,
                     children: [
-                      VetAcccountPageAboutPage(),
+                      VetAcccountPageBookPage(),
                       VetAcccountPageAboutPage(),
                       VetAcccountPageReviewsPage(),
                     ],

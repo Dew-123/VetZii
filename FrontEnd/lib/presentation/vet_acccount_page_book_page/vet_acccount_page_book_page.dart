@@ -73,6 +73,9 @@ class VetAcccountPageBookPage extends StatelessWidget {
               left: 18.h,
               right: 15.h,
             ),
+            onPressed: ()=>{
+              Get.toNamed(AppRoutes.bookAppointmentScreen)
+            },
           ),
         ],
       ),
