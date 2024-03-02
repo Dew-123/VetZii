@@ -233,6 +233,7 @@ module.exports = {
   getDataVets,
   addDataVets,
   addDataPets,
+  addAppointmentToAccept,
   updateUserPassword,
   updateVetPassword,
 };
