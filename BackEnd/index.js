@@ -228,7 +228,17 @@ app.post("/recoverMailCodeSend", async (req, res) => {
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
   recover.sendEmail(email, recoveryCode);
   res.json(recoveryCode);
-  });
+});
+
+app.post("/changeEmailVet", async (req, res) => {
+  const { email, password } = req.body; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
+  console.log(password);
+  data = await updateVetPassword(email, password);
+  
+  res.send(data);
+  
+});
 
 // Endpoint for adding pets
 app.post("/addPet", async (req, res) => {
