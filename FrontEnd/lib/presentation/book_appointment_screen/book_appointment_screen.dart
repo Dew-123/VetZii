@@ -52,7 +52,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
             ],
           ),
         ),
-        bottomNavigationBar: _buildConfirm(),
+        bottomNavigationBar: _buildConfirm(context),
       ),
     );
   }
@@ -158,7 +158,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
   }
 
   /// Section Widget
-  Widget _buildConfirm() {
+  Widget _buildConfirm(BuildContext context) {
     return CustomElevatedButton(
       text: "lbl_confirm".tr,
       margin: EdgeInsets.only(
@@ -166,11 +166,11 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
         right: 49.h,
         bottom: 42.v,
       ),
-      onPressed:_getData,
+      onPressed: () => _getData(context),
     );
   }
 
-  void _getData() {
+  void _getData(BuildContext context) {
     List<HourstabsItemModel> selectedItems = [];
 
     // Iterate through the list of HourstabsItemModel objects
@@ -184,12 +184,91 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
     // Now you have a list of selected items, you can extract the selected times
     List<String> selectedTimes = selectedItems.map((item) => item.tabVar?.value ?? "").toList();
 
-    // Print or use the selected times as required
-    print('Selected Times: $selectedTimes');
+    List<DateTime?> date = controller.selectedDatesFromCalendar1.value;
 
-    Get.toNamed(AppRoutes.bookAppointmentConfirmDialog);
-    // Add more logic here based on your requirements
+    // Print or use the selected times as required
+    print('Selected Time: $selectedTimes');
+    print('Selected date: $date');
+    // Create and display the AlertDialog
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Container(
+            width: 314.h,
+            padding: EdgeInsets.symmetric(
+              horizontal: 45.h,
+              vertical: 6.v,
+            ),
+            decoration: AppDecoration.fillOnPrimaryContainer.copyWith(
+              borderRadius: BorderRadiusStyle.roundedBorder48,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 25.v),
+                Container(
+                  height: 131.adaptSize,
+                  width: 131.adaptSize,
+                  padding: EdgeInsets.all(29.h),
+                  decoration: AppDecoration.fillLightGreen.copyWith(
+                    borderRadius: BorderRadiusStyle.circleBorder64,
+                  ),
+                  child: CustomImageView(
+                    imagePath: ImageConstant.imgCheckmark,
+                    height: 72.adaptSize,
+                    width: 72.adaptSize,
+                    alignment: Alignment.center,
+                  ),
+                ),
+                SizedBox(height: 36.v),
+                Text(
+                  "msg_congratulations".tr,
+                  style: CustomTextStyles.titleLargeInterBluegray900,
+                ),
+                SizedBox(height: 9.v),
+                SizedBox(
+                  width: 222.h,
+                  child: Text(
+                    "msg_your_appointment".tr,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: CustomTextStyles.bodyMediumPoppinsGray60002.copyWith(
+                      height: 1.50,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 31.v),
+                CustomElevatedButton(
+                  height: 48.v,
+                  text: "lbl_done".tr,
+                  buttonStyle: CustomButtonStyles.fillPrimaryTL24,
+                  buttonTextStyle: theme.textTheme.titleMedium!,
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(height: 19.v),
+                Text(
+                  "msg_edit_your_appointment".tr,
+                  style: CustomTextStyles.bodyMediumGray60002,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    Future.delayed(Duration(seconds: 3), ()=> {
+      Navigator.pop(context)
+    });
   }
+
+
+
+
 
 
 }
