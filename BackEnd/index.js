@@ -140,6 +140,7 @@ app.post("/dataGetVet", async (req, res) => {
     const db = await connectToMongoDB();
     const data = await getDataVets(email,password);
     console.log(data);
+
     // Send the data as response
     res.json(data);
   } catch (error) {
@@ -147,7 +148,6 @@ app.post("/dataGetVet", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 app.post("/dataGetVets", async (req, res) => {
   try {
@@ -163,7 +163,6 @@ app.post("/dataGetVets", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 app.get("/dataAddVet", async (req, res) => {
   try {
@@ -222,6 +221,14 @@ app.get("/dataAddVet", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+app.post("/recoverMailCodeSend", async (req, res) => {
+  const email = req.body.email; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
+  const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
+  recover.sendEmail(email, recoveryCode);
+  res.json(recoveryCode);
+  });
 
 // Endpoint for adding pets
 app.post("/addPet", async (req, res) => {
