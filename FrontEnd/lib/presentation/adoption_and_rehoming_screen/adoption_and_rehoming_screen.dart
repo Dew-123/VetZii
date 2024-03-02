@@ -19,8 +19,8 @@ class AdoptionAndRehomingScreen
     extends GetWidget<AdoptionAndRehomingController> {
   const AdoptionAndRehomingScreen({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -128,13 +128,13 @@ class AdoptionAndRehomingScreen
           right: 4.h,
         ),
         child: Obx(
-          () => ListView.separated(
+              () => ListView.separated(
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             separatorBuilder: (
-              context,
-              index,
-            ) {
+                context,
+                index,
+                ) {
               return SizedBox(
                 height: 21.v,
               );
@@ -185,8 +185,8 @@ class AdoptionAndRehomingScreen
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      // case AppRoutes.mainMenuPage:
-      //   return MainMenuPage();
+    // case AppRoutes.mainMenuPage:
+    //   return MainMenuPage();
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
