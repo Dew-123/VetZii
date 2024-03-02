@@ -273,6 +273,41 @@ app.post("/addPet", async (req, res) => {
   }
 });
 
+app.post(".bookAppointment", async (req, res) => {
+  try {
+  const { date, time, patientEmail, petType, vetEmail} = req.body;
+  
+  // Validate if all required fields are provided
+  if ( !date || !time || !patientEmail || !petType || !vetEmail) {
+  return res.status(400).json({ error: "Missing required fields" });
+  }
+  
+  // Connect to MongoDB
+  await connectToMongoDB();
+  
+  // Prepare the appointment data
+  const appointmentData = {
+  date,
+  time,
+  patientEmail,
+  petType,
+  vetEmail
+  };
+  
+  // Add appointment to the toAccept collection
+  const result = await addAppointmentToAccept(appointmentData);
+  
+  // Send success response
+  res.json({
+  message: "Appointment booked successfully",
+  insertedId: result.insertedId
+  });
+  } catch (error) {
+  console.error("Error handling API request:", error);
+  res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
