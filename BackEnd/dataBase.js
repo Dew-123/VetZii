@@ -112,13 +112,21 @@ async function updateUserPassword(email, newPassword) {
   }
 }
 
-async function getDataVets(email) {
+async function getDataVets(email, password) {
   try {
     // Access the database and collection
     const database = client.db("vetzil"); // Update with your database name
-    const collection = database.collection("vets"); // Update with your collection name
+    const collection = database.collection("vet"); // Update with your collection name
 
-    const query = { email: email };
+    // Define the query object outside of the conditionals
+    let query = {};
+
+    // Check if email exists
+    if (email && password) {
+      query = {email: email, password: password};
+    }
+
+    // Find documents based on the query
     const cursor = collection.find(query);
 
     // Convert cursor to array
@@ -148,6 +156,42 @@ async function addDataVets(newData) {
   }
 }
 
+async function updateVetPassword(email, newPassword) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+
+    // Access the database and collection
+    const database = client.db("vetzil");
+    const collection = database.collection("vet");
+
+    // Find the user by email
+    const query = { email: email };
+    const user = await collection.findOne(query);
+
+    if (!user) {
+      throw new Error("Vet not found");
+    }
+
+    // Update user's password
+    const result = await collection.updateOne(
+      { _id: user._id },
+      { $set: { password: newPassword } }
+    );
+
+    if (result.modifiedCount === 0) {
+      throw new Error("Failed to update password");
+    }
+
+    console.log("Password updated successfully");
+
+    return result;
+  } catch (error) {
+    console.error("Error updating vet password:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -155,4 +199,5 @@ module.exports = {
   getDataVets,
   addDataVets,
   updateUserPassword,
+  updateVetPassword,
 };
