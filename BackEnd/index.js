@@ -284,10 +284,13 @@ app.post("./bookAppointment", async (req, res) => {
   
   // Connect to MongoDB
   await connectToMongoDB();
+
+// Combine date and time into a single JavaScript Date object
+const combinedDateTime = new Date(date + "T" + time);
   
-  // Prepare the appointment data
+  // Prepare the appointment data object
   const appointmentData = {
-  'date&time': date+time,
+  'dateTime': combinedDateTime,
   'patientEmail': patientEmail,
   'petType': petType,
   'vetEmail': vetEmail
