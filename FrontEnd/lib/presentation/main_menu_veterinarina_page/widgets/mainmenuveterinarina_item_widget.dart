@@ -1,7 +1,11 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:mihan_s_application1/core/app_export.dart';
+
+import '../../../theme/app_decoration.dart';
 import '../models/mainmenuveterinarina_item_model.dart';
 import '../controller/main_menu_veterinarina_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:dulanjana_s_application2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class MainmenuveterinarinaItemWidget extends StatelessWidget {

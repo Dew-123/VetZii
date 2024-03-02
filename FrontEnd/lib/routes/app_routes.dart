@@ -158,10 +158,6 @@ class AppRoutes {
 
   static const String vetProfileScreen = '/vet_profile_screen';
 
-  static const String appNavigationScreen = '/app_navigation_screen';
-
-  static const String initialRoute = '/initialRoute';
-
 
 
   static List<GetPage> pages = [

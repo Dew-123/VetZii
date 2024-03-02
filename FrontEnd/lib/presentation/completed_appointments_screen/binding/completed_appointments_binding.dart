@@ -1,5 +1,5 @@
-import 'package:dulanjana_s_application2/presentation/completed_appointments_screen/controller/completed_appointments_controller.dart';
 import 'package:get/get.dart';
+import '../controller/completed_appointments_controller.dart';
 
 /// A binding class for the CompletedAppointmentsScreen.
 ///

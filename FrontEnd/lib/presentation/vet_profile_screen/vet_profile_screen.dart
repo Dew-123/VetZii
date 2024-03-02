@@ -1,14 +1,7 @@
-import 'package:dulanjana_s_application2/presentation/pending_appointments_page/pending_appointments_page.dart';
-import 'package:dulanjana_s_application2/presentation/main_menu_veterinarina_page/main_menu_veterinarina_page.dart';
-import 'package:dulanjana_s_application2/widgets/app_bar/custom_app_bar.dart';
-import 'package:dulanjana_s_application2/widgets/app_bar/appbar_title.dart';
-import 'package:dulanjana_s_application2/widgets/app_bar/appbar_trailing_image.dart';
-import 'package:dulanjana_s_application2/widgets/custom_text_form_field.dart';
-import 'package:dulanjana_s_application2/core/utils/validation_functions.dart';
-import 'package:dulanjana_s_application2/widgets/custom_elevated_button.dart';
-import 'package:dulanjana_s_application2/widgets/custom_bottom_bar.dart';
+
 import 'package:flutter/material.dart';
-import 'package:dulanjana_s_application2/core/app_export.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:mihan_s_application1/core/app_export.dart';
 import 'controller/vet_profile_controller.dart';
 
 // ignore_for_file: must_be_immutable

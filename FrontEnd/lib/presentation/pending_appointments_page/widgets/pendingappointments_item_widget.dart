@@ -1,8 +1,9 @@
+import 'package:get/get.dart';
+import '../../../theme/custom_button_style.dart';
+import '../../../theme/custom_text_style.dart';
 import '../models/pendingappointments_item_model.dart';
 import '../controller/pending_appointments_controller.dart';
-import 'package:dulanjana_s_application2/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:dulanjana_s_application2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class PendingappointmentsItemWidget extends StatelessWidget {

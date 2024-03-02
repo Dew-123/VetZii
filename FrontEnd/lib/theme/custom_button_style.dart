@@ -29,6 +29,24 @@ class CustomButtonStyles {
           borderRadius: BorderRadius.circular(24.h),
         ),
       );
+  static ButtonStyle get fillLime => ElevatedButton.styleFrom(
+    backgroundColor: appTheme.lime300,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15.h),
+    ),
+  );
+  static ButtonStyle get fillOnError => ElevatedButton.styleFrom(
+    backgroundColor: theme.colorScheme.onError,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10.h),
+    ),
+  );
+  static ButtonStyle get fillPrimary => ElevatedButton.styleFrom(
+    backgroundColor: theme.colorScheme.primary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20.h),
+    ),
+  );
   // text button style
   static ButtonStyle get none => ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
