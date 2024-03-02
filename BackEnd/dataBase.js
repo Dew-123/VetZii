@@ -139,7 +139,6 @@ async function getDataVets(email,password) {
   }
 }
 
-
 async function addDataVets(newData) {
   try {
     // Access the database and collection
@@ -157,6 +156,42 @@ async function addDataVets(newData) {
   }
 }
 
+async function updateVetPassword(email, newPassword) {
+  try {
+  // Connect to MongoDB
+  await connectToMongoDB();
+  
+  // Access the database and collection
+  const database = client.db("vetzil");
+  const collection = database.collection("vet");
+  
+  // Find the user by email
+  const query = { email: email };
+  const user = await collection.findOne(query);
+  
+  if (!user) {
+  throw new Error("Vet not found");
+  }
+  
+  // Update user's password
+  const result = await collection.updateOne(
+  { _id: user._id },
+  { $set: { password: newPassword } }
+  );
+  
+  if (result.modifiedCount === 0) {
+  throw new Error("Failed to update password");
+  }
+  
+  console.log("Password updated successfully");
+  
+  return result;
+  } catch (error) {
+  console.error("Error updating vet password:", error);
+  throw error;
+  }
+}
+  
 async function addDataPets(newData) {
   try {
     // Access the database and collection
@@ -182,4 +217,5 @@ module.exports = {
   addDataVets,
   addDataPets,
   updateUserPassword,
+  updateVetPassword,
 };
