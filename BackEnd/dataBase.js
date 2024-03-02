@@ -209,6 +209,23 @@ async function addDataPets(newData) {
   }
 }
 
+async function addAppointmentToAccept(appointmentData) {
+  try {
+    // Access the database and collection
+    const database = client.db("appointment"); 
+    const collection = database.collection("toAccept");
+
+    // Insert the new data into the collection
+    const result = await collection.insertOne(appointmentData);
+    console.log("Inserted new appointment with ID:", result.insertedId);
+
+    return result;
+  } catch (error) {
+    console.error("Error adding appointment data to MongoDB:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
