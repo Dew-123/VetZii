@@ -6,6 +6,7 @@ const {
   getDataVets,
   addDataVets,
   updateUserPassword,
+  updateVetPassword,
 } = require("./dataBase");
 const bodyParser = require("body-parser");
 const recover = require("./emailHandling");
@@ -26,9 +27,10 @@ app.post("/dataGetUser", async (req, res) => {
     const { email, password } = req.body;
     console.log(email);
     console.log(password);
-    // Connect to MongoDB and retrieve data
 
+    // Connect to MongoDB and retrieve data
     const data = await getDataUsers(email, password);
+
     // Send the data as response
     res.json(data);
   } catch (error) {
@@ -132,12 +134,15 @@ app.post("/changeEmailUser", async (req, res) => {
 app.post("/dataGetVet", async (req, res) => {
   try {
     // Retrieve the name query parameter from the request
-    const email = req.body.email;
+    const { email, password } = req.body.email;
+    // console.log(email);
+    // console.log(password);
 
     // Connect to MongoDB and retrieve data
     const db = await connectToMongoDB();
-    const data = await getDataVet(email);
+    const data = await getDataVets(email, password);
     console.log(data);
+
     // Send the data as response
     res.json(data);
   } catch (error) {
@@ -202,6 +207,23 @@ app.post("/dataAddVet", async (req, res) => {
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+app.post("/recoverMailCodeSend", async (req, res) => {
+  const email = req.body.email; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
+  const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
+  recover.sendEmail(email, recoveryCode);
+  res.json(recoveryCode);
+});
+
+app.post("/changeEmailVet", async (req, res) => {
+  const { email, password } = req.body; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
+  console.log(password);
+  data = await updateVetPassword(email, password);
+
+  res.send(data);
 });
 
 app.listen(PORT, () => {
