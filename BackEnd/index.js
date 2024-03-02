@@ -224,6 +224,7 @@ app.post("/changeEmailVet", async (req, res) => {
   data = await updateVetPassword(email, password);
 
   res.send(data);
+  
 });
 
 app.listen(PORT, () => {
