@@ -6,6 +6,7 @@ const {
   getDataVets,
   addDataVets,
   addDataPets,
+  addAppointmentToAccept,
   updateUserPassword,
   updateVetPassword,
 } = require("./dataBase");
