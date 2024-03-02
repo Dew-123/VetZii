@@ -273,7 +273,7 @@ app.post("/addPet", async (req, res) => {
   }
 });
 
-app.post(".bookAppointment", async (req, res) => {
+app.post("./bookAppointment", async (req, res) => {
   try {
   const { date, time, patientEmail, petType, vetEmail} = req.body;
   
@@ -287,11 +287,10 @@ app.post(".bookAppointment", async (req, res) => {
   
   // Prepare the appointment data
   const appointmentData = {
-  date,
-  time,
-  patientEmail,
-  petType,
-  vetEmail
+  'date&time': date+time,
+  'patientEmail': patientEmail,
+  'petType': petType,
+  'vetEmail': vetEmail
   };
   
   // Add appointment to the toAccept collection
