@@ -182,6 +182,7 @@ async function updateVetPassword(email, newPassword) {
     if (result.modifiedCount === 0) {
       throw new Error("Failed to update password");
     }
+    
 
     console.log("Password updated successfully");
 
