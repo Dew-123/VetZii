@@ -18,7 +18,7 @@ class UserprofileItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
+    return GestureDetector(child: Align(
       alignment: Alignment.bottomCenter,
       child: Container(
         padding: EdgeInsets.all(10.h),
@@ -46,7 +46,7 @@ class UserprofileItemWidget extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Obx(
-                      () => CustomImageView(
+                          () => CustomImageView(
                         imagePath: userprofileItemModelObj.userImage!.value,
                         height: 92.v,
                         width: 79.h,
@@ -65,9 +65,9 @@ class UserprofileItemWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             Obx(
-                              () => CustomImageView(
+                                  () => CustomImageView(
                                 imagePath:
-                                    userprofileItemModelObj.userImage1!.value,
+                                userprofileItemModelObj.userImage1!.value,
                                 height: 92.v,
                                 width: 79.h,
                                 radius: BorderRadius.circular(
@@ -77,9 +77,9 @@ class UserprofileItemWidget extends StatelessWidget {
                               ),
                             ),
                             Obx(
-                              () => CustomImageView(
+                                  () => CustomImageView(
                                 imagePath:
-                                    userprofileItemModelObj.userImage2!.value,
+                                userprofileItemModelObj.userImage2!.value,
                                 height: 92.v,
                                 width: 79.h,
                                 radius: BorderRadius.circular(
@@ -106,14 +106,14 @@ class UserprofileItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Obx(
-                    () => Text(
+                        () => Text(
                       userprofileItemModelObj.userText!.value,
                       style: theme.textTheme.labelLarge,
                     ),
                   ),
                   SizedBox(height: 1.v),
                   Obx(
-                    () => Text(
+                        () => Text(
                       userprofileItemModelObj.userText1!.value,
                       style: CustomTextStyles.titleMediumOnErrorContainer,
                     ),
@@ -124,6 +124,8 @@ class UserprofileItemWidget extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),onTap: ()=>{
+      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen)
+    });
   }
 }

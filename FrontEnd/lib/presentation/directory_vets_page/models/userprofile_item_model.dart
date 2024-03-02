@@ -10,7 +10,6 @@ class UserprofileItemModel {
     this.userText,
     this.userText1,
     this.id,
-    this.onTap,
   }) {
     userImage = userImage ?? Rx(ImageConstant.imgImage81);
     userImage1 = userImage1 ?? Rx(ImageConstant.imgImage85);

@@ -15,13 +15,17 @@ class DirectoryVetsModel {
     // Iterate over the fetched data and create UserprofileItemModel objects
     for (var data in databaseData) {
       // Assuming your database data contains fields like userImage, userText, userText1, etc.
-      UserprofileItemModel userModel = UserprofileItemModel(
+      UserprofileItemModel userModel = (UserprofileItemModel(
         userImage: ImageConstant.imgImage81.obs, // Set your userImage here
         userImage1: ImageConstant.imgImage85.obs, // Set your userImage1 here
         userImage2: ImageConstant.imgImage86.obs, // Set your userImage2 here
         userText: data['fullName'].toString().obs, // Set your userText here
-        userText1: data['fieldOfExpertise'].toString().obs, // Set your userText1 here
-      );
+        userText1: data['fieldOfExpertise'].toString().obs,
+        // onTap: () =>{
+        //   print('adsd'),
+        //   Get.toNamed(AppRoutes.vetAcccountPageAboutPage)// Set your userText1 here
+        // }
+      ));
       userprofileItemList.value.add(userModel);
     }
   }
