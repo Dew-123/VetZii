@@ -174,6 +174,25 @@ async function addDataPets(newData) {
   }
 }
 
+async function getPetsData() {
+  try {
+    
+    const database = client.db("petadaption"); // Update with your database name
+    const collection = database.collection("pets"); // Update with your collection name
+
+    // Fetch pets data
+    const cursor = collection.find();
+
+    // Convert cursor to array
+    const petsData = await cursor.toArray();
+
+    return petsData;
+  } catch (error) {
+    console.error("Error fetching pets data:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -181,5 +200,6 @@ module.exports = {
   getDataVets,
   addDataVets,
   addDataPets,
+  getPetsData,
   updateUserPassword,
 };

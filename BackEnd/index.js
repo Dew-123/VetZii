@@ -6,6 +6,7 @@ const {
   getDataVets,
   addDataVets,
   addDataPets,
+  getPetsData,
   updateUserPassword,
 } = require("./dataBase");
 const bodyParser = require("body-parser");
@@ -248,6 +249,20 @@ app.post("/addPet", async (req, res) => {
     res.json({ message: "Pet added successfully",
     insertedId: result.insertedId
     });
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/dataGetPets", async (req, res) => {
+  try {
+    console.log("hello");
+    await connectToMongoDB();
+    const data = await getPetsData(); 
+    
+    // Send the data as response
+    res.json(data);
   } catch (error) {
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });
