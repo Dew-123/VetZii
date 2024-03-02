@@ -157,11 +157,29 @@ async function addDataVets(newData) {
   }
 }
 
+async function addDataPets(newData) {
+  try {
+    // Access the database and collection
+    const database = client.db("petadaption"); // Update with your database name
+    const collection = database.collection("pets"); // Update with your collection name
+
+    // Insert the new data into the collection
+    const result = await collection.insertOne(newData);
+    console.log("Inserted new pet with ID:", result.insertedId);
+
+    return result;
+  } catch (error) {
+    console.error("Error adding pet data to MongoDB:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
   addDataUsers,
   getDataVets,
   addDataVets,
+  addDataPets,
   updateUserPassword,
 };

@@ -5,6 +5,7 @@ const {
   addDataUsers,
   getDataVets,
   addDataVets,
+  addDataPets,
   updateUserPassword,
 } = require("./dataBase");
 const bodyParser = require("body-parser");
@@ -214,6 +215,38 @@ app.get("/dataAddVet", async (req, res) => {
     res.json({
       message: "Data added successfully",
       insertedId: result.insertedId,
+    });
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Endpoint for adding pets
+app.post("/addPet", async (req, res) => {
+  try {
+    
+    const { name, description, contactNo } = req.body;
+
+    
+    if (!name || !description || !contactNo) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    await connectToMongoDB();
+
+    // Prepare the data object
+    const newPetData = {
+      name,
+      description,
+      contactNo
+    };
+
+    const result = await addDataPets(newPetData);
+    
+    // Send success response
+    res.json({ message: "Pet added successfully",
+    insertedId: result.insertedId
     });
   } catch (error) {
     console.error("Error handling API request:", error);

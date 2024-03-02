@@ -5,6 +5,7 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_leading_image.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
+import 'package:http/http.dart' as http;
 
 // ignore_for_file: must_be_immutable
 class RehomingFormScreen extends GetWidget<RehomingFormController> {
@@ -62,10 +63,19 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
   }
 
   /// Section Widget
-  Widget _buildNameDescription() {
+  Widget _buildName() {
     return CustomTextFormField(
       width: 200.h,
-      controller: controller.nameDescriptionController,
+      controller: controller.nameController,
+      borderDecoration: TextFormFieldStyleHelper.outlineBlack1,
+      filled: false,
+    );
+  }
+
+  Widget _buildDescription() {
+    return CustomTextFormField(
+      width: 200.h,
+      controller: controller.descriptionController,
       borderDecoration: TextFormFieldStyleHelper.outlineBlack1,
       filled: false,
     );
@@ -118,11 +128,10 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
           padding: EdgeInsets.only(left: 9.h),
           child: Column(
             children: [
-              _buildNameDescription(),
+              _buildName(),
               SizedBox(height: 12.v),
+              _buildDescription(),
               Container(
-                height: 87.v,
-                width: 200.h,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: appTheme.black90002.withOpacity(0.4),
@@ -144,6 +153,7 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
   /// Section Widget
   Widget _buildAddYourPet() {
     return CustomElevatedButton(
+      onPressed: ()=> addPetData(),
       text: "lbl_add_your_pet".tr,
       margin: EdgeInsets.only(
         left: 50.h,
@@ -152,4 +162,37 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
       ),
     );
   }
+
+  void addPetData() async {
+    // Retrieve values from controllers
+    String name = controller.nameController.text;
+    String description = controller.descriptionController.text;
+    String contactNo = controller.enterDetailsController.text;
+    // String uploadImage = controller.uploadImageController.text;
+
+    try {
+      var response = await http.post(
+        Uri.parse('http://10.0.2.2:3000/addPet'), // Update with your API endpoint
+        body: {
+          'name': name,
+          'description': description,
+          'contactNo': contactNo,
+          //'uploadImage': uploadImage,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Pet data added successfully
+        print('Pet data added successfully');
+        Get.toNamed(AppRoutes.adoptionAndRehomingScreen);
+      } else {
+        // Failed to add pet data
+        print('Failed to add pet data: ${response.body}');
+      }
+    } catch (error) {
+      // Handle any errors that might occur during the HTTP request
+      print('Error adding pet data: $error');
+    }
+  }
+
 }
