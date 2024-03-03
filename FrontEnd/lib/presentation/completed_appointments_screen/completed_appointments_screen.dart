@@ -4,7 +4,7 @@ import 'package:mihan_s_application1/core/app_export.dart';
 
 import '../../widgets/app_bar/appbar_subtitle.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
-import '../../widgets/custom_bottom_bar.dart';
+import '../../widgets/custom_bottom_bar_vet.dart';
 import '../main_menu_veterinarina_page/main_menu_veterinarina_page.dart';
 import '../pending_appointments_page/pending_appointments_page.dart';
 import 'widgets/completedappointments_item_widget.dart';

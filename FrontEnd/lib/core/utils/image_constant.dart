@@ -176,4 +176,27 @@ class ImageConstant {
   static String location = '$imagePath/location3.png';
 
   static String directory = '$imagePath/directory.png';
+  // main menu veterinarina images
+  static String imgVetzii02 = '$imagePath/img_vetzii_0_2.png';
+
+  // Completed Appointments images
+  static String imgOk = '$imagePath/img_ok.png';
+
+  static String imgAudit36x36 = '$imagePath/img_audit_36x36.png';
+
+  // Vet profile images
+  static String imgLogoutRounded = '$imagePath/img_logout_rounded.png';
+
+  static String imgFrame1000001008 = '$imagePath/img_frame_1000001008.png';
+
+  // Common images
+  static String imgTimeLimit = '$imagePath/img_time_limit.png';
+
+  static String imgAudit = '$imagePath/img_audit.png';
+
+  static String imgHomeErrorcontainer =
+      '$imagePath/img_home_errorcontainer.svg';
+
+  static String imgTimeLimit34x34 = '$imagePath/img_time_limit_34x34.png';
+
 }

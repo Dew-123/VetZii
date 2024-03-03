@@ -1,4 +1,5 @@
 import 'package:mihan_s_application1/core/app_export.dart';
+import '../../widgets/custom_elevated_button_vet.dart';
 import 'widgets/mainmenuveterinarina_item_widget.dart';
 import 'models/mainmenuveterinarina_item_model.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ class MainMenuVeterinarinaPage extends StatelessWidget {
             ),
           ),
           CustomImageView(
-            imagePath: ImageConstant.imgVetzii02,
+            imagePath: ImageConstant.imgVetzii01,
             height: 145.v,
             width: 133.h,
             margin: EdgeInsets.only(left: 3.h),

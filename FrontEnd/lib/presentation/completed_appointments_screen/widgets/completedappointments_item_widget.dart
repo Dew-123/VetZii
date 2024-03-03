@@ -1,7 +1,12 @@
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:mihan_s_application1/core/app_export.dart';
+
+import '../../../theme/app_decoration.dart';
+import '../../../theme/theme_helper.dart';
 import '../models/completedappointments_item_model.dart';
 import '../controller/completed_appointments_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:dulanjana_s_application2/core/app_export.dart';
 
 // ignore: must_be_immutable
 class CompletedappointmentsItemWidget extends StatelessWidget {

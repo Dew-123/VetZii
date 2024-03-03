@@ -2,6 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
+import '../../core/utils/validation_functions.dart';
+import '../../widgets/app_bar/appbar_title.dart';
+import '../../widgets/app_bar/appbar_trailing_image_vet.dart';
+import '../../widgets/app_bar/custom_app_bar_vet.dart';
+import '../../widgets/custom_bottom_bar.dart';
+import '../../widgets/custom_elevated_button_vet.dart';
+import '../../widgets/custom_text_form_field_vet.dart';
+import '../main_menu_veterinarina_page/main_menu_veterinarina_page.dart';
+import '../pending_appointments_page/pending_appointments_page.dart';
 import 'controller/vet_profile_controller.dart';
 
 // ignore_for_file: must_be_immutable

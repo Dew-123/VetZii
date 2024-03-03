@@ -83,10 +83,15 @@ class CustomBottomBar extends StatelessWidget {
 }
 
 enum BottomBarEnum {
+  Homeerrorcontainer,
+  Timelimit34x34,
+  Lock,
+  Audit,
   Homeprimarycontainer,
   Linkedin,
   Thumbsupblack90002,
-  Lock,
+
+
 }
 
 class BottomMenuModel {

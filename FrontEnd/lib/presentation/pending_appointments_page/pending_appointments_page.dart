@@ -1,9 +1,9 @@
-import 'package:dulanjana_s_application2/widgets/app_bar/custom_app_bar.dart';
-import 'package:dulanjana_s_application2/widgets/app_bar/appbar_subtitle.dart';
+import 'package:mihan_s_application1/core/app_export.dart';
+import '../../widgets/app_bar/appbar_subtitle_vet.dart';
+import '../../widgets/app_bar/custom_app_bar_vet.dart';
 import 'widgets/pendingappointments_item_widget.dart';
 import 'models/pendingappointments_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:dulanjana_s_application2/core/app_export.dart';
 import 'controller/pending_appointments_controller.dart';
 import 'models/pending_appointments_model.dart';
 
