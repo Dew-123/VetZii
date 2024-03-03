@@ -226,6 +226,23 @@ async function addAppointmentToAccept(appointmentData) {
   }
 }
 
+async function addAppointmentCurrent(appointmentData) {
+  try {
+    // Access the database and collection
+    const database = client.db("appointment");
+    const collection = database.collection("current");
+
+    // Insert the new data into the collection
+    const result = await collection.insertOne(appointmentData);
+    console.log("Inserted new appointment to current collection with ID:", result.insertedId);
+
+    return result;
+  } catch (error) {
+    console.error("Error adding appointment data to current collection:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
