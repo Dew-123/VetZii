@@ -66,21 +66,22 @@ class VetAcccountPageAboutTabContainerScreen
                 SizedBox(height: 19.v),
                 SizedBox(
                   width: 150.h,
-                  child: RichText(
+                  child:RichText(
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: data['fullName'],
+                          text: data['fullName'] + '\n',
                           style: CustomTextStyles.titleMediumff000000,
                         ),
                         TextSpan(
-                          text:  data['fieldOfExpertise'],
+                          text: data['fieldOfExpertise'],
                           style: CustomTextStyles.bodySmallff000000,
                         ),
                       ],
                     ),
                     textAlign: TextAlign.center,
                   ),
+
                 ),
                 SizedBox(height: 28.v),
                 _buildTabview(),
