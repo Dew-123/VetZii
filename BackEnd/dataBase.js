@@ -251,6 +251,7 @@ module.exports = {
   addDataVets,
   addDataPets,
   addAppointmentToAccept,
+  addAppointmentCurrent,
   updateUserPassword,
   updateVetPassword,
 };
