@@ -226,17 +226,26 @@ async function addAppointmentToAccept(appointmentData) {
   }
 }
 
-async function addAppointmentCurrent(appointmentData) {
+async function addAppointmentCurrent(vetEmail) {
   try {
-    // Access the database and collection
-    const database = client.db("appointment");
-    const collection = database.collection("current");
+    // Access the database and collections for appointment management
+    const toAcceptCollection = database.collection("toAccept");
+    const currentCollection = database.collection("current");
 
-    // Insert the new data into the collection
-    const result = await collection.insertOne(appointmentData);
-    console.log("Inserted new appointment to current collection with ID:", result.insertedId);
+    // Retrieve all appointment data associated with the provided vetEmail from toAccept collection
+    const appointmentsToAccept = await toAcceptCollection.find({ vetEmail: vetEmail}).toArray();
 
-    return result;
+    if (appointmentsToAccept.length == 0) {
+      throw new Error("No appointments to accept for the provided vetEmail");
+    }
+
+    // Insert the retrieved appointment data into the current collection
+    await currentCollection.insertMany(appointmentsToAccept);
+
+    // Delete all appointment data associated with the provided vetEmail from toAccept collection
+    await toAcceptCollection.deleteMany({ vetEmail: vetEmail });
+
+    return { message: "Appointments accepted successfully" };
   } catch (error) {
     console.error("Error adding appointment data to current collection:", error);
     throw error;
