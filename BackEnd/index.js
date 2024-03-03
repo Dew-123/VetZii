@@ -10,10 +10,25 @@ const {
   updateUserPassword,
 } = require("./dataBase");
 const bodyParser = require("body-parser");
+const multer = require("multer");
 const recover = require("./emailHandling");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+//Define storage for the images
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // Save the images in the "uploads" directory
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+// Create multer instance with the defined storage
+const upload = multer({ storage: storage });
+
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -222,32 +237,29 @@ app.get("/dataAddVet", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
+//upload.single("image"),
 // Endpoint for adding pets
-app.post("/addPet", async (req, res) => {
+app.post("/addPet",  async (req, res) => {
   try {
-    
     const { name, description, contactNo } = req.body;
-
-    
-    if (!name || !description || !contactNo) {
+    //!req.file.path
+    if (!name || !description || !contactNo ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
-
-    await connectToMongoDB();
 
     // Prepare the data object
     const newPetData = {
       name,
       description,
-      contactNo
+      contactNo,
+      //image: req.file.path, // Save the path to the image
     };
 
     const result = await addDataPets(newPetData);
-    
-    // Send success response
-    res.json({ message: "Pet added successfully",
-    insertedId: result.insertedId
+
+    res.json({
+      message: "Pet added successfully",
+      insertedId: result.insertedId,
     });
   } catch (error) {
     console.error("Error handling API request:", error);

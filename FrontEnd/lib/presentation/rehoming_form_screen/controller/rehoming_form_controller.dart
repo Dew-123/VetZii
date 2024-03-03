@@ -18,11 +18,11 @@ class RehomingFormController extends GetxController {
     enterDetailsController.dispose();
   }
 
-  Future<void> pickImage() async {
-    final pickedFile =
-    await ImagePicker().getImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      imageFile.value = File(pickedFile.path);
-    }
-  }
+  // Future<void> pickImage() async {
+  //   final pickedFile =
+  //   await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     imageFile.value = File(pickedFile.path);
+  //   }
+  // }
 }
