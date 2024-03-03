@@ -75,10 +75,10 @@ class ClinicMapPage extends StatelessWidget {
         onMapCreated: (GoogleMapController controller) {
           googleMapController.complete(controller);
         },
-        zoomControlsEnabled: false,
-        zoomGesturesEnabled: false,
+        zoomControlsEnabled: true,
+        zoomGesturesEnabled: true,
         myLocationButtonEnabled: false,
-        myLocationEnabled: false,
+        myLocationEnabled: true,
       ),
     );
   }
