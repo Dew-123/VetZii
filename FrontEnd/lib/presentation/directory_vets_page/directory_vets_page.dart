@@ -87,6 +87,7 @@ class DirectoryVetsPage extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildUserProfile() {
     return Align(
       alignment: Alignment.bottomCenter,

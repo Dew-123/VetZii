@@ -3,6 +3,8 @@ import '../../../core/app_export.dart';
 
 /// This class is used in the [userprofile_item_widget] screen.
 class UserprofileItemModel {
+  var data;
+
   UserprofileItemModel({
     this.userImage,
     this.userImage1,
@@ -10,6 +12,7 @@ class UserprofileItemModel {
     this.userText,
     this.userText1,
     this.id,
+    this.data,
   }) {
     userImage = userImage ?? Rx(ImageConstant.imgImage81);
     userImage1 = userImage1 ?? Rx(ImageConstant.imgImage85);

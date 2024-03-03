@@ -173,15 +173,15 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
   void _getData(BuildContext context) {
     List<HourstabsItemModel> selectedItems = [];
 
-    // Iterate through the list of HourstabsItemModel objects
+
     for (HourstabsItemModel model in controller.bookAppointmentModelObj.value.hourstabsItemList.value) {
-      // Check if the item is selected
+
       if (model.isSelected?.value == true) {
         selectedItems.add(model);
       }
     }
 
-    // Now you have a list of selected items, you can extract the selected times
+
     List<String> selectedTimes = selectedItems.map((item) => item.tabVar?.value ?? "").toList();
 
     List<DateTime?> date = controller.selectedDatesFromCalendar1.value;

@@ -9,6 +9,7 @@ import 'package:mihan_s_application1/presentation/vet_acccount_page_reviews_page
 // ignore_for_file: must_be_immutable
 class VetAcccountPageAboutTabContainerScreen
     extends GetWidget<VetAcccountPageAboutTabContainerController> {
+
   const VetAcccountPageAboutTabContainerScreen({Key? key})
       : super(
           key: key,
@@ -16,6 +17,7 @@ class VetAcccountPageAboutTabContainerScreen
 
   @override
   Widget build(BuildContext context) {
+    var data =Get.arguments;
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -68,11 +70,11 @@ class VetAcccountPageAboutTabContainerScreen
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "msg_dr_scott_adkins".tr,
+                          text: data['fullName'],
                           style: CustomTextStyles.titleMediumff000000,
                         ),
                         TextSpan(
-                          text: "msg_small_animal_care".tr,
+                          text:  data['fieldOfExpertise'],
                           style: CustomTextStyles.bodySmallff000000,
                         ),
                       ],

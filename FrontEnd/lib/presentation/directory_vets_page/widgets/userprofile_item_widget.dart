@@ -125,7 +125,7 @@ class UserprofileItemWidget extends StatelessWidget {
         ),
       ),
     ),onTap: ()=>{
-      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen)
+      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen,arguments: userprofileItemModelObj.data)
     });
   }
 }

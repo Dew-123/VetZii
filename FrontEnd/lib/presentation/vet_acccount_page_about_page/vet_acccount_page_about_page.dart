@@ -31,7 +31,6 @@ class VetAcccountPageAboutPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      _buildTabList(),
                       SizedBox(height: 19.v),
                       SizedBox(
                         width: 310.h,
