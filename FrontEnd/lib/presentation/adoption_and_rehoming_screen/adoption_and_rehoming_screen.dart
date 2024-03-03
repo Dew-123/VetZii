@@ -190,7 +190,7 @@ class AdoptionAndRehomingScreen
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
-        return DirectoryVetsPage();
+       // return DirectoryVetsPage();
       case AppRoutes.myAppointmentsPage:
         return MyAppointmentsPage();
       default:

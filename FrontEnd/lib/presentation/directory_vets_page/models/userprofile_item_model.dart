@@ -4,6 +4,9 @@ import '../../../core/app_export.dart';
 /// This class is used in the [userprofile_item_widget] screen.
 class UserprofileItemModel {
   var data;
+  // var patientemail;
+  //
+  // var petType;
 
   UserprofileItemModel({
     this.userImage,
@@ -13,6 +16,8 @@ class UserprofileItemModel {
     this.userText1,
     this.id,
     this.data,
+    // this.patientemail,
+    // this.petType,
   }) {
     userImage = userImage ?? Rx(ImageConstant.imgImage81);
     userImage1 = userImage1 ?? Rx(ImageConstant.imgImage85);
@@ -29,4 +34,6 @@ class UserprofileItemModel {
   Rx<String>? userText1;
   Rx<String>? id;
   VoidCallback? onTap;
+
+
 }
