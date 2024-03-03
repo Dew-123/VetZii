@@ -6,9 +6,12 @@ const {
   getDataVets,
   addDataVets,
   addDataPets,
+  addAppointmentToAccept,
+  addAppointmentCurrent,
   updateUserPassword,
   updateVetPassword,
 } = require("./dataBase");
+
 const bodyParser = require("body-parser");
 const recover = require("./emailHandling");
 
@@ -266,6 +269,57 @@ app.post("/addPet", async (req, res) => {
     res.json({ message: "Pet added successfully",
     insertedId: result.insertedId
     });
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/bookAppointment", async (req, res) => {
+  try {
+  const { date, time, patientEmail, petType, vetEmail} = req.body;
+  
+  // Validate if all required fields are provided
+  if ( !date || !time || !patientEmail || !petType || !vetEmail) {
+  return res.status(400).json({ error: "Missing required fields" });
+  }
+  
+
+// Combine date and time into a single JavaScript Date object
+const combinedDateTime = new Date(date + "T" + time);
+  
+  // Prepare the appointment data object
+  const appointmentData = {
+  'dateTime': combinedDateTime,
+  'patientEmail': patientEmail,
+  'petType': petType,
+  'vetEmail': vetEmail
+  };
+  
+  // Add appointment to the toAccept collection
+  const result = await addAppointmentToAccept(appointmentData);
+  
+  // Send success response
+  res.json({
+  message: "Appointment booked successfully",
+  insertedId: result.insertedId
+  });
+  } catch (error) {
+  console.error("Error handling API request:", error);
+  res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/acceptAppointment", async (req, res) => {
+  try {
+    const { vetEmail} = req.body;
+
+    if (!vetEmail) {
+      return res.status(400).json({ error: "Vet email is required" });
+    }
+
+    const result = await addAppointmentCurrent(vetEmail);
+    res.json(result);
   } catch (error) {
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });

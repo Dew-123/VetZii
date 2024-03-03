@@ -28,6 +28,8 @@ async function connectToMongoDB() {
   }
 }
 
+
+
 async function getDataUsers(email, password) {
   try {
     await connectToMongoDB();
@@ -209,6 +211,51 @@ async function addDataPets(newData) {
   }
 }
 
+async function addAppointmentToAccept(appointmentData) {
+  try {
+    // Access the database and collection
+    await connectToMongoDB();
+    const database = client.db("appointment"); 
+    const collection = database.collection("toAccept");
+
+    // Insert the new data into the collection
+    const result = await collection.insertOne(appointmentData);
+    console.log("Inserted new appointment with ID:", result.insertedId);
+
+    return result;
+  } catch (error) {
+    console.error("Error adding appointment data to MongoDB:", error);
+    throw error;
+  }
+}
+
+async function addAppointmentCurrent(vetEmail) {
+  try {
+    await connectToMongoDB();
+    const database = client.db("appointment");
+    const toAcceptCollection = database.collection("toAccept");
+    const currentCollection = database.collection("current");
+
+    // Retrieve all appointment data associated with the provided vetEmail from toAccept collection
+    const appointmentsToAccept = await toAcceptCollection.find({ vetEmail: vetEmail}).toArray();
+
+    if (appointmentsToAccept.length == 0) {
+      throw new Error("No appointments to accept for the provided vetEmail");
+    }
+
+    // Insert the retrieved appointment data into the current collection
+    await currentCollection.insertMany(appointmentsToAccept);
+
+    // Delete all appointment data associated with the provided vetEmail from toAccept collection
+    await toAcceptCollection.deleteMany({ vetEmail: vetEmail });
+
+    return { message: "Appointments accepted successfully" };
+  } catch (error) {
+    console.error("Error adding appointment data to current collection:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -216,6 +263,8 @@ module.exports = {
   getDataVets,
   addDataVets,
   addDataPets,
+  addAppointmentToAccept,
+  addAppointmentCurrent,
   updateUserPassword,
   updateVetPassword,
 };
