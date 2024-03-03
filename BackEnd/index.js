@@ -274,7 +274,7 @@ app.post("/addPet", async (req, res) => {
   }
 });
 
-app.post("./bookAppointment", async (req, res) => {
+app.post("/bookAppointment", async (req, res) => {
   try {
   const { date, time, patientEmail, petType, vetEmail} = req.body;
   
@@ -311,6 +311,41 @@ const combinedDateTime = new Date(date + "T" + time);
   }
 });
 
+app.post("/acceptAppointment", async (req, res) => {
+  try {
+    const { vetEmail} = req.body;
+
+    if (!vetEmail) {
+      return res.status(400).json({ error: "Vet email is required" });
+    }
+
+    // Connect to MongoDB
+    await connectToMongoDB();
+
+    // Access the database and collections for appointment management
+    const database = client.db("appointment");
+    const toAcceptCollection = database.collection("toAccept");
+    const currentCollection = database.collection("current");
+
+    // Retrieve all appointment data associated with the provided vetEmail from toAccept collection
+    const appointmentsToAccept = await toAcceptCollection.find({ vetEmail: vetEmail});
+
+    if (appointmentsToAccept.length == 0) {
+      return res.status(404).json({ error: "No appointments to accept for the provided vetEmail" });
+    }
+
+    // Insert the retrieved appointment data into the current collection
+    await currentCollection.insertMany(appointmentsToAccept);
+
+    // Delete all appointment data associated with the provided vetEmail from toAccept collection
+    await toAcceptCollection.deleteMany({ vetEmail: vetEmail });
+
+    res.json({ message: "Appointments accepted successfully" });
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
