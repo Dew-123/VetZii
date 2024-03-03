@@ -7,6 +7,7 @@ const {
   addDataVets,
   addDataPets,
   addAppointmentToAccept,
+  addAppointmentCurrent,
   updateUserPassword,
   updateVetPassword,
 } = require("./dataBase");
@@ -309,6 +310,7 @@ const combinedDateTime = new Date(date + "T" + time);
   res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
