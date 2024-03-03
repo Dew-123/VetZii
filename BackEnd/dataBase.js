@@ -28,6 +28,8 @@ async function connectToMongoDB() {
   }
 }
 
+
+
 async function getDataUsers(email, password) {
   try {
     await connectToMongoDB();
@@ -228,7 +230,8 @@ async function addAppointmentToAccept(appointmentData) {
 
 async function addAppointmentCurrent(vetEmail) {
   try {
-    // Access the database and collections for appointment management
+    await connectToMongoDB();
+    const database = client.db("appointment");
     const toAcceptCollection = database.collection("toAccept");
     const currentCollection = database.collection("current");
 
