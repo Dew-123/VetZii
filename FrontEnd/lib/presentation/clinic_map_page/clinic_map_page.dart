@@ -35,22 +35,11 @@ class ClinicMapPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          child: Container(
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  ImageConstant.imgGroup191,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: 42.v),
-                _buildMapSection(),
-              ],
-            ),
+          child: Column(
+            children: [
+              SizedBox(height: 42.v),
+              _buildMapSection(),
+            ],
           ),
         ),
       ),
@@ -77,7 +66,7 @@ class ClinicMapPage extends StatelessWidget {
         },
         zoomControlsEnabled: true,
         zoomGesturesEnabled: true,
-        myLocationButtonEnabled: false,
+        myLocationButtonEnabled: true,
         myLocationEnabled: true,
       ),
     );
