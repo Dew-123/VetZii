@@ -27,17 +27,8 @@ class ClinicMapPage extends StatelessWidget {
         body: Container(
           width: SizeUtils.width,
           height: SizeUtils.height,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                ImageConstant.imgGroup191,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
           child: Column(
             children: [
-              SizedBox(height: 42.v),
               _buildMapSection(),
             ],
           ),
@@ -49,17 +40,17 @@ class ClinicMapPage extends StatelessWidget {
   /// Section Widget
   Widget _buildMapSection() {
     return SizedBox(
-      height: 627.v,
-      width: 349.h,
+      height: 686.4.v,
+      width: 360.3.h,
       child: GoogleMap(
         //TODO: Add your Google Maps API key in AndroidManifest.xml and pod file
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
           target: LatLng(
-            37.43296265331129,
-            -122.08832357078792,
+            6.9271,
+            79.8612,
           ),
-          zoom: 14.4746,
+          zoom: 11,
         ),
         onMapCreated: (GoogleMapController controller) {
           googleMapController.complete(controller);
