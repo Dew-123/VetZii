@@ -12,12 +12,13 @@ class VetAcccountPageAboutTabContainerScreen
 
   const VetAcccountPageAboutTabContainerScreen({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
-    var data =Get.arguments;
+    var data = Get.arguments;
+    print(data);
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -64,24 +65,24 @@ class VetAcccountPageAboutTabContainerScreen
                   ),
                 ),
                 SizedBox(height: 19.v),
-                SizedBox(
-                  width: 150.h,
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: data['fullName'],
-                          style: CustomTextStyles.titleMediumff000000,
-                        ),
-                        TextSpan(
-                          text:  data['fieldOfExpertise'],
-                          style: CustomTextStyles.bodySmallff000000,
-                        ),
-                      ],
-                    ),
-                    textAlign: TextAlign.center,
+              SizedBox(
+                width: 150.h,
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: data['fullName'] + '\n', // Add '\n' to display on a new line
+                        style: CustomTextStyles.titleMediumff000000,
+                      ),
+                      TextSpan(
+                        text:  data['fieldOfExpertise'],
+                        style: CustomTextStyles.bodySmallff000000,
+                      ),
+                    ],
                   ),
+                  textAlign: TextAlign.center,
                 ),
+              ),
                 SizedBox(height: 28.v),
                 _buildTabview(),
                 SizedBox(

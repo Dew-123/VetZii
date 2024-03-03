@@ -16,6 +16,8 @@ import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 
 // ignore_for_file: must_be_immutable
 class UserProfileScreen extends GetWidget<UserProfileController> {
+
+
   UserProfileScreen({Key? key})
       : super(
           key: key,
@@ -250,7 +252,7 @@ class UserProfileScreen extends GetWidget<UserProfileController> {
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
-        return DirectoryVetsPage();
+        //return DirectoryVetsPage();
       case AppRoutes.userProfileScreen:
         return UserProfileScreen();
       default:

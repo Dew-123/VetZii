@@ -5,7 +5,9 @@ import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 
 class VetAcccountPageBookPage extends StatelessWidget {
-  VetAcccountPageBookPage({Key? key})
+
+
+  VetAcccountPageBookPage( {Key? key})
       : super(
           key: key,
         );
@@ -74,7 +76,7 @@ class VetAcccountPageBookPage extends StatelessWidget {
               right: 15.h,
             ),
             onPressed: ()=>{
-              Get.toNamed(AppRoutes.bookAppointmentScreen)
+              Get.toNamed(AppRoutes.bookAppointmentScreen )
             },
           ),
         ],

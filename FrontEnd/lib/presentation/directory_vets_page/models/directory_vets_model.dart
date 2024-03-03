@@ -21,7 +21,7 @@ class DirectoryVetsModel {
         userImage2: ImageConstant.imgImage86.obs,
         userText: data['fullName'].toString().obs,
         userText1: data['fieldOfExpertise'].toString().obs,
-        data:data
+        data: data,
       ));
       userprofileItemList.value.add(userModel);
     }
