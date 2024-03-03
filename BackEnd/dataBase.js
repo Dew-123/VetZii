@@ -214,6 +214,7 @@ async function addDataPets(newData) {
 async function addAppointmentToAccept(appointmentData) {
   try {
     // Access the database and collection
+    await connectToMongoDB();
     const database = client.db("appointment"); 
     const collection = database.collection("toAccept");
 

@@ -284,8 +284,6 @@ app.post("/bookAppointment", async (req, res) => {
   return res.status(400).json({ error: "Missing required fields" });
   }
   
-  // Connect to MongoDB
-  await connectToMongoDB();
 
 // Combine date and time into a single JavaScript Date object
 const combinedDateTime = new Date(date + "T" + time);
