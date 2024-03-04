@@ -248,6 +248,7 @@ async function addAppointmentCurrent(vetEmail) {
     return { message: "Appointments accepted successfully" };
   } catch (error) {
     console.error("Error adding appointment data to current collection:", error);
+<<<<<<< HEAD
     throw error;
   }
 }
@@ -293,6 +294,8 @@ async function addAppointmentCurrent(vetEmail) {
     return { message: "Appointments accepted successfully" };
   } catch (error) {
     console.error("Error adding appointment data to current collection:", error);
+=======
+>>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
     throw error;
   }
 }
@@ -305,7 +308,10 @@ module.exports = {
   addDataVets,
   addDataPets,
 <<<<<<< HEAD
+<<<<<<< HEAD
   getPetsData,
+=======
+>>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
 =======
 >>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   addAppointmentToAccept,

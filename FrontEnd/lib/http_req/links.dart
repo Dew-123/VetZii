@@ -6,7 +6,10 @@ class Links {
   static const String recoverMailCodeSend = baseUrl + 'recoverMailCodeSend';
   static const String changeEmailUser = baseUrl + 'changeEmailUser';
 <<<<<<< HEAD
+<<<<<<< HEAD
   static const String dataGetPets = baseUrl + 'dataGetPets';
+=======
+>>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
 =======
 >>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   static const String bookAppointment = baseUrl +'bookAppointment';
