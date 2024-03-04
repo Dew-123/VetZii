@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import '../../widgets/custom_elevated_button_vet.dart';
 import 'widgets/mainmenuveterinarina_item_widget.dart';
@@ -5,6 +7,8 @@ import 'models/mainmenuveterinarina_item_model.dart';
 import 'package:flutter/material.dart';
 import 'controller/main_menu_veterinarina_controller.dart';
 import 'models/main_menu_veterinarina_model.dart';
+
+import '../../widgets/custom_bottom_bar_vet.dart';
 
 class MainMenuVeterinarinaPage extends StatelessWidget {
   MainMenuVeterinarinaPage({Key? key})
@@ -40,6 +44,8 @@ class MainMenuVeterinarinaPage extends StatelessWidget {
             ],
           ),
         ),
+        // Add the custom bottom bar here
+        bottomNavigationBar: CustomBottomBar(),
       ),
     );
   }
