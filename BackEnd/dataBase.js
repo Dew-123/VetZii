@@ -194,17 +194,34 @@ async function updateVetPassword(email, newPassword) {
   
 async function addDataPets(newData) {
   try {
-    // Access the database and collection
-    const database = client.db("petadaption"); // Update with your database name
-    const collection = database.collection("pets"); // Update with your collection name
+    const database = client.db("petadaption");
+    const collection = database.collection("pets");
 
-    // Insert the new data into the collection
     const result = await collection.insertOne(newData);
     console.log("Inserted new pet with ID:", result.insertedId);
 
     return result;
   } catch (error) {
     console.error("Error adding pet data to MongoDB:", error);
+    throw error;
+  }
+}
+
+async function getPetsData() {
+  try {
+    
+    const database = client.db("petadaption"); // Update with your database name
+    const collection = database.collection("pets"); // Update with your collection name
+
+    // Fetch pets data
+    const cursor = collection.find();
+
+    // Convert cursor to array
+    const petsData = await cursor.toArray();
+
+    return petsData;
+  } catch (error) {
+    console.error("Error fetching pets data:", error);
     throw error;
   }
 }
@@ -216,6 +233,7 @@ module.exports = {
   getDataVets,
   addDataVets,
   addDataPets,
+  getPetsData,
   updateUserPassword,
   updateVetPassword,
 };

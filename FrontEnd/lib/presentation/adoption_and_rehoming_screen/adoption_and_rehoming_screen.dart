@@ -19,83 +19,99 @@ class AdoptionAndRehomingScreen
     extends GetWidget<AdoptionAndRehomingController> {
   const AdoptionAndRehomingScreen({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Container(
-          height: 635.v,
-          width: double.maxFinite,
-          padding: EdgeInsets.symmetric(horizontal: 14.h),
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10.h),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomImageView(
-                        imagePath: ImageConstant.imgSearch,
-                        height: 24.adaptSize,
-                        width: 24.adaptSize,
-                        margin: EdgeInsets.only(
-                          top: 4.v,
-                          bottom: 39.v,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.h),
-                        child: SizedBox(
-                          height: 67.v,
-                          child: VerticalDivider(
-                            width: 1.h,
-                            thickness: 1.v,
-                            indent: 4.h,
-                            endIndent: 37.h,
-                          ),
-                        ),
-                      ),
-                      Opacity(
-                        opacity: 0.3,
-                        child: Container(
-                          width: 94.h,
-                          margin: EdgeInsets.only(left: 2.h),
-                          child: Text(
-                            "lbl_search".tr,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.headlineSmall,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                child: CustomImageView(
-                  imagePath: ImageConstant.imgSettingsBlack90002,
-                  height: 40.adaptSize,
-                  width: 40.adaptSize,
-                  alignment: Alignment.topRight,
-                  onTap: ()=>{Get.toNamed(AppRoutes.rehomingFormScreen)} ,
-                ),
-              ),
-              _buildUserProfile(),
-            ],
-          ),
+        body: FutureBuilder<void>(
+          future: _fetchDataFromDatabase(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return _buildBody();
+            }
+          },
         ),
         bottomNavigationBar: _buildBottomBar(),
       ),
     );
   }
+
+  Widget _buildBody() {
+    return Container(
+      height: 635.v,
+      width: double.maxFinite,
+      padding: EdgeInsets.symmetric(horizontal: 14.h),
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 10.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgSearch,
+                    height: 24.adaptSize,
+                    width: 24.adaptSize,
+                    margin: EdgeInsets.only(
+                      top: 4.v,
+                      bottom: 39.v,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.h),
+                    child: SizedBox(
+                      height: 67.v,
+                      child: VerticalDivider(
+                        width: 1.h,
+                        thickness: 1.v,
+                        indent: 4.h,
+                        endIndent: 37.h,
+                      ),
+                    ),
+                  ),
+                  Opacity(
+                    opacity: 0.3,
+                    child: Container(
+                      width: 94.h,
+                      margin: EdgeInsets.only(left: 2.h),
+                      child: Text(
+                        "lbl_search".tr,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.headlineSmall,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            child: CustomImageView(
+              imagePath: ImageConstant.imgSettingsBlack90002,
+              height: 40.adaptSize,
+              width: 40.adaptSize,
+              alignment: Alignment.topRight,
+              onTap: () => {Get.toNamed(AppRoutes.rehomingFormScreen)},
+            ),
+          ),
+          _buildUserProfile(),
+        ],
+      ),
+    );
+  }
+
 
   /// Section Widget
   PreferredSizeWidget _buildAppBar() {
@@ -116,9 +132,12 @@ class AdoptionAndRehomingScreen
       ),
     );
   }
-
+  Future<void> _fetchDataFromDatabase() async {
+    await controller.adoptionAndRehomingModelObj.value.fetchDataFromDatabase();
+  }
   /// Section Widget
   Widget _buildUserProfile() {
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -128,13 +147,13 @@ class AdoptionAndRehomingScreen
           right: 4.h,
         ),
         child: Obx(
-          () => ListView.separated(
+              () => ListView.separated(
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             separatorBuilder: (
-              context,
-              index,
-            ) {
+                context,
+                index,
+                ) {
               return SizedBox(
                 height: 21.v,
               );
@@ -185,8 +204,8 @@ class AdoptionAndRehomingScreen
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      // case AppRoutes.mainMenuPage:
-      //   return MainMenuPage();
+    // case AppRoutes.mainMenuPage:
+    //   return MainMenuPage();
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
