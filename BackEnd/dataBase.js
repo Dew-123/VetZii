@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri =
-  "mongodb+srv://mihan:123@vetzil.j4oh8fz.mongodb.net/?retryWrites=true&w=majority"; // Update with your MongoDB URI
+  "mongodb+srv://mihan:123@vetzil.j4oh8fz.mongodb.net/?retryWrites=true&w=majority"; 
 
 let client;
 
@@ -14,7 +14,7 @@ async function connectToMongoDB() {
   });
 
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    // Connect the client to the server
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("vetzil").command({ ping: 1 });
@@ -28,14 +28,12 @@ async function connectToMongoDB() {
   }
 }
 
-
-
 async function getDataUsers(email, password) {
   try {
     await connectToMongoDB();
     // Access the database and collection
-    const database = client.db("vetzil"); // Update with your database name
-    const collection = database.collection("users"); // Update with your collection name
+    const database = client.db("vetzil"); 
+    const collection = database.collection("users"); 
 
     let query;
     if (password) {
@@ -43,12 +41,10 @@ async function getDataUsers(email, password) {
     } else {
       query = { email: email };
     }
-    console.log(query);
     const cursor = collection.find(query);
 
     // Convert cursor to array
     const data = await cursor.toArray();
-    console.log(data);
     if (!password) {
       // If password is null, extract only the email field from the data
       return data.map((entry) => ({ email: entry.email }));
@@ -64,8 +60,8 @@ async function getDataUsers(email, password) {
 async function addDataUsers(newData) {
   try {
     // Access the database and collection
-    const database = client.db("vetzil"); // Update with your database name
-    const collection = database.collection("users"); // Update with your collection name
+    const database = client.db("vetzil"); 
+    const collection = database.collection("users"); 
 
     // Insert the new data into the collection
     const result = await collection.insertOne(newData);
@@ -117,8 +113,8 @@ async function updateUserPassword(email, newPassword) {
 async function getDataVets(email,password) {
   try {
     // Access the database and collection
-    const database = client.db("vetzil"); // Update with your database name
-    const collection = database.collection("vet"); // Update with your collection name
+    const database = client.db("vetzil"); 
+    const collection = database.collection("vet"); 
 
     // Define the query object outside of the conditionals
     let query = {};
@@ -144,8 +140,8 @@ async function getDataVets(email,password) {
 async function addDataVets(newData) {
   try {
     // Access the database and collection
-    const database = client.db("vetzil"); // Update with your database name
-    const collection = database.collection("vet"); // Update with your collection name
+    const database = client.db("vetzil"); 
+    const collection = database.collection("vet"); 
 
     // Insert the new data into the collection
     const result = await collection.insertOne(newData);
@@ -160,34 +156,34 @@ async function addDataVets(newData) {
 
 async function updateVetPassword(email, newPassword) {
   try {
-  // Connect to MongoDB
-  await connectToMongoDB();
-  
-  // Access the database and collection
-  const database = client.db("vetzil");
-  const collection = database.collection("vet");
-  
-  // Find the user by email
-  const query = { email: email };
-  const user = await collection.findOne(query);
-  
-  if (!user) {
-  throw new Error("Vet not found");
-  }
-  
-  // Update user's password
-  const result = await collection.updateOne(
-  { _id: user._id },
-  { $set: { password: newPassword } }
-  );
-  
-  if (result.modifiedCount === 0) {
-  throw new Error("Failed to update password");
-  }
-  
-  console.log("Password updated successfully");
-  
-  return result;
+    // Connect to MongoDB
+    await connectToMongoDB();
+    
+    // Access the database and collection
+    const database = client.db("vetzil");
+    const collection = database.collection("vet");
+    
+    // Find the user by email
+    const query = { email: email };
+    const user = await collection.findOne(query);
+    
+    if (!user) {
+    throw new Error("Vet not found");
+    }
+    
+    // Update user's password
+    const result = await collection.updateOne(
+    { _id: user._id },
+    { $set: { password: newPassword } }
+    );
+    
+    if (result.modifiedCount === 0) {
+    throw new Error("Failed to update password");
+    }
+    
+    console.log("Password updated successfully");
+    
+    return result;
   } catch (error) {
   console.error("Error updating vet password:", error);
   throw error;
@@ -197,8 +193,8 @@ async function updateVetPassword(email, newPassword) {
 async function addDataPets(newData) {
   try {
     // Access the database and collection
-    const database = client.db("petadaption"); // Update with your database name
-    const collection = database.collection("pets"); // Update with your collection name
+    const database = client.db("petadaption"); 
+    const collection = database.collection("pets"); 
 
     // Insert the new data into the collection
     const result = await collection.insertOne(newData);
