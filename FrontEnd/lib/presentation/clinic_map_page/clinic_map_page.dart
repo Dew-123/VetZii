@@ -24,14 +24,27 @@ class ClinicMapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         extendBody: true,
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
-        body: Container(
-          width: SizeUtils.width,
-          height: SizeUtils.height,
-          child: Column(
-            children: [_buildSearchBar(context), _buildMapSection(context)],
+        body: GestureDetector(
+          onTap: () {
+            // Hide the keyboard when tapping outside the text field
+            FocusScope.of(context).unfocus();
+          },
+          child: Container(
+            width: SizeUtils.width,
+            height: SizeUtils.height,
+            child: Column(
+              children: [_buildSearchBar(context),
+                Expanded(
+                  child: OverflowBox(
+                    maxHeight: double.infinity,
+                    child: _buildMapSection(context),
+                  ),
+                )],
+            ),
           ),
         ),
       ),
@@ -40,7 +53,7 @@ class ClinicMapPage extends StatelessWidget {
 
   Widget _buildMapSection(BuildContext context) {
     return SizedBox(
-      height: 630.v,
+      height: 640.v,
       width: 360.3.h,
       child: GoogleMap(
         mapType: MapType.satellite,
@@ -87,7 +100,7 @@ class ClinicMapPage extends StatelessWidget {
               onPressed: () async {
                 Prediction? p = await PlacesAutocomplete.show(
                   context: context,
-                  apiKey: "@string/google_maps_api_key",
+                  apiKey: "AIzaSyDq42xYGTjpIVOZ1b_7m7jbPX5Y_M7x83o",
                   mode: Mode.overlay,
                 );
 

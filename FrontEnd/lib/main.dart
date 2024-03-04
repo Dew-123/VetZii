@@ -12,7 +12,8 @@ void main() {
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
     runApp(MyApp());
-  });
+  }
+  );
 
 }
 
