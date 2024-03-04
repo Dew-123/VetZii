@@ -193,7 +193,8 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
     var appointment = Appointment();
 
 
-    String formattedDate = "${date[0]?.year}-${date[0]?.month}-${date[0]?.day}";
+    String formattedDate = "${date[0]?.year}-${date[0]?.month.toString().padLeft(2, '0')}-${date[0]?.day.toString().padLeft(2, '0')}";
+    print(formattedDate);
     var time = selectedTimes[0];
     var patientEmail = UserData.email;
     var petType = UserData.petType;
