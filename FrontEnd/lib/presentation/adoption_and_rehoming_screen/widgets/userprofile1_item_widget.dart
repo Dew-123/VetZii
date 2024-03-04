@@ -73,7 +73,7 @@ class Userprofile1ItemWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 2.v), // Add SizedBox for spacing
+                  SizedBox(height: 5.v), // Add SizedBox for spacing
                   Obx(
                         () => Text(
                       userprofile1ItemModelObj.contactInfo!.value, // Assuming contactInfo is a String field

@@ -122,8 +122,8 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
               ),
               SizedBox(height: 15.v),
               _buildEnterDetails(),
-              // SizedBox(height: 15.v),
-              // _buildUploadImage(),
+              SizedBox(height: 15.v),
+              _buildUploadImage(),
             ],
           ),
         ),
@@ -143,26 +143,26 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
     );
   }
 
-  // Widget _buildUploadImage() {
-  //   return Obx(() {
-  //     final imageFile = controller.imageFile.value;
-  //     return GestureDetector(
-  //       onTap: () => controller.pickImage(),
-  //       child: Container(
-  //         width: 200.h,
-  //         height: 200.h,
-  //         decoration: BoxDecoration(
-  //           border: Border.all(
-  //             color: appTheme.black90002.withOpacity(0.4),
-  //             width: 1.h,
-  //           ),
-  //         ),
-  //         child: imageFile != null ? Image.file(imageFile) : Icon(
-  //             Icons.add_a_photo),
-  //       ),
-  //     );
-  //   });
-  // }
+  Widget _buildUploadImage() {
+    return Obx(() {
+      final imageFile = controller.imageFile.value;
+      return GestureDetector(
+        onTap: () => controller.pickImage(),
+        child: Container(
+          width: 200.h,
+          height: 200.h,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: appTheme.black90002.withOpacity(0.4),
+              width: 1.h,
+            ),
+          ),
+          child: imageFile != null ? Image.file(imageFile) : Icon(
+              Icons.add_a_photo),
+        ),
+      );
+    });
+  }
 
   void addPetData() async {
     // Retrieve values from controllers
@@ -170,7 +170,7 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
     String description = controller.descriptionController.text;
     String contactNo = controller.enterDetailsController.text;
     // String uploadImage = controller.uploadImageController.text;
-    //File? imageFile = controller.imageFile.value;
+    File? imageFile = controller.imageFile.value;
     try {
       var response = await http.post(
         Uri.parse('http://10.0.2.2:3000/addPet'), // Update with your API endpoint

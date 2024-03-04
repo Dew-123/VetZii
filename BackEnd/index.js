@@ -16,20 +16,6 @@ const recover = require("./emailHandling");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//Define storage for the images
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Save the images in the "uploads" directory
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-// Create multer instance with the defined storage
-const upload = multer({ storage: storage });
-
-
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -237,12 +223,12 @@ app.get("/dataAddVet", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-//upload.single("image"),
+
 // Endpoint for adding pets
 app.post("/addPet",  async (req, res) => {
   try {
     const { name, description, contactNo } = req.body;
-    //!req.file.path
+    
     if (!name || !description || !contactNo ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
@@ -252,7 +238,7 @@ app.post("/addPet",  async (req, res) => {
       name,
       description,
       contactNo,
-      //image: req.file.path, // Save the path to the image
+      
     };
 
     const result = await addDataPets(newPetData);
@@ -269,7 +255,6 @@ app.post("/addPet",  async (req, res) => {
 
 app.post("/dataGetPets", async (req, res) => {
   try {
-    console.log("hello");
     await connectToMongoDB();
     const data = await getPetsData(); 
     

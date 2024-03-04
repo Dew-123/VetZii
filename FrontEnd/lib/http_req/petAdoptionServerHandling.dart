@@ -14,3 +14,14 @@ Future<List<dynamic>> fetchPetsData() async {
     throw Exception('Failed to load data');
   }
 }
+
+Future<List<dynamic>> fetchFromDatabase() async {
+  try {
+    List<dynamic> dataSet = await fetchPetsData();
+    return dataSet;
+  } catch (e) {
+    print("Error fetching pets data: $e");
+
+    return [];
+  }
+}
