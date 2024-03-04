@@ -20,14 +20,7 @@ class MainMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserData.firstName = 'John';
-    UserData.lastName = 'Doe';
-    UserData.petName = 'Buddy';
-    UserData.petType = 'dog';
-    UserData.gender = 'male';
-    UserData.email = 'johndoe@example.com';
-    UserData.mobileNumber = '1234567890';
-    UserData.password = 'securePassword';
+
     return SafeArea(
       child: Scaffold(
         body: Container(
