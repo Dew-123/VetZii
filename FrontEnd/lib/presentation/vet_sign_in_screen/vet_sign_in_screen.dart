@@ -89,42 +89,43 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                     width: 189.h,
                     text: "lbl_log_in".tr,
                     onPressed: () async {
-                      String email = controller.userNameController.text.removeAllWhitespace;
-                      String password = controller.passwordController.text.removeAllWhitespace;
+                      Get.toNamed(AppRoutes.mainMenuVeterinarinaPage);
+                      //String email = controller.userNameController.text.removeAllWhitespace;
+                      //String password = controller.passwordController.text.removeAllWhitespace;
 
 
-                      try {
-                        ServerHandling server = new ServerHandling();
-                        List<dynamic> data = await server.fetchVetData(email,password);
-                        print(data);
-
-                        if (data.isNotEmpty) {
-                          Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('No User Found'),
-                                content: Text('No user was found with the provided email and password.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      } catch (e) {
-                        // Handle any errors that might occur during data fetching
-                        print('Error fetching data: $e');
-                      }
-                    },
-                  ),
+                  //     try {
+                  //       ServerHandling server = new ServerHandling();
+                  //       List<dynamic> data = await server.fetchVetData(email,password);
+                  //       print(data);
+                  //
+                  //       if (data.isNotEmpty) {
+                  //         Get.toNamed(AppRoutes.mainMenuVeterinarinaPage,arguments: data);
+                  //       } else {
+                  //         showDialog(
+                  //           context: context,
+                  //           builder: (BuildContext context) {
+                  //             return AlertDialog(
+                  //               title: Text('No User Found'),
+                  //               content: Text('No user was found with the provided email and password.'),
+                  //               actions: [
+                  //                 TextButton(
+                  //                   onPressed: () {
+                  //                     Navigator.of(context).pop();
+                  //                   },
+                  //                   child: Text('OK'),
+                  //                 ),
+                  //               ],
+                  //             );
+                  //           },
+                  //         );
+                  //       }
+                  //     } catch (e) {
+                  //       // Handle any errors that might occur during data fetching
+                  //       print('Error fetching data: $e');
+                  //     }
+                     },
+                   ),
                     SizedBox(height: 5.v),
                   ],
                 ),

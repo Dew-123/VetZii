@@ -28,7 +28,7 @@ class MainMenuVeterinarinaPage extends StatelessWidget {
               SizedBox(height: 17.v),
               CustomElevatedButton(
                 height: 47.v,
-                text: "msg_scheduled_appointments".tr,
+                text: "Scheduled Appointments",
                 margin: EdgeInsets.only(
                   left: 35.h,
                   right: 36.h,
