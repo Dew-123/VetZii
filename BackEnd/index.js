@@ -267,11 +267,13 @@ app.post("/bookAppointment", async (req, res) => {
   if ( !date || !time || !patientEmail || !petType || !vetEmail) {
   return res.status(400).json({ error: "Missing required fields" });
   }
-  
+  console.log(date);
+  console.log(time);
   // Combine date and time into a single JavaScript Date object using UTC time zone
   const combinedDateTimeString = date + "T" + time + "Z"; 
   const combinedDateTime = new Date(combinedDateTimeString);
-  
+  console.log("time:"+combinedDateTimeString);
+  console.log(combinedDateTime);
   // Prepare the appointment data object
   const appointmentData = {
   'dateTime': combinedDateTime,

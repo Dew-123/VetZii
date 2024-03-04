@@ -10,7 +10,8 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle.dart';
 import 'package:mihan_s_application1/widgets/app_bar/appbar_trailing_image.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
-
+import 'package:mihan_s_application1/http_req/appointment.dart';
+import 'package:mihan_s_application1/dataHandling/data.dart';
 
 class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
   const BookAppointmentScreen({Key? key})
@@ -170,7 +171,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
     );
   }
 
-  void _getData(BuildContext context) {
+  Future<void> _getData(BuildContext context) async {
     List<HourstabsItemModel> selectedItems = [];
 
 
@@ -180,16 +181,27 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
         selectedItems.add(model);
       }
     }
-
-
     List<String> selectedTimes = selectedItems.map((item) => item.tabVar?.value ?? "").toList();
 
     List<DateTime?> date = controller.selectedDatesFromCalendar1.value;
 
     // Print or use the selected times as required
-    print('Selected Time: $selectedTimes');
-    print('Selected date: $date');
+    print(selectedTimes[0]);
+
     // Create and display the AlertDialog
+
+    var appointment = Appointment();
+
+
+    String formattedDate = "${date[0]?.year}-${date[0]?.month}-${date[0]?.day}";
+    var time = selectedTimes[0];
+    var patientEmail = UserData.email;
+    var petType = UserData.petType;
+    var vetEmail =UserData.email_vet;
+
+
+   await appointment.bookAppointment(formattedDate, time, patientEmail, petType, vetEmail);
+
     showDialog(
       context: context,
       builder: (context) {

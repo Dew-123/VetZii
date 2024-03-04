@@ -12,7 +12,7 @@ class UserprofileItemModel {
     this.email,
     this.mobileNumber,
     this.password,
-    this.id,
+    this.id, //vet data
   }) {
     userImage = userImage ?? Rx(ImageConstant.imgImage81);
     userImage1 = userImage1 ?? Rx(ImageConstant.imgImage85);

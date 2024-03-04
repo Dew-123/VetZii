@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_about_page/vet_acccount_page_about_page.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_reviews_page/vet_acccount_page_reviews_page.dart';
-
-// ignore_for_file: must_be_immutable
+import 'package:mihan_s_application1/dataHandling/data.dart';
 class VetAcccountPageAboutTabContainerScreen
     extends GetWidget<VetAcccountPageAboutTabContainerController> {
 
@@ -18,8 +17,6 @@ class VetAcccountPageAboutTabContainerScreen
 
   @override
   Widget build(BuildContext context) {
-    UserprofileItemModel data = Get.arguments;
-    print(data);
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -72,11 +69,11 @@ class VetAcccountPageAboutTabContainerScreen
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: data.fullName.toString() + '\n', // Add '\n' to display on a new line
+                        text: UserData.fullName_vet + '\n', // Add '\n' to display on a new line
                         style: CustomTextStyles.titleMediumff000000,
                       ),
                       TextSpan(
-                        text:  data.fieldOfExpertise.toString(),
+                        text:  UserData.fieldOfExpertise_vet.toString(),
                         style: CustomTextStyles.bodySmallff000000,
                       ),
                     ],
