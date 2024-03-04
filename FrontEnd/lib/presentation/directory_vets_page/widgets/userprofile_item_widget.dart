@@ -133,7 +133,6 @@ class UserprofileItemWidget extends StatelessWidget {
     UserData.fieldOfExpertise_vet=userprofileItemModelObj.fieldOfExpertise.toString(),
     UserData.email_vet=userprofileItemModelObj.email.toString(),
     UserData.mobileNumber_vet=userprofileItemModelObj.mobileNumber.toString(),
-    print(UserData.fullName_vet),
     });
   }
 }

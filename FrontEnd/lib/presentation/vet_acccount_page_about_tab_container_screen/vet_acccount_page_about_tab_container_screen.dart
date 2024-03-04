@@ -90,7 +90,6 @@ class VetAcccountPageAboutTabContainerScreen
                     children: [
                       VetAcccountPageBookPage(),
                       VetAcccountPageAboutPage(),
-                      VetAcccountPageReviewsPage(),
                     ],
                   ),
                 ),
@@ -132,11 +131,6 @@ class VetAcccountPageAboutTabContainerScreen
           Tab(
             child: Text(
               "lbl_about2".tr,
-            ),
-          ),
-          Tab(
-            child: Text(
-              "lbl_reviews".tr,
             ),
           ),
         ],
