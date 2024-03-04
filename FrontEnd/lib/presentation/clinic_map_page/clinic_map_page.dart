@@ -4,6 +4,8 @@ import 'models/clinic_map_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class ClinicMapPage extends StatelessWidget {
   ClinicMapPage({Key? key})
@@ -15,6 +17,8 @@ class ClinicMapPage extends StatelessWidget {
 
   ClinicMapController controller =
       Get.put(ClinicMapController(ClinicMapModel().obs));
+  GoogleMapsPlaces places =
+      GoogleMapsPlaces(apiKey: "@string/google_maps_api_key");
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +26,24 @@ class ClinicMapPage extends StatelessWidget {
       child: Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
-
         backgroundColor: Colors.transparent,
         body: Container(
           width: SizeUtils.width,
           height: SizeUtils.height,
           child: Column(
-            children: [
-              _buildMapSection(),
-            ],
+            children: [_buildSearchBar(context), _buildMapSection(context)],
           ),
         ),
       ),
     );
   }
 
-  /// Section Widget
-  Widget _buildMapSection() {
+  Widget _buildMapSection(BuildContext context) {
     return SizedBox(
-      height: 686.4.v,
+      height: 630.v,
       width: 360.3.h,
       child: GoogleMap(
-        //TODO: Add your Google Maps API key in AndroidManifest.xml and pod file
-        mapType: MapType.normal,
+        mapType: MapType.satellite,
         initialCameraPosition: CameraPosition(
           target: LatLng(
             6.9271,
@@ -62,5 +61,64 @@ class ClinicMapPage extends StatelessWidget {
       ),
     );
   }
-}
 
+  Widget _buildSearchBar(BuildContext context) {
+    return Positioned(
+      top: 16.0,
+      left: 16.0,
+      right: 16.0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: Offset(0, 1), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () async {
+                Prediction? p = await PlacesAutocomplete.show(
+                  context: context,
+                  apiKey: "@string/google_maps_api_key",
+                  mode: Mode.overlay,
+                );
+
+                if (p != null) {
+                  PlacesDetailsResponse detail =
+                      await places.getDetailsByPlaceId(p.placeId!);
+                  double lat = detail.result.geometry!.location.lat;
+                  double lng = detail.result.geometry!.location.lng;
+
+                  GoogleMapController controller =
+                      await googleMapController.future;
+                  controller.animateCamera(
+                    CameraUpdate.newLatLng(LatLng(lat, lng)),
+                  );
+                }
+              },
+            ),
+            Expanded(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search for clinics...",
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) {
+                  // Handle search suggestions or filtering as needed
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
