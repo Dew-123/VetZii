@@ -6,7 +6,7 @@ class HourstabsItemModel {
 
   // Constructor with named parameters
   HourstabsItemModel({
-    String time = "09:00 AM", // Default time
+    String time = "09:00", // Default time
     bool selected = false,    // Default selection status
   }) {
     tabVar = Rx(time);
