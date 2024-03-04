@@ -5,4 +5,7 @@ class Links {
   static const String dataGetVets = baseUrl + 'dataGetVets';
   static const String recoverMailCodeSend = baseUrl + 'recoverMailCodeSend';
   static const String changeEmailUser = baseUrl + 'changeEmailUser';
+  static const String dataGetPets = baseUrl + 'dataGetPets';
+  static const String bookAppointment = baseUrl +'bookAppointment';
+
 }
