@@ -52,6 +52,7 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
 
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
+
     //final List<dynamic> data= Get.arguments;
     switch (currentRoute) {
       case AppRoutes.mainMenuPage:

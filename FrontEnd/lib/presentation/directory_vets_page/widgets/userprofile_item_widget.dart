@@ -107,14 +107,14 @@ class UserprofileItemWidget extends StatelessWidget {
                 children: [
                   Obx(
                         () => Text(
-                      userprofileItemModelObj.userText!.value,
+                      userprofileItemModelObj.fullName!.value,
                       style: theme.textTheme.labelLarge,
                     ),
                   ),
                   SizedBox(height: 1.v),
                   Obx(
                         () => Text(
-                      userprofileItemModelObj.userText1!.value,
+                      userprofileItemModelObj.fieldOfExpertise!.value,
                       style: CustomTextStyles.titleMediumOnErrorContainer,
                     ),
                   ),
@@ -125,7 +125,7 @@ class UserprofileItemWidget extends StatelessWidget {
         ),
       ),
     ),onTap: ()=>{
-      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen,arguments: userprofileItemModelObj.data)
+      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen)
     });
   }
 }

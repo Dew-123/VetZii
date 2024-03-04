@@ -1,3 +1,4 @@
+import '../../dataHandling/data.dart';
 import 'widgets/userprofile_item_widget.dart';
 import 'controller/directory_vets_controller.dart';
 import 'models/directory_vets_model.dart';
@@ -11,8 +12,6 @@ import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 
 class DirectoryVetsPage extends StatelessWidget {
 
-
-
   DirectoryVetsPage({Key? key})
       : super(
     key: key,
@@ -22,6 +21,7 @@ class DirectoryVetsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserData.displayUserData();
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
