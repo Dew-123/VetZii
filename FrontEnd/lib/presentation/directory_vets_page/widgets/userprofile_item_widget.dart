@@ -20,12 +20,6 @@ class UserprofileItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserData.fullName_vet=userprofileItemModelObj.fullName.toString();
-    UserData.addressOfTheClinic_vet=userprofileItemModelObj.addressOfTheClinic.toString();
-    UserData.fieldOfExpertise_vet=userprofileItemModelObj.fieldOfExpertise.toString();
-    UserData.email_vet=userprofileItemModelObj.email.toString();
-    UserData.mobileNumber_vet=userprofileItemModelObj.mobileNumber.toString();
-
     return GestureDetector(child: Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -133,7 +127,13 @@ class UserprofileItemWidget extends StatelessWidget {
         ),
       ),
     ),onTap: ()=>{
-      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen)
+      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen),
+    UserData.fullName_vet=userprofileItemModelObj.fullName.toString(),
+    UserData.addressOfTheClinic_vet=userprofileItemModelObj.addressOfTheClinic.toString(),
+    UserData.fieldOfExpertise_vet=userprofileItemModelObj.fieldOfExpertise.toString(),
+    UserData.email_vet=userprofileItemModelObj.email.toString(),
+    UserData.mobileNumber_vet=userprofileItemModelObj.mobileNumber.toString(),
+    print(UserData.fullName_vet),
     });
   }
 }
