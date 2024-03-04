@@ -1,4 +1,3 @@
-import 'package:mihan_s_application1/presentation/directory_vets_page/models/userprofile_item_model.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_book_page/vet_acccount_page_book_page.dart';
 
 import 'controller/vet_acccount_page_about_tab_container_controller.dart';
@@ -6,17 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_about_page/vet_acccount_page_about_page.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_reviews_page/vet_acccount_page_reviews_page.dart';
-import 'package:mihan_s_application1/dataHandling/data.dart';
+
+// ignore_for_file: must_be_immutable
 class VetAcccountPageAboutTabContainerScreen
     extends GetWidget<VetAcccountPageAboutTabContainerController> {
 
   const VetAcccountPageAboutTabContainerScreen({Key? key})
       : super(
-    key: key,
-  );
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
+    var data =Get.arguments;
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -63,24 +64,25 @@ class VetAcccountPageAboutTabContainerScreen
                   ),
                 ),
                 SizedBox(height: 19.v),
-              SizedBox(
-                width: 150.h,
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: UserData.fullName_vet + '\n', // Add '\n' to display on a new line
-                        style: CustomTextStyles.titleMediumff000000,
-                      ),
-                      TextSpan(
-                        text:  UserData.fieldOfExpertise_vet.toString(),
-                        style: CustomTextStyles.bodySmallff000000,
-                      ),
-                    ],
+                SizedBox(
+                  width: 150.h,
+                  child:RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: data['fullName'] + '\n',
+                          style: CustomTextStyles.titleMediumff000000,
+                        ),
+                        TextSpan(
+                          text: data['fieldOfExpertise'],
+                          style: CustomTextStyles.bodySmallff000000,
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
+
                 ),
-              ),
                 SizedBox(height: 28.v),
                 _buildTabview(),
                 SizedBox(
@@ -90,6 +92,7 @@ class VetAcccountPageAboutTabContainerScreen
                     children: [
                       VetAcccountPageBookPage(),
                       VetAcccountPageAboutPage(),
+                      VetAcccountPageReviewsPage(),
                     ],
                   ),
                 ),
@@ -131,6 +134,11 @@ class VetAcccountPageAboutTabContainerScreen
           Tab(
             child: Text(
               "lbl_about2".tr,
+            ),
+          ),
+          Tab(
+            child: Text(
+              "lbl_reviews".tr,
             ),
           ),
         ],

@@ -1,5 +1,4 @@
 
-import '../../dataHandling/data.dart';
 import 'controller/vet_sign_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -93,13 +92,15 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                       String email = controller.userNameController.text.removeAllWhitespace;
                       String password = controller.passwordController.text.removeAllWhitespace;
 
+
                       try {
                         ServerHandling server = new ServerHandling();
                         List<dynamic> data = await server.fetchVetData(email,password);
+                        print(data);
 
                         if (data.isNotEmpty) {
-                          Get.toNamed(AppRoutes.mainMenuContainerScreen);
-                          } else {
+                          Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
+                        } else {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {

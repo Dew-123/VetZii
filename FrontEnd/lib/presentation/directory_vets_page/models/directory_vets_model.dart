@@ -19,11 +19,9 @@ class DirectoryVetsModel {
         userImage: ImageConstant.imgImage81.obs,
         userImage1: ImageConstant.imgImage85.obs,
         userImage2: ImageConstant.imgImage86.obs,
-        fullName: data['fullName'].toString().obs,
-        addressOfTheClinic: data['addressOfTheClinic'].toString().obs,
-        fieldOfExpertise: data['fieldOfExpertise'].toString().obs,
-        email:data['email'].toString().obs,
-        mobileNumber: data['mobileNumber'].toString().obs
+        userText: data['fullName'].toString().obs,
+        userText1: data['fieldOfExpertise'].toString().obs,
+        data:data
       ));
       userprofileItemList.value.add(userModel);
     }

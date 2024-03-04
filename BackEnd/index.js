@@ -6,13 +6,12 @@ const {
   getDataVets,
   addDataVets,
   addDataPets,
-  addAppointmentToAccept,
-  addAppointmentCurrent,
+  getPetsData,
   updateUserPassword,
   updateVetPassword,
 } = require("./dataBase");
-
 const bodyParser = require("body-parser");
+const multer = require("multer");
 const recover = require("./emailHandling");
 
 const app = express();
@@ -24,14 +23,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Parse application/json
 app.use(bodyParser.json());
 
+// Your routes and other middleware come here...
 app.post("/dataGetUser", async (req, res) => {
   try {
     // Retrieve the email and password from the request body
     const { email, password } = req.body;
-
+    console.log(email);
+    console.log(password);
     // Connect to MongoDB and retrieve data
-    const data = await getDataUsers(email, password);
 
+    const data = await getDataUsers(email, password);
     // Send the data as response
     res.json(data);
   } catch (error) {
@@ -116,16 +117,19 @@ app.post("/dataAddUser", async (req, res) => {
 });
 
 app.post("/recoverMailCodeSend", async (req, res) => {
-  const email = req.body.email; 
+  const email = req.body.email; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
   recover.sendEmail(email, recoveryCode);
   res.json(recoveryCode);
 });
 
 app.post("/changeEmailUser", async (req, res) => {
-  const { email, password } = req.body; 
+  const { email, password } = req.body; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
   console.log(password);
   data = await updateUserPassword(email, password);
+
   res.send(data);
 });
 
@@ -137,6 +141,7 @@ app.post("/dataGetVet", async (req, res) => {
     // Connect to MongoDB and retrieve data
     const db = await connectToMongoDB();
     const data = await getDataVets(email,password);
+    console.log(data);
 
     // Send the data as response
     res.json(data);
@@ -148,10 +153,11 @@ app.post("/dataGetVet", async (req, res) => {
 
 app.post("/dataGetVets", async (req, res) => {
   try {
+  
     // Connect to MongoDB and retrieve data
     const db = await connectToMongoDB();
     const data = await getDataVets();
-
+    console.log(data);
     // Send the data as response
     res.json(data);
   } catch (error) {
@@ -189,6 +195,7 @@ app.get("/dataAddVet", async (req, res) => {
 
     // Check if the data already exists
     const existingData = await getDataVets(email);
+    console.log(existingData[0]);
     if (existingData[0]) {
       return res.status(400).json({ error: "Data already exists" });
     }
@@ -218,40 +225,45 @@ app.get("/dataAddVet", async (req, res) => {
 });
 
 app.post("/recoverMailCodeSend", async (req, res) => {
-  const email = req.body.email; 
+  const email = req.body.email; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
   recover.sendEmail(email, recoveryCode);
   res.json(recoveryCode);
 });
 
 app.post("/changeEmailVet", async (req, res) => {
-  const { email, password } = req.body; 
+  const { email, password } = req.body; // Assuming 'email' is the key for the email address in the request body
+  console.log(email);
+  console.log(password);
   data = await updateVetPassword(email, password);
-  res.send(data); 
+  
+  res.send(data);
+  
 });
 
-app.post("/addPet", async (req, res) => {
+// Endpoint for adding pets
+app.post("/addPet",  async (req, res) => {
   try {
     const { name, description, contactNo } = req.body;
-
-    if (!name || !description || !contactNo) {
+    
+    if (!name || !description || !contactNo ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
-
-    await connectToMongoDB();
 
     // Prepare the data object
     const newPetData = {
       name,
       description,
-      contactNo
+      contactNo,
+      
     };
 
     const result = await addDataPets(newPetData);
-    
-    // Send success response
-    res.json({ message: "Pet added successfully",
-    insertedId: result.insertedId
+
+    res.json({
+      message: "Pet added successfully",
+      insertedId: result.insertedId,
     });
   } catch (error) {
     console.error("Error handling API request:", error);
@@ -259,53 +271,13 @@ app.post("/addPet", async (req, res) => {
   }
 });
 
-app.post("/bookAppointment", async (req, res) => {
+app.post("/dataGetPets", async (req, res) => {
   try {
-  const { date, time, patientEmail, petType, vetEmail} = req.body;
-  
-  // Validate if all required fields are provided
-  if ( !date || !time || !patientEmail || !petType || !vetEmail) {
-  return res.status(400).json({ error: "Missing required fields" });
-  }
-  console.log(date);
-  console.log(time);
-  // Combine date and time into a single JavaScript Date object using UTC time zone
-  const combinedDateTimeString = date + "T" + time + "Z"; 
-  const combinedDateTime = new Date(combinedDateTimeString);
-  console.log("time:"+combinedDateTimeString);
-  console.log(combinedDateTime);
-  // Prepare the appointment data object
-  const appointmentData = {
-  'dateTime': combinedDateTime,
-  'patientEmail': patientEmail,
-  'petType': petType,
-  'vetEmail': vetEmail
-  };
-  
-  // Add appointment to the toAccept collection
-  const result = await addAppointmentToAccept(appointmentData);
-  
-  // Send success response
-  res.json({
-  message: "Appointment booked successfully",
-  insertedId: result.insertedId
-  });
-  } catch (error) {
-  console.error("Error handling API request:", error);
-  res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-app.post("/acceptAppointment", async (req, res) => {
-  try {
-    const { vetEmail} = req.body;
-
-    if (!vetEmail) {
-      return res.status(400).json({ error: "Vet email is required" });
-    }
-
-    const result = await addAppointmentCurrent(vetEmail);
-    res.json(result);
+    await connectToMongoDB();
+    const data = await getPetsData(); 
+    
+    // Send the data as response
+    res.json(data);
   } catch (error) {
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });

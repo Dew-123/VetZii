@@ -1,4 +1,3 @@
-import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
 
 import 'controller/main_menu_container_controller.dart';
@@ -53,10 +52,11 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
 
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
-
+    //final List<dynamic> data= Get.arguments;
     switch (currentRoute) {
       case AppRoutes.mainMenuPage:
-        return MainMenuPage(name: UserData.firstName);
+        return MainMenuPage(name: "TEST" ,);
+        //return MainMenuPage(name: data[0]['Fname'] ,);
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:

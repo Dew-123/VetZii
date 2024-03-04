@@ -236,7 +236,7 @@ class NotificationsHaveScreen extends GetWidget<NotificationsHaveController> {
       case AppRoutes.clinicMapPage:
         return ClinicMapPage();
       case AppRoutes.directoryVetsPage:
-        //return DirectoryVetsPage();
+        return DirectoryVetsPage();
       case AppRoutes.myAppointmentsPage:
         return MyAppointmentsPage();
       default:

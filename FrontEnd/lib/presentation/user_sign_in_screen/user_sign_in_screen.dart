@@ -1,5 +1,4 @@
 
-import '../../dataHandling/data.dart';
 import 'controller/user_sign_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -12,7 +11,8 @@ import 'package:mihan_s_application1/http_req/serverHandling.dart';
 // ignore_for_file: must_be_immutable
 class UserSignInScreen extends GetWidget<UserSignInController> {
 
-
+  String email="";
+  String password="";
 
   UserSignInScreen({Key? key})
       : super(
@@ -91,48 +91,42 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     width: 189.h,
                     text: "lbl_log_in".tr,
                     onPressed: () async {
+                      Get.toNamed(AppRoutes.mainMenuContainerScreen);
 
-                      String email = controller.userNameController.text.removeAllWhitespace;
-                      String password = controller.passwordController.text.removeAllWhitespace;
+                      // email = controller.userNameController.text.removeAllWhitespace;
+                      // password = controller.passwordController.text.removeAllWhitespace;
 
-                      try {
-                        ServerHandling server = new ServerHandling();
-                        List<dynamic> data = await server.fetchUserData(email,password);
-                        print(data);
 
-                        if (data.isNotEmpty) {
-                          UserData.firstName = data[0]['Fname'];
-                          UserData.lastName = data[0]['Lname'];
-                          UserData.petName = data[0]['nameOfThePet'];
-                          UserData.petType = data[0]['petType'];
-                          UserData.gender = data[0]['gender'];
-                          UserData.email = data[0]['email'];
-                          UserData.mobileNumber = data[0]['mobileNumber'];
-                          UserData.password = data[0]['password'];
-                          Get.toNamed(AppRoutes.mainMenuContainerScreen);
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('No User Found'),
-                                content: Text('No user was found with the provided email and password.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      } catch (e) {
-                        // Handle any errors that might occur during data fetching
-                        print('Error fetching data: $e');
-                      }
+                      // try {
+                      //   ServerHandling server = new ServerHandling();
+                      //   List<dynamic> data = await server.fetchUserData(email,password);
+                      //   print(data);
+                      //
+                      //   if (data.isNotEmpty) {
+                      //     Get.toNamed(AppRoutes.mainMenuContainerScreen,arguments: data);
+                      //   } else {
+                      //     showDialog(
+                      //       context: context,
+                      //       builder: (BuildContext context) {
+                      //         return AlertDialog(
+                      //           title: Text('No User Found'),
+                      //           content: Text('No user was found with the provided email and password.'),
+                      //           actions: [
+                      //             TextButton(
+                      //               onPressed: () {
+                      //                 Navigator.of(context).pop();
+                      //               },
+                      //               child: Text('OK'),
+                      //             ),
+                      //           ],
+                      //         );
+                      //       },
+                      //     );
+                      //   }
+                      // } catch (e) {
+                      //   // Handle any errors that might occur during data fetching
+                      //   print('Error fetching data: $e');
+                      // }
                     },
                   ),
                     SizedBox(height: 5.v),

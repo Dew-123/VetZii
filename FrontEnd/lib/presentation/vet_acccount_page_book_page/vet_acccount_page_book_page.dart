@@ -1,16 +1,11 @@
-import 'package:mihan_s_application1/presentation/directory_vets_page/models/userprofile_item_model.dart';
-
 import 'controller/vet_acccount_page_book_controller.dart';
 import 'models/vet_acccount_page_book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 
-
 class VetAcccountPageBookPage extends StatelessWidget {
-
-
-  VetAcccountPageBookPage(  {Key? key})
+  VetAcccountPageBookPage({Key? key})
       : super(
           key: key,
         );
@@ -79,7 +74,7 @@ class VetAcccountPageBookPage extends StatelessWidget {
               right: 15.h,
             ),
             onPressed: ()=>{
-              Get.toNamed(AppRoutes.bookAppointmentScreen )
+              Get.toNamed(AppRoutes.bookAppointmentScreen)
             },
           ),
         ],

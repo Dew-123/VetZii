@@ -1,149 +1,155 @@
+import 'widgets/tablist_item_widget.dart';
+import 'controller/vet_acccount_page_about_controller.dart';
+import 'models/tablist_item_model.dart';
+import 'models/vet_acccount_page_about_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-import 'package:mihan_s_application1/dataHandling/data.dart';
-import 'package:mihan_s_application1/dataHandling/data.dart';
+import 'package:mihan_s_application1/core/app_export.dart';
 
 class VetAcccountPageAboutPage extends StatelessWidget {
-  VetAcccountPageAboutPage({Key? key}) : super(key: key);
+  VetAcccountPageAboutPage({Key? key})
+      : super(
+          key: key,
+        );
 
-  // Define variables for data
-  final String fullName = UserData.fullName_vet; // Example data
-  final String address = UserData.addressOfTheClinic_vet; // Example data
-  final String expertise = UserData.fieldOfExpertise_vet; // Example data
-  final String email = UserData.email_vet; // Example data
-  final String mobileNumber = UserData.mobileNumber_vet; // Example data
-  final List<Map<String, String>> pastTreatmentRecords = [
-    {
-      "date": "2023-05-15",
-      "petType": "Dog",
-      "petName": "Buddy",
-      "ownerName": "John Doe",
-      "disease": "Fever",
-    },
-    {
-      "date": "2023-06-20",
-      "petType": "Cat",
-      "petName": "Whiskers",
-      "ownerName": "Jane Smith",
-      "disease": "Allergy",
-    },
-    // Add more treatment records as needed
-  ];
+  VetAcccountPageAboutController controller =
+      Get.put(VetAcccountPageAboutController(VetAcccountPageAboutModel().obs));
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 19),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 29),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 19),
-                    Text(
-                      "Full Name",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      fullName,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Address of the Clinic",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      address,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Field of Expertise",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      expertise,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Email",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      email,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Mobile Number",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      mobileNumber,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        "Past Treatment Records",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green),
+        body: SizedBox(
+          width: SizeUtils.width,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 19.v),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 29.h,
+                    right: 21.h,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 19.v),
+                      SizedBox(
+                        width: 310.h,
+                        child: Text(
+                          "msg_experience_over".tr,
+                          maxLines: 21,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: pastTreatmentRecords
-                          .map((record) => Container(
-                        color: Colors.grey[200], // Add background color to each record
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.only(bottom: 10),
+                      SizedBox(height: 20.v),
+                      Text(
+                        "msg_past_treatment_records".tr,
+                        style: CustomTextStyles
+                            .titleSmallPoppinsBlack90002Medium_1,
+                      ),
+                      SizedBox(height: 13.v),
+                      Container(
+                        width: 282.h,
+                        margin: EdgeInsets.only(
+                          left: 10.h,
+                          right: 18.h,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.h,
+                          vertical: 7.v,
+                        ),
+                        decoration: AppDecoration.fillGray.copyWith(
+                          borderRadius: BorderRadiusStyle.roundedBorder10,
+                        ),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "Date: ${record['date']}",
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "Pet Type: ${record['petType']}",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              "Pet Name: ${record['petName']}",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              "Owner Name: ${record['ownerName']}",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              "Disease: ${record['disease']}",
-                              style: TextStyle(fontSize: 16),
+                            SizedBox(height: 1.v),
+                            Container(
+                              width: 224.h,
+                              margin: EdgeInsets.only(right: 48.h),
+                              child: Text(
+                                "msg_pet_name_max_species".tr,
+                                maxLines: 13,
+                                overflow: TextOverflow.ellipsis,
+                                style: CustomTextStyles.labelLargeBlack90002_1
+                                    .copyWith(
+                                  height: 1.50,
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                      ))
-                          .toList(),
-                    ),
-                  ],
+                      ),
+                      SizedBox(height: 13.v),
+                      Container(
+                        width: 282.h,
+                        margin: EdgeInsets.only(
+                          left: 12.h,
+                          right: 16.h,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.h,
+                          vertical: 8.v,
+                        ),
+                        decoration: AppDecoration.fillGray.copyWith(
+                          borderRadius: BorderRadiusStyle.roundedBorder10,
+                        ),
+                        child: Container(
+                          width: 224.h,
+                          margin: EdgeInsets.only(right: 48.h),
+                          child: Text(
+                            "msg_pet_name_kitty_species".tr,
+                            maxLines: 7,
+                            overflow: TextOverflow.ellipsis,
+                            style: CustomTextStyles.labelLargeBlack90002_1
+                                .copyWith(
+                              height: 1.50,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+
+  /// Section Widget
+  Widget _buildTabList() {
+    return SizedBox(
+      height: 101.v,
+      child: Obx(
+        () => ListView.separated(
+          padding: EdgeInsets.only(
+            left: 35.h,
+            right: 43.h,
+          ),
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (
+            context,
+            index,
+          ) {
+            return SizedBox(
+              width: 23.h,
+            );
+          },
+          itemCount: controller
+              .vetAcccountPageAboutModelObj.value.tablistItemList.value.length,
+          itemBuilder: (context, index) {
+            TablistItemModel model = controller.vetAcccountPageAboutModelObj
+                .value.tablistItemList.value[index];
+            return TablistItemWidget(
+              model,
+            );
+          },
         ),
       ),
     );

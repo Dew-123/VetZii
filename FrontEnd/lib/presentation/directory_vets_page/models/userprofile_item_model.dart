@@ -1,40 +1,32 @@
 import 'package:flutter/widgets.dart';
 import '../../../core/app_export.dart';
 
+/// This class is used in the [userprofile_item_widget] screen.
 class UserprofileItemModel {
+  var data;
+
   UserprofileItemModel({
     this.userImage,
     this.userImage1,
     this.userImage2,
-    this.fullName,
-    this.addressOfTheClinic,
-    this.fieldOfExpertise,
-    this.email,
-    this.mobileNumber,
-    this.password,
-    this.id, //vet data
+    this.userText,
+    this.userText1,
+    this.id,
+    this.data,
   }) {
     userImage = userImage ?? Rx(ImageConstant.imgImage81);
     userImage1 = userImage1 ?? Rx(ImageConstant.imgImage85);
     userImage2 = userImage2 ?? Rx(ImageConstant.imgImage86);
-    fullName = fullName ?? Rx("");
-    addressOfTheClinic = addressOfTheClinic ?? Rx("");
-    fieldOfExpertise = fieldOfExpertise ?? Rx("");
-    email = email ?? Rx("");
-    mobileNumber = mobileNumber ?? Rx("");
-    password = password ?? Rx("");
+    userText = userText ?? Rx("veterinarian / SURGEON");
+    userText1 = userText1 ?? Rx("Dr. Scott");
     id = id ?? Rx("");
   }
 
   Rx<String>? userImage;
   Rx<String>? userImage1;
   Rx<String>? userImage2;
-  Rx<String>? fullName;
-  Rx<String>? addressOfTheClinic;
-  Rx<String>? fieldOfExpertise;
-  Rx<String>? email;
-  Rx<String>? mobileNumber;
-  Rx<String>? password;
+  Rx<String>? userText;
+  Rx<String>? userText1;
   Rx<String>? id;
   VoidCallback? onTap;
 }
