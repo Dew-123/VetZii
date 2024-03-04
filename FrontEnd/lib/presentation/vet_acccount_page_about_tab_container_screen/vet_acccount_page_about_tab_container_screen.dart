@@ -1,3 +1,4 @@
+import 'package:mihan_s_application1/presentation/directory_vets_page/models/userprofile_item_model.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_book_page/vet_acccount_page_book_page.dart';
 
 import 'controller/vet_acccount_page_about_tab_container_controller.dart';
@@ -17,7 +18,7 @@ class VetAcccountPageAboutTabContainerScreen
 
   @override
   Widget build(BuildContext context) {
-    var data = Get.arguments;
+    UserprofileItemModel data = Get.arguments;
     print(data);
     return SafeArea(
       child: Scaffold(
@@ -71,11 +72,11 @@ class VetAcccountPageAboutTabContainerScreen
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: data['fullName'] + '\n', // Add '\n' to display on a new line
+                        text: data.fullName.toString() + '\n', // Add '\n' to display on a new line
                         style: CustomTextStyles.titleMediumff000000,
                       ),
                       TextSpan(
-                        text:  data['fieldOfExpertise'],
+                        text:  data.fieldOfExpertise.toString(),
                         style: CustomTextStyles.bodySmallff000000,
                       ),
                     ],
