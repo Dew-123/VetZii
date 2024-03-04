@@ -192,9 +192,11 @@ async function updateVetPassword(email, newPassword) {
   
 async function addDataPets(newData) {
   try {
-    const database = client.db("petadaption");
-    const collection = database.collection("pets");
+    // Access the database and collection
+    const database = client.db("petadaption"); 
+    const collection = database.collection("pets"); 
 
+    // Insert the new data into the collection
     const result = await collection.insertOne(newData);
     console.log("Inserted new pet with ID:", result.insertedId);
 
@@ -205,21 +207,47 @@ async function addDataPets(newData) {
   }
 }
 
-async function getPetsData() {
+async function addAppointmentToAccept(appointmentData) {
   try {
-    
-    const database = client.db("petadaption"); // Update with your database name
-    const collection = database.collection("pets"); // Update with your collection name
+    // Access the database and collection
+    await connectToMongoDB();
+    const database = client.db("appointment"); 
+    const collection = database.collection("toAccept");
 
-    // Fetch pets data
-    const cursor = collection.find();
+    // Insert the new data into the collection
+    const result = await collection.insertOne(appointmentData);
+    console.log("Inserted new appointment with ID:", result.insertedId);
 
-    // Convert cursor to array
-    const petsData = await cursor.toArray();
-
-    return petsData;
+    return result;
   } catch (error) {
-    console.error("Error fetching pets data:", error);
+    console.error("Error adding appointment data to MongoDB:", error);
+    throw error;
+  }
+}
+
+async function addAppointmentCurrent(vetEmail) {
+  try {
+    await connectToMongoDB();
+    const database = client.db("appointment");
+    const toAcceptCollection = database.collection("toAccept");
+    const currentCollection = database.collection("current");
+
+    // Retrieve all appointment data associated with the provided vetEmail from toAccept collection
+    const appointmentsToAccept = await toAcceptCollection.find({ vetEmail: vetEmail}).toArray();
+
+    if (appointmentsToAccept.length == 0) {
+      throw new Error("No appointments to accept for the provided vetEmail");
+    }
+
+    // Insert the retrieved appointment data into the current collection
+    await currentCollection.insertMany(appointmentsToAccept);
+
+    // Delete all appointment data associated with the provided vetEmail from toAccept collection
+    await toAcceptCollection.deleteMany({ vetEmail: vetEmail });
+
+    return { message: "Appointments accepted successfully" };
+  } catch (error) {
+    console.error("Error adding appointment data to current collection:", error);
     throw error;
   }
 }
@@ -276,7 +304,10 @@ module.exports = {
   getDataVets,
   addDataVets,
   addDataPets,
+<<<<<<< HEAD
   getPetsData,
+=======
+>>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   addAppointmentToAccept,
   addAppointmentCurrent,
   updateUserPassword,

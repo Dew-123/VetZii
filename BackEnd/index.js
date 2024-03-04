@@ -6,7 +6,10 @@ const {
   getDataVets,
   addDataVets,
   addDataPets,
+<<<<<<< HEAD
   getPetsData,
+=======
+>>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   addAppointmentToAccept,
   addAppointmentCurrent,
   updateUserPassword,
@@ -14,7 +17,6 @@ const {
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
-const multer = require("multer");
 const recover = require("./emailHandling");
 
 const app = express();
@@ -232,27 +234,32 @@ app.post("/changeEmailVet", async (req, res) => {
   res.send(data); 
 });
 
+<<<<<<< HEAD
 app.post("/addPet",  async (req, res) => {
+=======
+app.post("/addPet", async (req, res) => {
+>>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   try {
     const { name, description, contactNo } = req.body;
-    
-    if (!name || !description || !contactNo ) {
+
+    if (!name || !description || !contactNo) {
       return res.status(400).json({ error: "Missing required fields" });
     }
+
+    await connectToMongoDB();
 
     // Prepare the data object
     const newPetData = {
       name,
       description,
-      contactNo,
-      
+      contactNo
     };
 
     const result = await addDataPets(newPetData);
-
-    res.json({
-      message: "Pet added successfully",
-      insertedId: result.insertedId,
+    
+    // Send success response
+    res.json({ message: "Pet added successfully",
+    insertedId: result.insertedId
     });
   } catch (error) {
     console.error("Error handling API request:", error);
@@ -260,13 +267,53 @@ app.post("/addPet",  async (req, res) => {
   }
 });
 
-app.post("/dataGetPets", async (req, res) => {
+app.post("/bookAppointment", async (req, res) => {
   try {
-    await connectToMongoDB();
-    const data = await getPetsData(); 
-    
-    // Send the data as response
-    res.json(data);
+  const { date, time, patientEmail, petType, vetEmail} = req.body;
+  
+  // Validate if all required fields are provided
+  if ( !date || !time || !patientEmail || !petType || !vetEmail) {
+  return res.status(400).json({ error: "Missing required fields" });
+  }
+  console.log(date);
+  console.log(time);
+  // Combine date and time into a single JavaScript Date object using UTC time zone
+  const combinedDateTimeString = date + "T" + time + "Z"; 
+  const combinedDateTime = new Date(combinedDateTimeString);
+  console.log("time:"+combinedDateTimeString);
+  console.log(combinedDateTime);
+  // Prepare the appointment data object
+  const appointmentData = {
+  'dateTime': combinedDateTime,
+  'patientEmail': patientEmail,
+  'petType': petType,
+  'vetEmail': vetEmail
+  };
+  
+  // Add appointment to the toAccept collection
+  const result = await addAppointmentToAccept(appointmentData);
+  
+  // Send success response
+  res.json({
+  message: "Appointment booked successfully",
+  insertedId: result.insertedId
+  });
+  } catch (error) {
+  console.error("Error handling API request:", error);
+  res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/acceptAppointment", async (req, res) => {
+  try {
+    const { vetEmail} = req.body;
+
+    if (!vetEmail) {
+      return res.status(400).json({ error: "Vet email is required" });
+    }
+
+    const result = await addAppointmentCurrent(vetEmail);
+    res.json(result);
   } catch (error) {
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });

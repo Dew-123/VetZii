@@ -2,6 +2,7 @@ import '../controller/directory_vets_controller.dart';
 import '../models/userprofile_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
+import 'package:mihan_s_application1/dataHandling/data.dart';
 
 // ignore: must_be_immutable
 class UserprofileItemWidget extends StatelessWidget {
@@ -15,6 +16,7 @@ class UserprofileItemWidget extends StatelessWidget {
   UserprofileItemModel userprofileItemModelObj;
 
   var controller = Get.find<DirectoryVetsController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,14 +109,14 @@ class UserprofileItemWidget extends StatelessWidget {
                 children: [
                   Obx(
                         () => Text(
-                      userprofileItemModelObj.userText!.value,
+                      userprofileItemModelObj.fullName!.value,
                       style: theme.textTheme.labelLarge,
                     ),
                   ),
                   SizedBox(height: 1.v),
                   Obx(
                         () => Text(
-                      userprofileItemModelObj.userText1!.value,
+                      userprofileItemModelObj.fieldOfExpertise!.value,
                       style: CustomTextStyles.titleMediumOnErrorContainer,
                     ),
                   ),
@@ -125,7 +127,12 @@ class UserprofileItemWidget extends StatelessWidget {
         ),
       ),
     ),onTap: ()=>{
-      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen,arguments: userprofileItemModelObj.data)
+      Get.toNamed(AppRoutes.vetAcccountPageAboutTabContainerScreen),
+    UserData.fullName_vet=userprofileItemModelObj.fullName.toString(),
+    UserData.addressOfTheClinic_vet=userprofileItemModelObj.addressOfTheClinic.toString(),
+    UserData.fieldOfExpertise_vet=userprofileItemModelObj.fieldOfExpertise.toString(),
+    UserData.email_vet=userprofileItemModelObj.email.toString(),
+    UserData.mobileNumber_vet=userprofileItemModelObj.mobileNumber.toString(),
     });
   }
 }

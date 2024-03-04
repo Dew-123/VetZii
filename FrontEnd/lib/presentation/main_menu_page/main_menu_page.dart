@@ -1,3 +1,4 @@
+import '../../dataHandling/data.dart';
 import 'widgets/mainmenugrid_item_widget.dart';
 import 'controller/main_menu_controller.dart';
 import 'models/main_menu_model.dart';
@@ -19,6 +20,7 @@ class MainMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         body: Container(
