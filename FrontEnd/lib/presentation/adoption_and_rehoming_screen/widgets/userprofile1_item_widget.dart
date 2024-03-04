@@ -54,6 +54,12 @@ class Userprofile1ItemWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CustomImageView(
+                    imagePath: ImageConstant.imgHeart,
+                    height: 16.adaptSize,
+                    width: 16.adaptSize,
+                    alignment: Alignment.centerRight,
+                  ),
                   SizedBox(height: 6.v),
                   Obx(
                     () => Text(
@@ -71,13 +77,6 @@ class Userprofile1ItemWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.bodySmall,
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 5.v), // Add SizedBox for spacing
-                  Obx(
-                        () => Text(
-                      userprofile1ItemModelObj.contactInfo!.value, // Assuming contactInfo is a String field
-                      style: theme.textTheme.bodySmall,
                     ),
                   ),
                 ],

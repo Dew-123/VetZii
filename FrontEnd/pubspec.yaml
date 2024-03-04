@@ -6,7 +6,6 @@ environment:
 dependencies: 
   flutter: 
     sdk: flutter
-  image_picker: ^0.8.4+2
   get: ^4.6.6
   connectivity_plus: ^5.0.2
   shared_preferences: ^2.2.2
