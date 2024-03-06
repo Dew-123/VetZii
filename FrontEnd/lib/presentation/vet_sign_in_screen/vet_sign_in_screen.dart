@@ -7,6 +7,7 @@ import 'package:mihan_s_application1/core/utils/validation_functions.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
+ import 'package:mihan_s_application1/Vet/lib/routes/app_routes.dart' as vetRoot;
 
 
 // ignore_for_file: must_be_immutable
@@ -90,6 +91,7 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                     width: 189.h,
                     text: "lbl_log_in".tr,
                     onPressed: () async {
+                      Get.toNamed(vetRoot.AppRoutes.mainMenuVeterinarinaPage);
                       String email = controller.userNameController.text.removeAllWhitespace;
                       String password = controller.passwordController.text.removeAllWhitespace;
 
@@ -98,7 +100,7 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                         List<dynamic> data = await server.fetchVetData(email,password);
 
                         if (data.isNotEmpty) {
-                          Get.toNamed(AppRoutes.mainMenuContainerScreen);
+
                           } else {
                           showDialog(
                             context: context,
