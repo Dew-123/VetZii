@@ -304,10 +304,7 @@ module.exports = {
   getDataVets,
   addDataVets,
   addDataPets,
-<<<<<<< HEAD
   getPetsData,
-=======
->>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   addAppointmentToAccept,
   addAppointmentCurrent,
   updateUserPassword,

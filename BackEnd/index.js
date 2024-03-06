@@ -6,10 +6,7 @@ const {
   getDataVets,
   addDataVets,
   addDataPets,
-<<<<<<< HEAD
   getPetsData,
-=======
->>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   addAppointmentToAccept,
   addAppointmentCurrent,
   updateUserPassword,
@@ -234,11 +231,7 @@ app.post("/changeEmailVet", async (req, res) => {
   res.send(data); 
 });
 
-<<<<<<< HEAD
-app.post("/addPet",  async (req, res) => {
-=======
 app.post("/addPet", async (req, res) => {
->>>>>>> parent of 89ae374 (Revert "Merge branch 'book-apoinment-gui-2'")
   try {
     const { name, description, contactNo } = req.body;
 
