@@ -269,6 +269,7 @@ async function addAppointmentCurrent(vetEmail) {
   }
 }
 
+//User profile updating
 async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender,email,mobileNumber,password) {
   try {
     // Connect to MongoDB

@@ -327,16 +327,13 @@ app.post("/acceptAppointment", async (req, res) => {
   }
 });
 
+//User profile updating
 app.post("/updateUserData", async (req, res) => {
   try {
-    const { PrevEmail, Fname,Lname,nameOfThePet,petType,gender,email,mobileNumber,password } = req.body;
-
-    console.log(PrevEmail);
-    // Parse the JSON data
-    //const parsedData = JSON.parse(newData);
+    const { PrevEmail, Fname, Lname, nameOfThePet, petType, gender, email, mobileNumber, password } = req.body;
 
     // Update user profile in the database
-    const result = await updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender,email,mobileNumber,password);
+    const result = await updateUserData(PrevEmail, Fname, Lname, nameOfThePet, petType, gender, email, mobileNumber, password);
 
     // Send success response
     res.json({
@@ -348,6 +345,7 @@ app.post("/updateUserData", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 
