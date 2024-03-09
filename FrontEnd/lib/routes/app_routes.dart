@@ -17,8 +17,8 @@ import 'package:mihan_s_application1/presentation/vet_sign_in_screen/binding/vet
 import 'package:mihan_s_application1/presentation/vet_sign_in_screen/vet_sign_in_screen.dart';
 import 'package:mihan_s_application1/presentation/veterinarian_create_an_account_screen/veterinarian_create_an_account_screen.dart';
 import 'package:mihan_s_application1/presentation/veterinarian_create_an_account_screen/binding/veterinarian_create_an_account_binding.dart';
-import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
-import 'package:mihan_s_application1/presentation/user_profile_screen/binding/user_profile_binding.dart';
+// import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
+// import 'package:mihan_s_application1/presentation/user_profile_screen/binding/user_profile_binding.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/main_menu_container_screen.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/binding/main_menu_container_binding.dart';
 import 'package:mihan_s_application1/presentation/clinic_page_vets_tab_container_screen/clinic_page_vets_tab_container_screen.dart';
@@ -198,11 +198,11 @@ class AppRoutes {
         VeterinarianCreateAnAccountBinding(),
       ],
     ),
-    GetPage(
-      name: userProfileScreen,
-      page: () => UserProfileScreen(),
-      binding: UserProfileBinding() ,
-    ),
+    // GetPage(
+    //   name: userProfileScreen,
+    //   page: () => UserProfileScreen(),
+    //   binding: UserProfileBinding() ,
+    // ),
     GetPage(
       name: mainMenuContainerScreen,
       page: () => MainMenuContainerScreen(),

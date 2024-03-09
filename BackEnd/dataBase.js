@@ -269,6 +269,45 @@ async function addAppointmentCurrent(vetEmail) {
   }
 }
 
+//User profile updating
+async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender,email,mobileNumber,password) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+    
+    // Access the database and collection
+    const database = client.db("vetzil");
+    const collection = database.collection("users");
+    
+    // Update user's data
+    const result = await collection.updateOne(
+      { email: PrevEmail },
+      { $set: { 
+        Fname,
+        Lname,
+        nameOfThePet,
+        petType,
+        gender,
+        email,
+        mobileNumber,
+        password
+    } }
+    );
+    
+    if (result.modifiedCount === 0) {
+      throw new Error("Failed to update user data");
+    }
+    
+    console.log("User data updated successfully");
+    
+    return result;
+  } catch (error) {
+    console.error("Error updating user data:", error);
+    throw error;
+  }
+}
+
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -281,4 +320,5 @@ module.exports = {
   addAppointmentCurrent,
   updateUserPassword,
   updateVetPassword,
+  updateUserData,
 };

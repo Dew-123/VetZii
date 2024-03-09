@@ -9,7 +9,6 @@ import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 
-// ignore_for_file: must_be_immutable
 class UserSignInScreen extends GetWidget<UserSignInController> {
 
 

@@ -1,13 +1,11 @@
 import 'package:mihan_s_application1/dataHandling/data.dart';
-import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
-
+import '../user_profile_page/user_profile_page.dart';
 import 'controller/main_menu_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/clinic_map_page/clinic_map_page.dart';
 import 'package:mihan_s_application1/presentation/directory_vets_page/directory_vets_page.dart';
 import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
-import 'package:mihan_s_application1/presentation/my_appointments_page/my_appointments_page.dart';
 import 'package:mihan_s_application1/widgets/custom_bottom_bar.dart';
 
 class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
@@ -16,7 +14,6 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
         child: Scaffold(
             body: Navigator(
@@ -53,7 +50,6 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
 
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
-
     switch (currentRoute) {
       case AppRoutes.mainMenuPage:
         return MainMenuPage(name: UserData.firstName);
@@ -62,7 +58,7 @@ class MainMenuContainerScreen extends GetWidget<MainMenuContainerController> {
       case AppRoutes.directoryVetsPage:
         return DirectoryVetsPage();
       case AppRoutes.userProfileScreen:
-        return UserProfileScreen();
+        return UserProfilePage();
       default:
         return DefaultWidget();
     }
