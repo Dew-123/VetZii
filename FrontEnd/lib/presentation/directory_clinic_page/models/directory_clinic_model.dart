@@ -23,7 +23,8 @@ class DirectoryClinicPageModel {
         addressOfTheClinic: data['addressOfTheClinic'].toString().obs,
         fieldOfExpertise: data['fieldOfExpertise'].toString().obs,
         email:data['email'].toString().obs,
-        mobileNumber: data['mobileNumber'].toString().obs
+        mobileNumber: data['mobileNumber'].toString().obs,
+        clinic: data["clinic"].toString().obs
       ));
       userprofileItemList.value.add(userModel);
     }

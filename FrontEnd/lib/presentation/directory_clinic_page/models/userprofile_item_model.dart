@@ -12,7 +12,8 @@ class UserprofileItemModel {
     this.email,
     this.mobileNumber,
     this.password,
-    this.id, //vet data
+    this.id,
+    this.clinic,//vet data
   }) {
     userImage = userImage ?? Rx(ImageConstant.imgImage81);
     userImage1 = userImage1 ?? Rx(ImageConstant.imgImage85);
@@ -24,6 +25,7 @@ class UserprofileItemModel {
     mobileNumber = mobileNumber ?? Rx("");
     password = password ?? Rx("");
     id = id ?? Rx("");
+    clinic=clinic??Rx("");
   }
 
   Rx<String>? userImage;
@@ -36,5 +38,6 @@ class UserprofileItemModel {
   Rx<String>? mobileNumber;
   Rx<String>? password;
   Rx<String>? id;
+  Rx<String>? clinic;
   VoidCallback? onTap;
 }

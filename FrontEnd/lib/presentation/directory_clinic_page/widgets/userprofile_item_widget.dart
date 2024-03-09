@@ -110,14 +110,14 @@ class UserprofileItemWidget extends StatelessWidget {
                 children: [
                   Obx(
                         () => Text(
-                      userprofileItemModelObj.fullName!.value,
+                      userprofileItemModelObj.addressOfTheClinic!.value,
                       style: theme.textTheme.labelLarge,
                     ),
                   ),
                   SizedBox(height: 1.v),
                   Obx(
                         () => Text(
-                      userprofileItemModelObj.fieldOfExpertise!.value,
+                      userprofileItemModelObj.clinic!.value,
                       style: CustomTextStyles.titleMediumOnErrorContainer,
                     ),
                   ),
