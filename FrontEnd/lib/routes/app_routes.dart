@@ -47,6 +47,7 @@ import 'package:mihan_s_application1/presentation/app_navigation_screen/app_navi
 import 'package:mihan_s_application1/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import '../presentation/book_appointment_confrm_dialog/binding/book_appointment_confrm_controller_binding.dart';
 import '../presentation/book_appointment_confrm_dialog/book_appointment_confrm_dialog.dart';
+import '../presentation/directory_clinic_page/directory_clinic_page.dart';
 import '../presentation/forgot_password_one_screen/forgot_password_one_screen.dart';
 import '../presentation/forgot_password_one_screen/binding/forgot_password_one_binding.dart';
 import '../presentation/forgot_password_two_screen/forgot_password_two_screen.dart';
@@ -83,6 +84,8 @@ class AppRoutes {
   static const String mainMenuContainerScreen = '/main_menu_container_screen';
 
   static const String clinicMapPage = '/clinic_map_page';
+
+  static const String directoryClinicPage = '/directory_clinic_page';
 
   static const String clinicPage = '/clinic_page';
 
@@ -346,6 +349,10 @@ class AppRoutes {
     GetPage(
         name: AppRoutes.clinicMapPage
         , page: () => ClinicMapPage()
+    ),
+    GetPage(
+        name: AppRoutes.directoryClinicPage
+        , page: () => DirectoryClinicPage()
     ),
     GetPage(name: AppRoutes.myAppointmentsPage,
         page: () => MyAppointmentsPage()

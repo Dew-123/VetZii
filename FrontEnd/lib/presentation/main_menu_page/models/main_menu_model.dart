@@ -8,7 +8,7 @@ class MainMenuModel {
     MainmenugridItemModel(
         image: ImageConstant.location.obs,
         text: "Find a clinic".obs,
-        onTap: () => {Get.toNamed(AppRoutes.clinicMapPage)}),
+        onTap: () => {Get.toNamed(AppRoutes.directoryClinicPage)}),
     MainmenugridItemModel(
         image: ImageConstant.directory.obs,
         text: "My Bookings".obs,
