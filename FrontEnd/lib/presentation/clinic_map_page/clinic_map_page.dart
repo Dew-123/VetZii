@@ -20,40 +20,13 @@ class ClinicMapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-
         backgroundColor: Colors.transparent,
         body: Container(
           width: SizeUtils.width,
           height: SizeUtils.height,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                ImageConstant.imgGroup191,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Container(
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  ImageConstant.imgGroup191,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: 42.v),
-                _buildMapSection(),
-              ],
-            ),
+            child: _buildMapSection(),
           ),
         ),
-      ),
     );
   }
 
@@ -63,7 +36,6 @@ class ClinicMapPage extends StatelessWidget {
       height: 627.v,
       width: 349.h,
       child: GoogleMap(
-        //TODO: Add your Google Maps API key in AndroidManifest.xml and pod file
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
           target: LatLng(
@@ -75,7 +47,7 @@ class ClinicMapPage extends StatelessWidget {
         onMapCreated: (GoogleMapController controller) {
           googleMapController.complete(controller);
         },
-        zoomControlsEnabled: false,
+        zoomControlsEnabled: true,
         zoomGesturesEnabled: false,
         myLocationButtonEnabled: false,
         myLocationEnabled: false,
