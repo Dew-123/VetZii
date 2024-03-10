@@ -17,8 +17,8 @@ import 'package:mihan_s_application1/presentation/vet_sign_in_screen/binding/vet
 import 'package:mihan_s_application1/presentation/vet_sign_in_screen/vet_sign_in_screen.dart';
 import 'package:mihan_s_application1/presentation/veterinarian_create_an_account_screen/veterinarian_create_an_account_screen.dart';
 import 'package:mihan_s_application1/presentation/veterinarian_create_an_account_screen/binding/veterinarian_create_an_account_binding.dart';
-import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
-import 'package:mihan_s_application1/presentation/user_profile_screen/binding/user_profile_binding.dart';
+// import 'package:mihan_s_application1/presentation/user_profile_screen/user_profile_screen.dart';
+// import 'package:mihan_s_application1/presentation/user_profile_screen/binding/user_profile_binding.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/main_menu_container_screen.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/binding/main_menu_container_binding.dart';
 import 'package:mihan_s_application1/presentation/clinic_page_vets_tab_container_screen/clinic_page_vets_tab_container_screen.dart';
@@ -57,6 +57,9 @@ import '../presentation/forgot_password_three_screen/binding/forgot_password_thr
 import '../presentation/app_navigation_screen/app_navigation_screen.dart';
 import '../presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import 'package:get/get.dart';
+
+import '../presentation/vet_profile_screen/binding/vet_profile_binding.dart';
+import '../presentation/vet_profile_screen/vet_profile_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = '/splash_screen';
@@ -142,6 +145,7 @@ class AppRoutes {
 
   static const String forgotPasswordThreeScreen =
       '/forgot_password_three_screen';
+  static const String vetProfileScreen = '/vet_profile_page';
 
 
   static List<GetPage> pages = [
@@ -201,11 +205,11 @@ class AppRoutes {
         VeterinarianCreateAnAccountBinding(),
       ],
     ),
-    GetPage(
-      name: userProfileScreen,
-      page: () => UserProfileScreen(),
-      binding: UserProfileBinding() ,
-    ),
+    // GetPage(
+    //   name: userProfileScreen,
+    //   page: () => UserProfileScreen(),
+    //   binding: UserProfileBinding() ,
+    // ),
     GetPage(
       name: mainMenuContainerScreen,
       page: () => MainMenuContainerScreen(),
@@ -339,6 +343,13 @@ class AppRoutes {
         AppNavigationBinding(),
       ],
     ),
+    // GetPage(
+    //   name: vetProfileScreen,
+    //   page: () => VetProfileScreen(),
+    //   bindings: [
+    //     VetProfileBinding(),
+    //   ],
+    // ),
     GetPage(
       name: initialRoute,
       page: () => ForgotPasswordOneScreen(),

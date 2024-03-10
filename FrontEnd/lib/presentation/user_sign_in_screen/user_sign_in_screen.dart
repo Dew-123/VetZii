@@ -9,7 +9,6 @@ import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 
-// ignore_for_file: must_be_immutable
 class UserSignInScreen extends GetWidget<UserSignInController> {
 
   UserSignInScreen({Key? key})
@@ -107,9 +106,8 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                       //     UserData.email = data[0]['email'];
                       //     UserData.mobileNumber = data[0]['mobileNumber'];
                       //     UserData.password = data[0]['password'];
-                      //     Get.toNamed(AppRoutes.mainMenuContainerScreen);
-                      //   }
-                      //   else {
+                          Get.toNamed(AppRoutes.mainMenuContainerScreen);
+                      //   } else {
                       //     showDialog(
                       //       context: context,
                       //       builder: (BuildContext context) {

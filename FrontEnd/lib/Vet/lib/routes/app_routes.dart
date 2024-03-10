@@ -4,8 +4,6 @@ import 'package:mihan_s_application1/Vet/lib/presentation/pending_appointments_c
 import 'package:mihan_s_application1/Vet/lib/presentation/pending_appointments_container_screen/binding/pending_appointments_container_binding.dart';
 import 'package:mihan_s_application1/Vet/lib/presentation/completed_appointments_screen/completed_appointments_screen.dart';
 import 'package:mihan_s_application1/Vet/lib/presentation/completed_appointments_screen/binding/completed_appointments_binding.dart';
-import 'package:mihan_s_application1/Vet/lib/presentation/vet_profile_screen/vet_profile_screen.dart';
-import 'package:mihan_s_application1/Vet/lib/presentation/vet_profile_screen/binding/vet_profile_binding.dart';
 import 'package:mihan_s_application1/Vet/lib/presentation/app_navigation_screen/app_navigation_screen.dart';
 import 'package:mihan_s_application1/Vet/lib/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 
@@ -44,13 +42,7 @@ class AppRoutes {
         CompletedAppointmentsBinding(),
       ],
     ),
-    GetPage(
-      name: vetProfileScreen,
-      page: () => VetProfileScreen(),
-      bindings: [
-        VetProfileBinding(),
-      ],
-    ),
+
     GetPage(
       name: appNavigationScreen,
       page: () => AppNavigationScreen(),

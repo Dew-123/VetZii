@@ -11,6 +11,7 @@ const {
   addAppointmentCurrent,
   updateUserPassword,
   updateVetPassword,
+  updateUserData,
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -325,6 +326,43 @@ app.post("/acceptAppointment", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+//User profile updating
+app.post("/updateUserData", async (req, res) => {
+  try {
+    const { PrevEmail, Fname, Lname, nameOfThePet, petType, gender, email, mobileNumber, password } = req.body;
+
+    // Update user profile in the database
+    const result = await updateUserData(PrevEmail, Fname, Lname, nameOfThePet, petType, gender, email, mobileNumber, password);
+
+    // Send success response
+    res.json({
+      message: "User profile updated successfully",
+      result: result
+    });
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+app.post("/getAppointment",async (req, res) =>{
+  try {
+    const { userEmail} = req.body;
+
+    if (!userEmail) {
+      return res.status(400).json({ error: "user Email email is required" });
+    }
+
+    const result = await getAppointment(userEmail);
+    res.json(result);
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+
+} );
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

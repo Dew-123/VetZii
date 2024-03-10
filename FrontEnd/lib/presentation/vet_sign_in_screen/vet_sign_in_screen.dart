@@ -1,4 +1,6 @@
 
+import 'package:mihan_s_application1/presentation/vet_profile_page/vet_profile_page.dart';
+
 import '../../dataHandling/data.dart';
 import 'controller/vet_sign_in_controller.dart';
 import 'package:flutter/material.dart';
@@ -91,39 +93,43 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                     width: 189.h,
                     text: "lbl_log_in".tr,
                     onPressed: () async {
-                      Get.toNamed(vetRoot.AppRoutes.mainMenuVeterinarinaPage);
-                      String email = controller.userNameController.text.removeAllWhitespace;
-                      String password = controller.passwordController.text.removeAllWhitespace;
-
-                      try {
-                        ServerHandling server = new ServerHandling();
-                        List<dynamic> data = await server.fetchVetData(email,password);
-
-                        if (data.isNotEmpty) {
-
-                          } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('No User Found'),
-                                content: Text('No user was found with the provided email and password.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      } catch (e) {
-                        // Handle any errors that might occur during data fetching
-                        print('Error fetching data: $e');
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => VetProfilePage()),
+                      );
+                      //Get.toNamed(vetRoot.AppRoutes.vetProfileScreen);
+                      // String email = controller.userNameController.text.removeAllWhitespace;
+                      // String password = controller.passwordController.text.removeAllWhitespace;
+                      //
+                      // try {
+                      //   ServerHandling server = new ServerHandling();
+                      //   List<dynamic> data = await server.fetchVetData(email,password);
+                      //
+                      //   if (data.isNotEmpty) {
+                      //
+                      //     } else {
+                      //     showDialog(
+                      //       context: context,
+                      //       builder: (BuildContext context) {
+                      //         return AlertDialog(
+                      //           title: Text('No User Found'),
+                      //           content: Text('No user was found with the provided email and password.'),
+                      //           actions: [
+                      //             TextButton(
+                      //               onPressed: () {
+                      //                 Navigator.of(context).pop();
+                      //               },
+                      //               child: Text('OK'),
+                      //             ),
+                      //           ],
+                      //         );
+                      //       },
+                      //     );
+                      //   }
+                      // } catch (e) {
+                      //   // Handle any errors that might occur during data fetching
+                      //   print('Error fetching data: $e');
+                      // }
                     },
                   ),
                     SizedBox(height: 5.v),

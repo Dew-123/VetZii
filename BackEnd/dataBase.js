@@ -269,6 +269,86 @@ async function addAppointmentCurrent(vetEmail) {
   }
 }
 
+//User profile updating
+async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender,email,mobileNumber,password) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+    
+    // Access the database and collection
+    const database = client.db("vetzil");
+    const collection = database.collection("users");
+    
+    // Update user's data
+    const result = await collection.updateOne(
+      { email: PrevEmail },
+      { $set: { 
+        Fname,
+        Lname,
+        nameOfThePet,
+        petType,
+        gender,
+        email,
+        mobileNumber,
+        password
+    } }
+    );
+    
+    if (result.modifiedCount === 0) {
+      throw new Error("Failed to update user data");
+    }
+    
+    console.log("User data updated successfully");
+    
+    return result;
+  } catch (error) {
+    console.error("Error updating user data:", error);
+    throw error;
+  }
+}
+async function getAppointment(userEmail) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+
+    // Access "appointment" database and "toAccept" collection
+    const database = client.db("appointment");
+    const toAcceptCollection = database.collection("toAccept");
+
+    // Retrieve all appointment data associated with the provided userEmail from toAccept collection
+    const appointments = await toAcceptCollection.find({ patientEmail: userEmail }).toArray();
+
+    if (appointments.length == 0) {
+      throw new Error("No appointments found.");
+    }
+
+    // Access "vetzil" database and "vet" collection
+    const vetData = client.db("vetzil"); 
+    const vetDatacollection = vetData.collection("vet"); 
+
+    // Array to store combined data
+    const combinedAppointments = [];
+
+    // Fetch vet data for each vetEmail
+    for (const appointment of appointments) {
+        const vet = await vetDatacollection.findOne({email: appointment.vetEmail});
+        const combinedData = {
+          dateTime: appointment.dateTime,
+          doctorName: vet.fullName,
+          clinicName: vet.clinic
+        };
+        combinedAppointments.push(combinedData);
+    }
+    console.log(combinedAppointments);
+    // Return the array of combined data
+    return combinedAppointments;
+  } catch (error) {
+    console.error("Error retrieving appointment data:", error);
+    throw error;
+  }
+}
+
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -281,4 +361,6 @@ module.exports = {
   addAppointmentCurrent,
   updateUserPassword,
   updateVetPassword,
+  updateUserData,
+  getAppointment,
 };
