@@ -6,6 +6,8 @@ import 'package:mihan_s_application1/dataHandling/vetData.dart';
 import 'package:http/http.dart' as http;
 import 'package:mihan_s_application1/http_req/links.dart';
 
+import '../vet_location_picker_page/vet_location_picker_page.dart';
+
 class VetProfilePage extends StatefulWidget {
   VetProfilePage({Key? key}) : super(key: key);
 
@@ -64,7 +66,13 @@ class _VetProfilePageState extends State<VetProfilePage> {
                   SizedBox(height: 20),
 
                   ElevatedButton(
-                    onPressed: () {  },
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MapPage()),
+                      );
+
+                    },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
                       shape: RoundedRectangleBorder(
@@ -113,7 +121,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
                   if (_editMode)
                     ElevatedButton(
                       onPressed: () {
-                        _saveChanges(); // Function to save changes to database
+                        //_saveChanges(); // Function to save changes to database
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
@@ -176,42 +184,42 @@ class _VetProfilePageState extends State<VetProfilePage> {
     );
   }
 
-  void _saveChanges() async {
-
-    try {
-      final response = await http.post(
-        Uri.parse(Links.updateUserData),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({
-          'PrevEmail': VetData.email, // Pass the current user's email
-          'Fname': _editedFullName.isNotEmpty ? _editedFullName : VetData.fullName,
-          'addressClinic': _editedAddressClinic.isNotEmpty ? _editedAddressClinic : VetData.addressClinic,
-          'fieldofExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
-          'email': _editedEmail.isNotEmpty ? _editedEmail : VetData.email,
-          'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
-          'mobilenumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
-          'clinicname': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        // Handle success
-        print('Vet profile updated successfully');
-      } else {
-        // Handle error
-        print(response.body);
-        print('Failed to update vet profile');
-      }
-    } catch (error) {
-      // Handle error
-      print('Error updating vet profile: $error');
-    }
-
-    // After saving changes, set edit mode to false
-    setState(() {
-      _editMode = false;
-    });
-  }
+  // void _saveChanges() async {
+  //
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(Links.updateUserData),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode({
+  //         'PrevEmail': VetData.email, // Pass the current user's email
+  //         'Fname': _editedFullName.isNotEmpty ? _editedFullName : VetData.fullName,
+  //         'addressClinic': _editedAddressClinic.isNotEmpty ? _editedAddressClinic : VetData.addressClinic,
+  //         'fieldofExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
+  //         'email': _editedEmail.isNotEmpty ? _editedEmail : VetData.email,
+  //         'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
+  //         'mobilenumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
+  //         'clinicname': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
+  //       }),
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       // Handle success
+  //       print('Vet profile updated successfully');
+  //     } else {
+  //       // Handle error
+  //       print(response.body);
+  //       print('Failed to update vet profile');
+  //     }
+  //   } catch (error) {
+  //     // Handle error
+  //     print('Error updating vet profile: $error');
+  //   }
+  //
+  //   // After saving changes, set edit mode to false
+  //   setState(() {
+  //     _editMode = false;
+  //   });
+  // }
 }
