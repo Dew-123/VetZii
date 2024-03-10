@@ -306,6 +306,47 @@ async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender
     throw error;
   }
 }
+async function getAppointment(userEmail) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+
+    // Access "appointment" database and "toAccept" collection
+    const database = client.db("appointment");
+    const toAcceptCollection = database.collection("toAccept");
+
+    // Retrieve all appointment data associated with the provided userEmail from toAccept collection
+    const appointments = await toAcceptCollection.find({ patientEmail: userEmail }).toArray();
+
+    if (appointments.length == 0) {
+      throw new Error("No appointments found.");
+    }
+
+    // Access "vetzil" database and "vet" collection
+    const vetData = client.db("vetzil"); 
+    const vetDatacollection = vetData.collection("vet"); 
+
+    // Array to store combined data
+    const combinedAppointments = [];
+
+    // Fetch vet data for each vetEmail
+    for (const appointment of appointments) {
+        const vet = await vetDatacollection.findOne({email: appointment.vetEmail});
+        const combinedData = {
+          dateTime: appointment.dateTime,
+          doctorName: vet.fullName,
+          clinicName: vet.clinic
+        };
+        combinedAppointments.push(combinedData);
+    }
+    console.log(combinedAppointments);
+    // Return the array of combined data
+    return combinedAppointments;
+  } catch (error) {
+    console.error("Error retrieving appointment data:", error);
+    throw error;
+  }
+}
 
 
 module.exports = {
@@ -321,4 +362,5 @@ module.exports = {
   updateUserPassword,
   updateVetPassword,
   updateUserData,
+  
 };
