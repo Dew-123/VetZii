@@ -57,6 +57,9 @@ import '../presentation/app_navigation_screen/app_navigation_screen.dart';
 import '../presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import 'package:get/get.dart';
 
+import '../presentation/vet_profile_screen/binding/vet_profile_binding.dart';
+import '../presentation/vet_profile_screen/vet_profile_screen.dart';
+
 class AppRoutes {
   static const String splashScreen = '/splash_screen';
 
@@ -139,6 +142,7 @@ class AppRoutes {
 
   static const String forgotPasswordThreeScreen =
       '/forgot_password_three_screen';
+  static const String vetProfileScreen = '/vet_profile_page';
 
 
   static List<GetPage> pages = [
@@ -336,6 +340,13 @@ class AppRoutes {
         AppNavigationBinding(),
       ],
     ),
+    // GetPage(
+    //   name: vetProfileScreen,
+    //   page: () => VetProfileScreen(),
+    //   bindings: [
+    //     VetProfileBinding(),
+    //   ],
+    // ),
     GetPage(
       name: initialRoute,
       page: () => ForgotPasswordOneScreen(),

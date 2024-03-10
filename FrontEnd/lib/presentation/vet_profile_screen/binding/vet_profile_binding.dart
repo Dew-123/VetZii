@@ -1,5 +1,6 @@
-import 'package:mihan_s_application1/Vet/lib/presentation/vet_profile_screen/controller/vet_profile_controller.dart';
 import 'package:get/get.dart';
+
+import '../controller/vet_profile_controller.dart';
 
 /// A binding class for the VetProfileScreen.
 ///
