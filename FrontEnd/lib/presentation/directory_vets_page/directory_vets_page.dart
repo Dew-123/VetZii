@@ -21,7 +21,7 @@ class DirectoryVetsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserData.displayUserData();
+
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),

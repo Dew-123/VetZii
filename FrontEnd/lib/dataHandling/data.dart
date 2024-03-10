@@ -15,20 +15,6 @@ class UserData {
   static String email_vet='';
   static String mobileNumber_vet='';
 
-  static void displayUserData() {
-    print('First Name: $firstName');
-    print('Last Name: $lastName');
-    print('Pet Name: $petName');
-    print('Pet Type: $petType');
-    print('Gender: $gender');
-    print('Email: $email');
-    print('Mobile Number: $mobileNumber');
-    print('Password: $password');
-  }
 }
 
-void main() {
 
-
-  UserData.displayUserData();
-}

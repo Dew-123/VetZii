@@ -96,4 +96,17 @@ class ServerHandling {
       throw Exception('Failed to load data');
     }
   }
+
+  Future<List<dynamic>> fetchAppointments() async {
+    final response = await http.post(
+      Uri.parse(Links.dataGetVets),
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
 }

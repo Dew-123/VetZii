@@ -1,4 +1,5 @@
 import '../../../core/app_export.dart';
+import '../../../http_req/serverHandling.dart';
 import 'appointmentcard_item_model.dart';
 
 /// This class defines the variables used in the [my_appointments_page],
@@ -14,4 +15,33 @@ class MyAppointmentsModel {
         doctorName: "Dr. James Samson".obs,
         clinicName: "150/A, Elliot Rd, Galle".obs)
   ]);
+
+
+  Future<void> fetchDataFromDatabase() async {
+
+    List<dynamic> databaseData = await fetchFromDatabase();
+
+    appointmentcardItemList.value = [];
+
+    for (var data in databaseData) {
+
+      AppointmentcardItemModel userModel = (AppointmentcardItemModel(
+      ));
+      appointmentcardItemList.value.add(userModel);
+    }
+  }
+
+
+  Future<List<dynamic>> fetchFromDatabase() async {
+    ServerHandling serverHandling = ServerHandling();
+
+    try {
+      List<dynamic> dataSet = await serverHandling.fetchAppointments();
+      return dataSet;
+    } catch (e) {
+      print("Error fetching vets data: $e");
+
+      return [];
+    }
+  }
 }
