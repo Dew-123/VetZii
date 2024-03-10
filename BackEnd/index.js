@@ -347,7 +347,22 @@ app.post("/updateUserData", async (req, res) => {
 });
 
 
+app.post("/getAppointment",async (req, res) =>{
+  try {
+    const { userEmail} = req.body;
 
+    if (!userEmail) {
+      return res.status(400).json({ error: "user Email email is required" });
+    }
+
+    const result = await getAppointment(userEmail);
+    res.json(result);
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+
+} );
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
