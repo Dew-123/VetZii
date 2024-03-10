@@ -362,5 +362,5 @@ module.exports = {
   updateUserPassword,
   updateVetPassword,
   updateUserData,
-  
+  getAppointment,
 };
