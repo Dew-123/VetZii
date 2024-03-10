@@ -62,6 +62,28 @@ class _VetProfilePageState extends State<VetProfilePage> {
                   _buildTextFormField("Password", VetData.password, obscureText: true),
                   _buildTextFormField("Name of the Clinic", VetData.clinicName),
                   SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: () {  },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Locate on Map',style: TextStyle(color: Colors.white,
+                            fontSize: 14),),
+                        SizedBox(width: 5,),
+                        Icon(Icons.location_on),
+                      ],
+                    )
+
+
+                  ),
+                  SizedBox(height: 10),
                   if (!_editMode)
                     ElevatedButton(
                       onPressed: () {
@@ -84,6 +106,10 @@ class _VetProfilePageState extends State<VetProfilePage> {
                         ),
                       ),
                     ),
+
+
+
+
                   if (_editMode)
                     ElevatedButton(
                       onPressed: () {
