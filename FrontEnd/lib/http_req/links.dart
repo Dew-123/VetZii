@@ -8,5 +8,6 @@ class Links {
   static const String dataGetPets = baseUrl + 'dataGetPets';
   static const String bookAppointment = baseUrl +'bookAppointment';
   static const String updateUserData = baseUrl + 'updateUserData';
+  static const String updateVetData = baseUrl + 'updateVetData';
 
 }

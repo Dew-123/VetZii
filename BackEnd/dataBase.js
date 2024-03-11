@@ -306,6 +306,7 @@ async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender
     throw error;
   }
 }
+
 async function getAppointment(userEmail) {
   try {
     // Connect to MongoDB
@@ -362,5 +363,6 @@ module.exports = {
   updateUserPassword,
   updateVetPassword,
   updateUserData,
+  updateVetData,
   getAppointment,
 };

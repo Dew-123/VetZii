@@ -119,14 +119,14 @@ app.post("/dataAddUser", async (req, res) => {
 });
 
 app.post("/recoverMailCodeSend", async (req, res) => {
-  const email = req.body.email; 
+  const email = req.body.email;
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
   recover.sendEmail(email, recoveryCode);
   res.json(recoveryCode);
 });
 
 app.post("/changeEmailUser", async (req, res) => {
-  const { email, password } = req.body; 
+  const { email, password } = req.body;
   console.log(password);
   data = await updateUserPassword(email, password);
   res.send(data);
@@ -135,11 +135,11 @@ app.post("/changeEmailUser", async (req, res) => {
 app.post("/dataGetVet", async (req, res) => {
   try {
     // Retrieve the name query parameter from the request
-    const {email,password} = req.body.email;
+    const { email, password } = req.body.email;
 
     // Connect to MongoDB and retrieve data
     const db = await connectToMongoDB();
-    const data = await getDataVets(email,password);
+    const data = await getDataVets(email, password);
 
     // Send the data as response
     res.json(data);
@@ -221,23 +221,23 @@ app.get("/dataAddVet", async (req, res) => {
 });
 
 app.post("/recoverMailCodeSend", async (req, res) => {
-  const email = req.body.email; 
+  const email = req.body.email;
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
   recover.sendEmail(email, recoveryCode);
   res.json(recoveryCode);
 });
 
 app.post("/changeEmailVet", async (req, res) => {
-  const { email, password } = req.body; 
+  const { email, password } = req.body;
   data = await updateVetPassword(email, password);
-  res.send(data); 
+  res.send(data);
 });
 
-app.post("/addPet",  async (req, res) => {
+app.post("/addPet", async (req, res) => {
   try {
     const { name, description, contactNo } = req.body;
-    
-    if (!name || !description || !contactNo ) {
+
+    if (!name || !description || !contactNo) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -246,7 +246,6 @@ app.post("/addPet",  async (req, res) => {
       name,
       description,
       contactNo,
-      
     };
 
     const result = await addDataPets(newPetData);
@@ -264,8 +263,8 @@ app.post("/addPet",  async (req, res) => {
 app.post("/dataGetPets", async (req, res) => {
   try {
     await connectToMongoDB();
-    const data = await getPetsData(); 
-    
+    const data = await getPetsData();
+
     // Send the data as response
     res.json(data);
   } catch (error) {
@@ -276,44 +275,44 @@ app.post("/dataGetPets", async (req, res) => {
 
 app.post("/bookAppointment", async (req, res) => {
   try {
-  const { date, time, patientEmail, petType, vetEmail} = req.body;
-  
-  // Validate if all required fields are provided
-  if ( !date || !time || !patientEmail || !petType || !vetEmail) {
-  return res.status(400).json({ error: "Missing required fields" });
-  }
-  console.log(date);
-  console.log(time);
-  // Combine date and time into a single JavaScript Date object using UTC time zone
-  const combinedDateTimeString = date + "T" + time + "Z"; 
-  const combinedDateTime = new Date(combinedDateTimeString);
-  console.log("time:"+combinedDateTimeString);
-  console.log(combinedDateTime);
-  // Prepare the appointment data object
-  const appointmentData = {
-  'dateTime': combinedDateTime,
-  'patientEmail': patientEmail,
-  'petType': petType,
-  'vetEmail': vetEmail
-  };
-  
-  // Add appointment to the toAccept collection
-  const result = await addAppointmentToAccept(appointmentData);
-  
-  // Send success response
-  res.json({
-  message: "Appointment booked successfully",
-  insertedId: result.insertedId
-  });
+    const { date, time, patientEmail, petType, vetEmail } = req.body;
+
+    // Validate if all required fields are provided
+    if (!date || !time || !patientEmail || !petType || !vetEmail) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+    console.log(date);
+    console.log(time);
+    // Combine date and time into a single JavaScript Date object using UTC time zone
+    const combinedDateTimeString = date + "T" + time + "Z";
+    const combinedDateTime = new Date(combinedDateTimeString);
+    console.log("time:" + combinedDateTimeString);
+    console.log(combinedDateTime);
+    // Prepare the appointment data object
+    const appointmentData = {
+      dateTime: combinedDateTime,
+      patientEmail: patientEmail,
+      petType: petType,
+      vetEmail: vetEmail,
+    };
+
+    // Add appointment to the toAccept collection
+    const result = await addAppointmentToAccept(appointmentData);
+
+    // Send success response
+    res.json({
+      message: "Appointment booked successfully",
+      insertedId: result.insertedId,
+    });
   } catch (error) {
-  console.error("Error handling API request:", error);
-  res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 app.post("/acceptAppointment", async (req, res) => {
   try {
-    const { vetEmail} = req.body;
+    const { vetEmail } = req.body;
 
     if (!vetEmail) {
       return res.status(400).json({ error: "Vet email is required" });
@@ -327,18 +326,37 @@ app.post("/acceptAppointment", async (req, res) => {
   }
 });
 
-//User profile updating
 app.post("/updateUserData", async (req, res) => {
   try {
-    const { PrevEmail, Fname, Lname, nameOfThePet, petType, gender, email, mobileNumber, password } = req.body;
+    const {
+      PrevEmail,
+      Fname,
+      Lname,
+      nameOfThePet,
+      petType,
+      gender,
+      email,
+      mobileNumber,
+      password,
+    } = req.body;
 
     // Update user profile in the database
-    const result = await updateUserData(PrevEmail, Fname, Lname, nameOfThePet, petType, gender, email, mobileNumber, password);
+    const result = await updateUserData(
+      PrevEmail,
+      Fname,
+      Lname,
+      nameOfThePet,
+      petType,
+      gender,
+      email,
+      mobileNumber,
+      password
+    );
 
     // Send success response
     res.json({
       message: "User profile updated successfully",
-      result: result
+      result: result,
     });
   } catch (error) {
     console.error("Error handling API request:", error);
@@ -347,9 +365,9 @@ app.post("/updateUserData", async (req, res) => {
 });
 
 
-app.post("/getAppointment",async (req, res) =>{
+app.post("/getAppointment", async (req, res) => {
   try {
-    const { userEmail} = req.body;
+    const { userEmail } = req.body;
 
     if (!userEmail) {
       return res.status(400).json({ error: "user Email email is required" });
@@ -361,8 +379,7 @@ app.post("/getAppointment",async (req, res) =>{
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-
-} );
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

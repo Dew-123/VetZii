@@ -30,7 +30,7 @@ class MapPage extends StatelessWidget {
               // Add your onPressed logic here
             },
             style: ElevatedButton.styleFrom(
-              primary: Colors.lime, // Background color of the button
+              backgroundColor: Colors.lime, // Background color of the button
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10), // Button border radius
