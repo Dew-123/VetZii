@@ -307,6 +307,34 @@ async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender
   }
 }
 
+async function updateVetData(prevEmail, fullName, addressClinic, fieldOfExpertise, email, password, mobileNumber, clinic) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+    
+    // Access the database and collection
+    const database = client.db("vetzil");
+    const collection = database.collection("vet");
+    
+    // Update user's data
+    const result = await collection.updateOne(
+      { email: prevEmail },
+      { $set: { fullName, addressClinic, fieldOfExpertise, email, mobileNumber,password, clinic} }
+    );
+    
+    if (result.modifiedCount === 0) {
+      throw new Error("Failed to update user data");
+    }
+    
+    console.log("User data updated successfully");
+    
+    return result;
+  } catch (error) {
+    console.error("Error updating user data:", error);
+    throw error;
+  }
+}
+
 async function getAppointment(userEmail) {
   try {
     // Connect to MongoDB
