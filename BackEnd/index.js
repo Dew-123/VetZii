@@ -12,6 +12,7 @@ const {
   updateUserPassword,
   updateVetPassword,
   updateUserData,
+  updateVetData
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -345,6 +346,41 @@ app.post("/updateUserData", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+app.post("/updateVetData", async (req, res) => {
+  try {
+    const {
+      prevEmail,
+      fullName,
+      addressClinic,
+      fieldOfExpertise,
+      email,
+      mobileNumber,
+      password,
+      clinic,
+    } = req.body;
+
+    const result = await updateVetData(
+      prevEmail,
+      fullName,
+      addressClinic,
+      fieldOfExpertise,
+      email,
+      password,
+      mobileNumber,
+      clinic
+    );
+
+    res.json({
+      message: "Vet profile updated successfully",
+      result: result,
+    });
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 
 app.post("/getAppointment",async (req, res) =>{
