@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 ///
 /// This class ensures that the DiseasePredictionEnterSymptomsController is created when the
 /// DiseasePredictionEnterSymptomsScreen is first loaded.
-class DiseasePredictionEnterSymptomsBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut(() => DiseasePredictionEnterSymptomsController());
-  }
-}
+// class DiseasePredictionEnterSymptomsBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     Get.lazyPut(() => DiseasePredictionEnterSymptomsController());
+//   }
+// }

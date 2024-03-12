@@ -286,10 +286,10 @@ class AppRoutes {
     ),
     GetPage(
       name: diseasePredictionEnterSymptomsScreen,
-      page: () => DiseasePredictionEnterSymptomsScreen(),
-      bindings: [
-        DiseasePredictionEnterSymptomsBinding(),
-      ],
+      page: () => DiseasePredictionPage(),
+      // bindings: [
+      //   DiseasePredictionEnterSymptomsBinding(),
+      // ],
     ),
     GetPage(
       name: diseasePredictionResultsScreen,
