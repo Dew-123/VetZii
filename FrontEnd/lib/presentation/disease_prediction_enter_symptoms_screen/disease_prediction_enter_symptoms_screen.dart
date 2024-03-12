@@ -57,6 +57,11 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
     }
   }
 
+  String _symptom1 = "";
+  String _symptom2 = "";
+  String _symptom3 = "";
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,28 +79,77 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(labelText: 'Age'),
               ),
+              SizedBox(height: 15,),
               TextField(
                 controller: temperatureController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(labelText: 'Temperature'),
               ),
+              SizedBox(height: 15,),
               TextField(
                 controller: animalController,
                 decoration: InputDecoration(labelText: 'Animal'),
               ),
-              TextField(
-                controller: symptom1Controller,
-                decoration: InputDecoration(labelText: 'Symptom 1'),
+              SizedBox(height: 20,),
+              DropdownButtonFormField<String>(
+                value: _symptom1.isNotEmpty ? _symptom1 : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _symptom1 = newValue ?? '';
+                  });
+                },
+                items: <String>[ 'Loss of appetite',  'Depression',  'Crackling sound',  'Difficulty walking',  'Painless lumps',  'Shortness of breath',  'Lameness',  'Chills',  'Swelling in extremities',  'Fatigue',  'Chest discomfort',  'Swelling in limb',  'Sweats',  'Blisters on mouth',  'Sores on mouth',  'Swelling in abdomen',  'Blisters on tongue',  'Swelling in muscle',  'Swelling in neck',  'Sores on tongue',  'Blisters on hooves',  'Blisters on gums',  'Sores on hooves',  'Sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Symptom 1' : value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Symptom 1', border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ), filled: true, fillColor: Colors.grey[50]),
+              style: TextStyle(color: Colors.black),),
+              SizedBox(height: 20,),
+
+
+              DropdownButtonFormField<String>(
+                value: _symptom2.isNotEmpty ? _symptom2 : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _symptom2 = newValue ?? '';
+                  });
+                },
+                items: <String>[ 'Loss of appetite',  'Depression',  'Crackling sound',  'Difficulty walking',  'Painless lumps',  'Shortness of breath',  'Lameness',  'Chills',  'Swelling in extremities',  'Fatigue',  'Chest discomfort',  'Swelling in limb',  'Sweats',  'Blisters on mouth',  'Sores on mouth',  'Swelling in abdomen',  'Blisters on tongue',  'Swelling in muscle',  'Swelling in neck',  'Sores on tongue',  'Blisters on hooves',  'Blisters on gums',  'Sores on hooves',  'Sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Symptom 2' : value),
+                  );
+                }).toList(),
+                  decoration: InputDecoration(labelText: 'Symptom 1', border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ), filled: true, fillColor: Colors.grey[50]),
+                  style: TextStyle(color: Colors.black),
               ),
-              TextField(
-                controller: symptom2Controller,
-                decoration: InputDecoration(labelText: 'Symptom 2'),
+              SizedBox(height: 20,),
+
+              DropdownButtonFormField<String>(
+                value: _symptom3.isNotEmpty ? _symptom3 : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _symptom3 = newValue ?? '';
+                  });
+                },
+                items: <String>[ 'Loss of appetite',  'Depression',  'Crackling sound',  'Difficulty walking',  'Painless lumps',  'Shortness of breath',  'Lameness',  'Chills',  'Swelling in extremities',  'Fatigue',  'Chest discomfort',  'Swelling in limb',  'Sweats',  'Blisters on mouth',  'Sores on mouth',  'Swelling in abdomen',  'Blisters on tongue',  'Swelling in muscle',  'Swelling in neck',  'Sores on tongue',  'Blisters on hooves',  'Blisters on gums',  'Sores on hooves',  'Sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Symptom 3' : value),
+                  );
+                }).toList(),
+                  decoration: InputDecoration(labelText: 'Symptom 1', border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ), filled: true, fillColor: Colors.grey[50]),
+                  style: TextStyle(color: Colors.black),
               ),
-              TextField(
-                controller: symptom3Controller,
-                decoration: InputDecoration(labelText: 'Symptom 3'),
-              ),
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               Container(
                 width: double.infinity,
                 child: ElevatedButton(
