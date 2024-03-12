@@ -193,6 +193,8 @@ class _VetProfilePageState extends State<VetProfilePage> {
           'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
           'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
           'clinic': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
+          'lat':0,
+          'long':0,
         }),
       );
 

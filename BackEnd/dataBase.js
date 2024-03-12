@@ -114,14 +114,14 @@ async function getDataVet(email, password) {
   try {
     const database = client.db("vetzil");
     const collection = database.collection("vet");
-    
+
     let query = {};
     let dataArray = [];
-    
+
     if (email && password) {
       query = { email: email, password: password };
       const cursor = await collection.find(query); // Get the cursor for the query
-      dataArray=await cursor.toArray();
+      dataArray = await cursor.toArray();
     }
 
     return dataArray; // Return the dataArray
@@ -130,7 +130,6 @@ async function getDataVet(email, password) {
     throw error;
   }
 }
-
 
 async function getDataVets() {
   try {
@@ -345,13 +344,14 @@ async function updateVetData(
   email,
   password,
   mobileNumber,
-  clinic
+  clinic,
+  lat,
+  long
 ) {
   try {
     // Connect to MongoDB
     await connectToMongoDB();
 
-    console.log(prevEmail);
 
     // Access the database and collection
     const database = client.db("vetzil");
@@ -369,6 +369,8 @@ async function updateVetData(
           mobileNumber,
           password,
           clinic,
+          lat,
+          long,
         },
       }
     );

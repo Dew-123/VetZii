@@ -1,6 +1,30 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-class MapPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+
+import '../../dataHandling/vetData.dart';
+import '../../http_req/links.dart';
+
+class MapPage extends StatefulWidget {
+  @override
+  _MapPageState createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
+  late GoogleMapController mapController;
+  late LatLng _pinPosition; // Position of the draggable pin
+
+  // Set initial camera position to show a specific location
+  static const LatLng _initialPosition = LatLng(37.422, -122.084);
+
+  @override
+  void initState() {
+    super.initState();
+    _pinPosition = _initialPosition; // Initialize pin position with initial position
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,24 +34,69 @@ class MapPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Map is here',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+            child: Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: _initialPosition,
+                    zoom: 14.0, // Zoom level
                   ),
-                ],
-              ),
+                  onMapCreated: (GoogleMapController controller) {
+                    mapController = controller;
+                  },
+                  markers: {
+                    Marker(
+                      markerId: MarkerId('pin'),
+                      position: _pinPosition,
+                      draggable: true, // Make the marker draggable
+                      onDragEnd: (LatLng newPosition) {
+                        setState(() {
+                          _pinPosition = newPosition; // Update pin position
+                        });
+                      },
+                    ),
+                  },
+                ),
+                // You can add other UI components on top of the map if needed
+              ],
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              // Add your onPressed logic here
+            onPressed: () async {
+              print('Latitude: ${_pinPosition.latitude}, Longitude: ${_pinPosition.longitude}');
+              try {
+                final response = await http.post(
+                  Uri.parse(Links.updateVetData),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json; charset=UTF-8',
+                  },
+                  body: jsonEncode({
+                    'prevEmail': VetData.email, // Pass the current user's email
+                    'fullName': VetData.fullName,
+                    'addressClinic': VetData.addressClinic,
+                    'fieldOfExpertise': VetData.fieldOfExpertise,
+                    'email': VetData.email,
+                    'password': VetData.password,
+                    'mobileNumber': VetData.mobileNumber,
+                    'clinic': VetData.clinicName,
+                    'lat': _pinPosition.latitude,
+                    'long': _pinPosition.longitude,
+                  }),
+                );
+
+                if (response.statusCode == 200) {
+                  // Handle success
+                  print('Vet profile updated successfully');
+                  Navigator.pop(context); // Go back to the previous page
+                } else {
+                  // Handle error
+                  print(response.body);
+                  print('Failed to update vet profile');
+                }
+              } catch (error) {
+                // Handle error
+                print('Error updating vet profile: $error');
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.lime, // Background color of the button
@@ -44,7 +113,7 @@ class MapPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30,)
+          SizedBox(height: 30)
         ],
       ),
     );

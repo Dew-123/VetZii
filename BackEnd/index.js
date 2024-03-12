@@ -13,7 +13,7 @@ const {
   updateUserPassword,
   updateVetPassword,
   updateUserData,
-  updateVetData
+  updateVetData,
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -136,9 +136,8 @@ app.post("/changeEmailUser", async (req, res) => {
 
 app.post("/dataGetVet", async (req, res) => {
   try {
-
     const { email, password } = req.body;
-    console.log(email +" "+password);
+    console.log(email + " " + password);
     const db = await connectToMongoDB();
     const data = await getDataVet(email, password);
 
@@ -152,11 +151,9 @@ app.post("/dataGetVet", async (req, res) => {
 
 app.post("/dataGetVets", async (req, res) => {
   try {
-    
     const db = await connectToMongoDB();
     const data = await getDataVets();
 
-   
     res.json(data);
   } catch (error) {
     console.error("Error handling API request:", error);
@@ -376,8 +373,10 @@ app.post("/updateVetData", async (req, res) => {
       mobileNumber,
       password,
       clinic,
+      lat,
+      long,
     } = req.body;
-    
+
     console.log(prevEmail);
     console.log(fullName);
     console.log(addressClinic);
@@ -391,7 +390,9 @@ app.post("/updateVetData", async (req, res) => {
       email,
       password,
       mobileNumber,
-      clinic
+      clinic,
+      lat,
+      long
     );
 
     res.json({
@@ -403,7 +404,6 @@ app.post("/updateVetData", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 app.post("/getAppointment", async (req, res) => {
   try {
