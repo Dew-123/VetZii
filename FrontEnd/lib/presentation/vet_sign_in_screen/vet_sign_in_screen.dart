@@ -101,7 +101,7 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                           List<dynamic> data = await server.fetchVetData(email, password);
 
                           if (data.isNotEmpty) {
-
+                            //VetData.getLocation();
                             VetData.fullName = data[0]['fullName'] ?? '';
                             VetData.addressClinic = data[0]['addressOfTheClinic'] ?? '';
                             VetData.fieldOfExpertise = data[0]['fieldOfExpertise'] ?? '';
