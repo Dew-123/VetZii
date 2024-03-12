@@ -16,7 +16,46 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   final TextEditingController symptom3Controller = TextEditingController();
   String predictedDisease = '';
 
+  Future<void> getPredictions() async {
+    final age = int.tryParse(ageController.text) ?? 0;
+    final temperature = double.tryParse(temperatureController.text) ?? 0.0;
+    final animal = animalController.text;
+    final symptom1 = symptom1Controller.text;
+    final symptom2 = symptom2Controller.text;
+    final symptom3 = symptom3Controller.text;
 
+    print("predicting");
+    final inputData = {
+      'Age': [age],
+      'Temperature': [temperature],
+      'Animal': [animal],
+      'Symptom1': [symptom1],
+      'Symptom2': [symptom2],
+      'Symptom3': [symptom3],
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://10.0.2.2:3000/predict'), // Replace with your backend URL
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(inputData),
+      );
+
+      print("running");
+      if (response.statusCode == 200) {
+        final prediction = jsonDecode(response.body)['predictedDisease'] as String;
+        setState(() {
+          predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
+        });
+      } else {
+        throw Exception('Failed to get predictions');
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +97,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
               ),
               SizedBox(height: 16),
               ElevatedButton(
-                onPressed: (){},
+                onPressed: getPredictions,
                 child: Text('Predict'),
               ),
               SizedBox(height: 16),
