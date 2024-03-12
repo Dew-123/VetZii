@@ -287,9 +287,7 @@ class AppRoutes {
     GetPage(
       name: diseasePredictionEnterSymptomsScreen,
       page: () => DiseasePredictionPage(),
-      // bindings: [
-      //   DiseasePredictionEnterSymptomsBinding(),
-      // ],
+
     ),
     GetPage(
       name: diseasePredictionResultsScreen,

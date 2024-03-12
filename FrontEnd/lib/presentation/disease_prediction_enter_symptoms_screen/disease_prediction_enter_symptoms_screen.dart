@@ -96,10 +96,15 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 decoration: InputDecoration(labelText: 'Symptom 3'),
               ),
               SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: getPredictions,
-                child: Text('Predict'),
+              Container(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: getPredictions,
+                  child: Text('Predict the Disease', style: TextStyle(color: Colors.black,
+                      fontSize: 14),),
+                ),
               ),
+
               SizedBox(height: 16),
               Text('Predicted Disease: $predictedDisease'),
             ],
