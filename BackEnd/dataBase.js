@@ -1,6 +1,6 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri =
-  "mongodb+srv://mihan:123@vetzil.j4oh8fz.mongodb.net/?retryWrites=true&w=majority"; 
+  "mongodb+srv://mihan:123@vetzil.j4oh8fz.mongodb.net/?retryWrites=true&w=majority";
 
 let client;
 
@@ -32,8 +32,8 @@ async function getDataUsers(email, password) {
   try {
     await connectToMongoDB();
     // Access the database and collection
-    const database = client.db("vetzil"); 
-    const collection = database.collection("users"); 
+    const database = client.db("vetzil");
+    const collection = database.collection("users");
 
     let query;
     if (password) {
@@ -60,8 +60,8 @@ async function getDataUsers(email, password) {
 async function addDataUsers(newData) {
   try {
     // Access the database and collection
-    const database = client.db("vetzil"); 
-    const collection = database.collection("users"); 
+    const database = client.db("vetzil");
+    const collection = database.collection("users");
 
     // Insert the new data into the collection
     const result = await collection.insertOne(newData);
@@ -110,22 +110,36 @@ async function updateUserPassword(email, newPassword) {
   }
 }
 
-async function getDataVets(email,password) {
+async function getDataVet(email, password) {
   try {
-    // Access the database and collection
-    const database = client.db("vetzil"); 
-    const collection = database.collection("vet"); 
-
-    // Define the query object outside of the conditionals
+    const database = client.db("vetzil");
+    const collection = database.collection("vet");
+    
     let query = {};
-
-    // Check if email exists
+    let dataArray = [];
+    
     if (email && password) {
-      query = { email: email ,password:password};
+      query = { email: email, password: password };
+      const cursor = await collection.find(query); // Get the cursor for the query
+      dataArray=await cursor.toArray();
     }
 
-    // Find documents based on the query
-    const cursor = collection.find(query);
+    return dataArray; // Return the dataArray
+  } catch (error) {
+    console.error("Error fetching data from MongoDB:", error);
+    throw error;
+  }
+}
+
+
+async function getDataVets() {
+  try {
+    // Access the database and collection
+    const database = client.db("vetzil");
+    const collection = database.collection("vet");
+
+    // Find all documents
+    const cursor = collection.find();
 
     // Convert cursor to array
     const data = await cursor.toArray();
@@ -140,8 +154,8 @@ async function getDataVets(email,password) {
 async function addDataVets(newData) {
   try {
     // Access the database and collection
-    const database = client.db("vetzil"); 
-    const collection = database.collection("vet"); 
+    const database = client.db("vetzil");
+    const collection = database.collection("vet");
 
     // Insert the new data into the collection
     const result = await collection.insertOne(newData);
@@ -158,38 +172,38 @@ async function updateVetPassword(email, newPassword) {
   try {
     // Connect to MongoDB
     await connectToMongoDB();
-    
+
     // Access the database and collection
     const database = client.db("vetzil");
     const collection = database.collection("vet");
-    
+
     // Find the user by email
     const query = { email: email };
     const user = await collection.findOne(query);
-    
+
     if (!user) {
-    throw new Error("Vet not found");
+      throw new Error("Vet not found");
     }
-    
+
     // Update user's password
     const result = await collection.updateOne(
-    { _id: user._id },
-    { $set: { password: newPassword } }
+      { _id: user._id },
+      { $set: { password: newPassword } }
     );
-    
+
     if (result.modifiedCount === 0) {
-    throw new Error("Failed to update password");
+      throw new Error("Failed to update password");
     }
-    
+
     console.log("Password updated successfully");
-    
+
     return result;
   } catch (error) {
-  console.error("Error updating vet password:", error);
-  throw error;
+    console.error("Error updating vet password:", error);
+    throw error;
   }
 }
-  
+
 async function addDataPets(newData) {
   try {
     const database = client.db("petadaption");
@@ -207,7 +221,6 @@ async function addDataPets(newData) {
 
 async function getPetsData() {
   try {
-    
     const database = client.db("petadaption"); // Update with your database name
     const collection = database.collection("pets"); // Update with your collection name
 
@@ -228,7 +241,7 @@ async function addAppointmentToAccept(appointmentData) {
   try {
     // Access the database and collection
     await connectToMongoDB();
-    const database = client.db("appointment"); 
+    const database = client.db("appointment");
     const collection = database.collection("toAccept");
 
     // Insert the new data into the collection
@@ -250,7 +263,9 @@ async function addAppointmentCurrent(vetEmail) {
     const currentCollection = database.collection("current");
 
     // Retrieve all appointment data associated with the provided vetEmail from toAccept collection
-    const appointmentsToAccept = await toAcceptCollection.find({ vetEmail: vetEmail}).toArray();
+    const appointmentsToAccept = await toAcceptCollection
+      .find({ vetEmail: vetEmail })
+      .toArray();
 
     if (appointmentsToAccept.length == 0) {
       throw new Error("No appointments to accept for the provided vetEmail");
@@ -264,42 +279,57 @@ async function addAppointmentCurrent(vetEmail) {
 
     return { message: "Appointments accepted successfully" };
   } catch (error) {
-    console.error("Error adding appointment data to current collection:", error);
+    console.error(
+      "Error adding appointment data to current collection:",
+      error
+    );
     throw error;
   }
 }
 
 //User profile updating
-async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender,email,mobileNumber,password) {
+async function updateUserData(
+  PrevEmail,
+  Fname,
+  Lname,
+  nameOfThePet,
+  petType,
+  gender,
+  email,
+  mobileNumber,
+  password
+) {
   try {
     // Connect to MongoDB
     await connectToMongoDB();
-    
+
     // Access the database and collection
     const database = client.db("vetzil");
     const collection = database.collection("users");
-    
+
     // Update user's data
     const result = await collection.updateOne(
       { email: PrevEmail },
-      { $set: { 
-        Fname,
-        Lname,
-        nameOfThePet,
-        petType,
-        gender,
-        email,
-        mobileNumber,
-        password
-    } }
+      {
+        $set: {
+          Fname,
+          Lname,
+          nameOfThePet,
+          petType,
+          gender,
+          email,
+          mobileNumber,
+          password,
+        },
+      }
     );
-    
+
     if (result.modifiedCount === 0) {
       throw new Error("Failed to update user data");
     }
-    
+
     console.log("User data updated successfully");
-    
+
     return result;
   } catch (error) {
     console.error("Error updating user data:", error);
@@ -307,27 +337,48 @@ async function updateUserData(PrevEmail, Fname,Lname,nameOfThePet,petType,gender
   }
 }
 
-async function updateVetData(prevEmail, fullName, addressClinic, fieldOfExpertise, email, password, mobileNumber, clinic) {
+async function updateVetData(
+  prevEmail,
+  fullName,
+  addressClinic,
+  fieldOfExpertise,
+  email,
+  password,
+  mobileNumber,
+  clinic
+) {
   try {
     // Connect to MongoDB
     await connectToMongoDB();
-    
+
+    console.log(prevEmail);
+
     // Access the database and collection
     const database = client.db("vetzil");
     const collection = database.collection("vet");
-    
+
     // Update user's data
     const result = await collection.updateOne(
       { email: prevEmail },
-      { $set: { fullName, addressClinic, fieldOfExpertise, email, mobileNumber,password, clinic} }
+      {
+        $set: {
+          fullName,
+          addressClinic,
+          fieldOfExpertise,
+          email,
+          mobileNumber,
+          password,
+          clinic,
+        },
+      }
     );
-    
+
     if (result.modifiedCount === 0) {
       throw new Error("Failed to update user data");
     }
-    
+
     console.log("User data updated successfully");
-    
+
     return result;
   } catch (error) {
     console.error("Error updating user data:", error);
@@ -345,28 +396,32 @@ async function getAppointment(userEmail) {
     const toAcceptCollection = database.collection("toAccept");
 
     // Retrieve all appointment data associated with the provided userEmail from toAccept collection
-    const appointments = await toAcceptCollection.find({ patientEmail: userEmail }).toArray();
+    const appointments = await toAcceptCollection
+      .find({ patientEmail: userEmail })
+      .toArray();
 
     if (appointments.length == 0) {
       throw new Error("No appointments found.");
     }
 
     // Access "vetzil" database and "vet" collection
-    const vetData = client.db("vetzil"); 
-    const vetDatacollection = vetData.collection("vet"); 
+    const vetData = client.db("vetzil");
+    const vetDatacollection = vetData.collection("vet");
 
     // Array to store combined data
     const combinedAppointments = [];
 
     // Fetch vet data for each vetEmail
     for (const appointment of appointments) {
-        const vet = await vetDatacollection.findOne({email: appointment.vetEmail});
-        const combinedData = {
-          dateTime: appointment.dateTime,
-          doctorName: vet.fullName,
-          clinicName: vet.clinic
-        };
-        combinedAppointments.push(combinedData);
+      const vet = await vetDatacollection.findOne({
+        email: appointment.vetEmail,
+      });
+      const combinedData = {
+        dateTime: appointment.dateTime,
+        doctorName: vet.fullName,
+        clinicName: vet.clinic,
+      };
+      combinedAppointments.push(combinedData);
     }
     console.log(combinedAppointments);
     // Return the array of combined data
@@ -377,11 +432,11 @@ async function getAppointment(userEmail) {
   }
 }
 
-
 module.exports = {
   connectToMongoDB,
   getDataUsers,
   addDataUsers,
+  getDataVet,
   getDataVets,
   addDataVets,
   addDataPets,

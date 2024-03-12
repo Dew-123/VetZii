@@ -46,6 +46,7 @@ class ServerHandling {
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
+      print(data);
       return data;
     } else {
       throw Exception('Failed to load data');

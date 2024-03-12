@@ -18,7 +18,7 @@ class AppRoutes {
   static const String completedAppointmentsScreen =
       '/completed_appointments_screen';
 
-  static const String vetProfileScreen = '/vet_profile_screen';
+  static const String vetProfileScreen = '/vet_profile_page';
 
   static const String appNavigationScreen = '/app_navigation_screen';
 

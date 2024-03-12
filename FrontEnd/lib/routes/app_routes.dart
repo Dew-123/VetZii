@@ -54,12 +54,8 @@ import '../presentation/forgot_password_two_screen/forgot_password_two_screen.da
 import '../presentation/forgot_password_two_screen/binding/forgot_password_two_binding.dart';
 import '../presentation/forgot_password_three_screen/forgot_password_three_screen.dart';
 import '../presentation/forgot_password_three_screen/binding/forgot_password_three_binding.dart';
-import '../presentation/app_navigation_screen/app_navigation_screen.dart';
-import '../presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import 'package:get/get.dart';
 
-import '../presentation/vet_profile_screen/binding/vet_profile_binding.dart';
-import '../presentation/vet_profile_screen/vet_profile_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = '/splash_screen';

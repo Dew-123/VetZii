@@ -1,25 +1,17 @@
-
-import 'package:mihan_s_application1/presentation/vet_profile_page/vet_profile_page.dart';
-
-import '../../dataHandling/data.dart';
-import 'controller/vet_sign_in_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
-import 'package:mihan_s_application1/core/utils/validation_functions.dart';
+import 'package:mihan_s_application1/dataHandling/vetData.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
+import 'package:mihan_s_application1/presentation/vet_profile_page/vet_profile_page.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
-import 'package:mihan_s_application1/http_req/serverHandling.dart';
- import 'package:mihan_s_application1/Vet/lib/routes/app_routes.dart' as vetRoot;
 
+import '../../core/utils/validation_functions.dart';
+import 'controller/vet_sign_in_controller.dart';
 
-// ignore_for_file: must_be_immutable
 class VetSignInScreen extends GetWidget<VetSignInController> {
-
-
-  VetSignInScreen({Key? key})
-      : super(
-          key: key,
-        );
+  VetSignInScreen({Key? key}) : super(key: key);
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -84,54 +76,67 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                       obscureText: true,
                     ),
                     SizedBox(height: 27.v),
-                    GestureDetector(child: Text(
-                      "msg_forgot_password".tr,
-                      style: CustomTextStyles.titleSmallBlack90002,
-                    ),onTap: ()=>{Get.toNamed(AppRoutes.forgotPasswordOneScreen)}),
+                    GestureDetector(
+                      child: Text(
+                        "msg_forgot_password".tr,
+                        style: CustomTextStyles.titleSmallBlack90002,
+                      ),
+                      onTap: () {
+                        Get.toNamed(AppRoutes.forgotPasswordOneScreen);
+                      },
+                    ),
                     SizedBox(height: 22.v),
-                  CustomElevatedButton(
-                    width: 189.h,
-                    text: "lbl_log_in".tr,
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => VetProfilePage()),
-                      );
-                      //Get.toNamed(vetRoot.AppRoutes.vetProfileScreen);
-                      // String email = controller.userNameController.text.removeAllWhitespace;
-                      // String password = controller.passwordController.text.removeAllWhitespace;
-                      //
-                      // try {
-                      //   ServerHandling server = new ServerHandling();
-                      //   List<dynamic> data = await server.fetchVetData(email,password);
-                      //
-                      //   if (data.isNotEmpty) {
-                      //
-                      //     } else {
-                      //     showDialog(
-                      //       context: context,
-                      //       builder: (BuildContext context) {
-                      //         return AlertDialog(
-                      //           title: Text('No User Found'),
-                      //           content: Text('No user was found with the provided email and password.'),
-                      //           actions: [
-                      //             TextButton(
-                      //               onPressed: () {
-                      //                 Navigator.of(context).pop();
-                      //               },
-                      //               child: Text('OK'),
-                      //             ),
-                      //           ],
-                      //         );
-                      //       },
-                      //     );
-                      //   }
-                      // } catch (e) {
-                      //   // Handle any errors that might occur during data fetching
-                      //   print('Error fetching data: $e');
-                      // }
-                    },
-                  ),
+                    CustomElevatedButton(
+                      width: 189.h,
+                      text: "lbl_log_in".tr,
+                      onPressed: () async {
+                        String email =
+                            controller.userNameController.text.removeAllWhitespace;
+                        String password =
+                            controller.passwordController.text.removeAllWhitespace;
+                        print(email);
+                        print(password);
+                        try {
+                          ServerHandling server = new ServerHandling();
+                          List<dynamic> data = await server.fetchVetData(email, password);
+
+                          if (data.isNotEmpty) {
+
+                            VetData.fullName = data[0]['fullName'] ?? '';
+                            VetData.addressClinic = data[0]['addressOfTheClinic'] ?? '';
+                            VetData.fieldOfExpertise = data[0]['fieldOfExpertise'] ?? '';
+                            VetData.email = data[0]['email'] ?? '';
+                            VetData.mobileNumber = data[0]['mobileNumber'] ?? '';
+                            VetData.password = data[0]['password'] ?? '';
+                            VetData.clinicName = data[0]['clinic'] ?? '';
+                            Get.to(VetProfilePage());
+
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('No User Found'),
+                                  content: Text(
+                                      'No user was found with the provided email and password.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        } catch (e) {
+                          // Handle any errors that might occur during data fetching
+                          print('Error fetching data: $e');
+                        }
+                      },
+                    ),
                     SizedBox(height: 5.v),
                   ],
                 ),
@@ -142,6 +147,4 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
       ),
     );
   }
-
-
 }

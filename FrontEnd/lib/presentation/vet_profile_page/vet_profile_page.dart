@@ -20,13 +20,13 @@ class _VetProfilePageState extends State<VetProfilePage> {
   bool _editMode = false; // Track whether the vet is in edit mode
 
   // Variables to hold edited values
-  late String _editedFullName = '';
-  late String _editedAddressClinic = '';
-  late String _editedFieldOfExpertise = '';
-  late String _editedMobileNumber = '';
-  late String _editedEmail = '';
-  late String _editedPassword = '';
-  late String _editedClinicName = '';
+  late String _editedFullName = VetData.fullName;
+  late String _editedAddressClinic = VetData.addressClinic;
+  late String _editedFieldOfExpertise = VetData.fieldOfExpertise;
+  late String _editedMobileNumber = VetData.mobileNumber;
+  late String _editedEmail = VetData.email;
+  late String _editedPassword = VetData.password;
+  late String _editedClinicName = VetData.clinicName;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,6 @@ class _VetProfilePageState extends State<VetProfilePage> {
                         context,
                         MaterialPageRoute(builder: (context) => MapPage()),
                       );
-
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
@@ -88,8 +87,6 @@ class _VetProfilePageState extends State<VetProfilePage> {
                         Icon(Icons.location_on),
                       ],
                     )
-
-
                   ),
                   SizedBox(height: 10),
                   if (!_editMode)
@@ -114,14 +111,10 @@ class _VetProfilePageState extends State<VetProfilePage> {
                         ),
                       ),
                     ),
-
-
-
-
                   if (_editMode)
                     ElevatedButton(
                       onPressed: () {
-                        //_saveChanges(); // Function to save changes to database
+                        _saveChanges();
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
@@ -192,14 +185,14 @@ class _VetProfilePageState extends State<VetProfilePage> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode({
-          'PrevEmail': VetData.email, // Pass the current user's email
+          'prevEmail': VetData.email, // Pass the current user's email
           'fullName': _editedFullName.isNotEmpty ? _editedFullName : VetData.fullName,
           'addressClinic': _editedAddressClinic.isNotEmpty ? _editedAddressClinic : VetData.addressClinic,
-          'fieldofExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
+          'fieldOfExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
           'email': _editedEmail.isNotEmpty ? _editedEmail : VetData.email,
           'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
-          'mobilenumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
-          'clinicname': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
+          'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
+          'clinic': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
         }),
       );
 

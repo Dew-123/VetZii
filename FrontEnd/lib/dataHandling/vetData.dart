@@ -9,20 +9,5 @@ class VetData {
   static String clinicName = '';
 
 
-  static void displayVetData() {
-    print('Full Name: $fullName');
-    print('Address of the Clinic: $addressClinic');
-    print('Field of Expertise: $fieldOfExpertise');
-    print('Email: $email');
-    print('Password: $password');
-    print('Mobile Number: $mobileNumber');
-    print('Name of the Clinic: $clinicName');
-
-  }
 }
 
-void main() {
-
-
-  VetData.displayVetData();
-}

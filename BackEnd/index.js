@@ -4,6 +4,7 @@ const {
   getDataUsers,
   addDataUsers,
   getDataVets,
+  getDataVet,
   addDataVets,
   addDataPets,
   getPetsData,
@@ -135,12 +136,11 @@ app.post("/changeEmailUser", async (req, res) => {
 
 app.post("/dataGetVet", async (req, res) => {
   try {
-    // Retrieve the name query parameter from the request
-    const { email, password } = req.body.email;
 
-    // Connect to MongoDB and retrieve data
+    const { email, password } = req.body;
+    console.log(email +" "+password);
     const db = await connectToMongoDB();
-    const data = await getDataVets(email, password);
+    const data = await getDataVet(email, password);
 
     // Send the data as response
     res.json(data);
@@ -152,11 +152,11 @@ app.post("/dataGetVet", async (req, res) => {
 
 app.post("/dataGetVets", async (req, res) => {
   try {
-    // Connect to MongoDB and retrieve data
+    
     const db = await connectToMongoDB();
     const data = await getDataVets();
 
-    // Send the data as response
+   
     res.json(data);
   } catch (error) {
     console.error("Error handling API request:", error);
@@ -377,6 +377,11 @@ app.post("/updateVetData", async (req, res) => {
       password,
       clinic,
     } = req.body;
+    
+    console.log(prevEmail);
+    console.log(fullName);
+    console.log(addressClinic);
+    console.log(fieldOfExpertise);
 
     const result = await updateVetData(
       prevEmail,
@@ -398,7 +403,6 @@ app.post("/updateVetData", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 
 app.post("/getAppointment", async (req, res) => {
