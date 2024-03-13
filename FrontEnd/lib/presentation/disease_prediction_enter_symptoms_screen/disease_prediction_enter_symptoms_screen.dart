@@ -11,18 +11,16 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController temperatureController = TextEditingController();
   final TextEditingController animalController = TextEditingController();
-  final TextEditingController symptom1Controller = TextEditingController();
-  final TextEditingController symptom2Controller = TextEditingController();
-  final TextEditingController symptom3Controller = TextEditingController();
+
   String predictedDisease = '';
 
   Future<void> getPredictions() async {
     final age = int.tryParse(ageController.text) ?? 0;
     final temperature = double.tryParse(temperatureController.text) ?? 0.0;
     final animal = animalController.text;
-    final symptom1 = symptom1Controller.text;
-    final symptom2 = symptom2Controller.text;
-    final symptom3 = symptom3Controller.text;
+    final symptom1 = _symptom1;
+    final symptom2 = _symptom2;
+    final symptom3 = _symptom3;
 
     print("predicting");
     final inputData = {
@@ -34,9 +32,11 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
       'Symptom3': [symptom3],
     };
 
+    print(inputData);
+
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:3000/predict'), // Replace with your backend URL
+        Uri.parse('http://10.0.2.2:3000/predict'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
