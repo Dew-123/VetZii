@@ -21,8 +21,6 @@ import 'package:mihan_s_application1/presentation/veterinarian_create_an_account
 // import 'package:mihan_s_application1/presentation/user_profile_screen/binding/user_profile_binding.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/main_menu_container_screen.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/binding/main_menu_container_binding.dart';
-import 'package:mihan_s_application1/presentation/clinic_page_vets_tab_container_screen/clinic_page_vets_tab_container_screen.dart';
-import 'package:mihan_s_application1/presentation/clinic_page_vets_tab_container_screen/binding/clinic_page_vets_tab_container_binding.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_about_tab_container_screen/vet_acccount_page_about_tab_container_screen.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_about_tab_container_screen/binding/vet_acccount_page_about_tab_container_binding.dart';
 import 'package:mihan_s_application1/presentation/book_appointment_screen/book_appointment_screen.dart';
@@ -211,13 +209,6 @@ class AppRoutes {
       page: () => MainMenuContainerScreen(),
       bindings: [
         MainMenuContainerBinding(),
-      ],
-    ),
-    GetPage(
-      name: clinicPageVetsTabContainerScreen,
-      page: () => ClinicPageVetsTabContainerScreen(),
-      bindings: [
-        ClinicPageVetsTabContainerBinding(),
       ],
     ),
     GetPage(
