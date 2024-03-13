@@ -98,7 +98,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     _symptom1 = newValue ?? '';
                   });
                 },
-                items: <String>[ 'Loss of appetite',  'Depression',  'Crackling sound',  'Difficulty walking',  'Painless lumps',  'Shortness of breath',  'Lameness',  'Chills',  'Swelling in extremities',  'Fatigue',  'Chest discomfort',  'Swelling in limb',  'Sweats',  'Blisters on mouth',  'Sores on mouth',  'Swelling in abdomen',  'Blisters on tongue',  'Swelling in muscle',  'Swelling in neck',  'Sores on tongue',  'Blisters on hooves',  'Blisters on gums',  'Sores on hooves',  'Sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                items: <String>['loss of appetite','depression','crackling sound','difficulty walking','painless lumps','shortness of breath','lameness','chills','swelling in extremities','fatigue','chest discomfort','swelling in limb','sweats','blisters on mouth','sores on mouth','swelling in abdomen','blisters on tongue','swelling in muscle','swelling in neck','sores on tongue','blisters on hooves','blisters on gums','sores on hooves','sores on gums'].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value == '' ? 'Symptom 1' : value),
@@ -118,7 +118,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     _symptom2 = newValue ?? '';
                   });
                 },
-                items: <String>[ 'Loss of appetite',  'Depression',  'Crackling sound',  'Difficulty walking',  'Painless lumps',  'Shortness of breath',  'Lameness',  'Chills',  'Swelling in extremities',  'Fatigue',  'Chest discomfort',  'Swelling in limb',  'Sweats',  'Blisters on mouth',  'Sores on mouth',  'Swelling in abdomen',  'Blisters on tongue',  'Swelling in muscle',  'Swelling in neck',  'Sores on tongue',  'Blisters on hooves',  'Blisters on gums',  'Sores on hooves',  'Sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                items: <String>['loss of appetite','depression','crackling sound','difficulty walking','painless lumps','shortness of breath','lameness','chills','swelling in extremities','fatigue','chest discomfort','swelling in limb','sweats','blisters on mouth','sores on mouth','swelling in abdomen','blisters on tongue','swelling in muscle','swelling in neck','sores on tongue','blisters on hooves','blisters on gums','sores on hooves','sores on gums'].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value == '' ? 'Symptom 2' : value),
@@ -138,7 +138,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     _symptom3 = newValue ?? '';
                   });
                 },
-                items: <String>[ 'Loss of appetite',  'Depression',  'Crackling sound',  'Difficulty walking',  'Painless lumps',  'Shortness of breath',  'Lameness',  'Chills',  'Swelling in extremities',  'Fatigue',  'Chest discomfort',  'Swelling in limb',  'Sweats',  'Blisters on mouth',  'Sores on mouth',  'Swelling in abdomen',  'Blisters on tongue',  'Swelling in muscle',  'Swelling in neck',  'Sores on tongue',  'Blisters on hooves',  'Blisters on gums',  'Sores on hooves',  'Sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                items: <String>['loss of appetite','depression','crackling sound','difficulty walking','painless lumps','shortness of breath','lameness','chills','swelling in extremities','fatigue','chest discomfort','swelling in limb','sweats','blisters on mouth','sores on mouth','swelling in abdomen','blisters on tongue','swelling in muscle','swelling in neck','sores on tongue','blisters on hooves','blisters on gums','sores on hooves','sores on gums'].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value == '' ? 'Symptom 3' : value),
