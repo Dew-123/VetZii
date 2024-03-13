@@ -402,7 +402,7 @@ async function getAppointment(userEmail) {
       .find({ patientEmail: userEmail })
       .toArray();
 
-    if (appointments.length == 0) {
+    if (appointments.length === 0) {
       throw new Error("No appointments found.");
     }
 
@@ -413,19 +413,12 @@ async function getAppointment(userEmail) {
     // Array to store combined data
     const combinedAppointments = [];
 
-    // Fetch vet data for each vetEmail
-    for (const appointment of appointments) {
-      const vet = await vetDatacollection.findOne({
-        email: appointment.vetEmail,
-      });
-      const combinedData = {
-        dateTime: appointment.dateTime,
-        doctorName: vet.fullName,
-        clinicName: vet.clinic,
-      };
-      combinedAppointments.push(combinedData);
+    for (const data of appointments) {
+      
+      const vet = await vetDatacollection.find({ email: data["vetEmail"] }).toArray();
+      combinedAppointments.push({ appointment: data, vet: vet });
     }
-    console.log(combinedAppointments);
+
     // Return the array of combined data
     return combinedAppointments;
   } catch (error) {
