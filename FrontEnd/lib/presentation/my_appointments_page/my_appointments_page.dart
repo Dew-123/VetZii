@@ -11,63 +11,89 @@ import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 class MyAppointmentsPage extends StatelessWidget {
   MyAppointmentsPage({Key? key})
       : super(
-          key: key,
-        );
+    key: key,
+  );
 
   MyAppointmentsController controller =
-      Get.put(MyAppointmentsController(MyAppointmentsModel().obs));
+  Get.put(MyAppointmentsController(MyAppointmentsModel().obs));
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Padding(
-          padding: EdgeInsets.only(
-            left: 17.h,
-            top: 23.v,
-            right: 17.h,
-          ),
-          child: Obx(
-            () => ListView.separated(
-              physics: BouncingScrollPhysics(),
-              shrinkWrap: true,
-              separatorBuilder: (
-                context,
-                index,
-              ) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 7.5.v),
-                  child: SizedBox(
-                    width: 294.h,
-                    child: Divider(
-                      height: 1.v,
-                      thickness: 1.v,
-                      color: appTheme.gray20001,
-                    ),
-                  ),
-                );
-              },
-              itemCount: controller.myAppointmentsModelObj.value
-                  .appointmentcardItemList.value.length,
-              itemBuilder: (context, index) {
-                AppointmentcardItemModel model = controller
-                    .myAppointmentsModelObj
-                    .value
-                    .appointmentcardItemList
-                    .value[index];
-                return AppointmentcardItemWidget(
-                  model,
-                );
-              },
-            ),
-          ),
+        body: FutureBuilder(
+          future: controller.myAppointmentsModelObj.value.fetchDataFromDatabase(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return _buildLoadingScreen();
+            } else if (snapshot.hasError) {
+              return _buildErrorScreen(snapshot.error.toString());
+            } else {
+              return _buildContent();
+            }
+          },
         ),
       ),
     );
   }
 
-  /// Section Widget
+  Widget _buildLoadingScreen() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildErrorScreen(String error) {
+    return Center(
+      child: Text('Error: $error'),
+    );
+  }
+
+  Widget _buildContent() {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 17.h,
+        top: 23.v,
+        right: 17.h,
+      ),
+      child: Obx(
+            () => ListView.separated(
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
+          separatorBuilder: (
+              context,
+              index,
+              ) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 7.5.v),
+              child: SizedBox(
+                width: 294.h,
+                child: Divider(
+                  height: 1.v,
+                  thickness: 1.v,
+                  color: appTheme.gray20001,
+                ),
+              ),
+            );
+          },
+          itemCount: controller.myAppointmentsModelObj.value
+              .appointmentcardItemList.value.length,
+          itemBuilder: (context, index) {
+            AppointmentcardItemModel model = controller
+                .myAppointmentsModelObj
+                .value
+                .appointmentcardItemList
+                .value[index];
+            return AppointmentcardItemWidget(
+              model,
+            );
+          },
+        ),
+      ),
+    );
+  }
+
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       height: 50.v,

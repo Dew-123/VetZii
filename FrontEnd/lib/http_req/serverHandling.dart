@@ -98,9 +98,12 @@ class ServerHandling {
     }
   }
 
-  Future<List<dynamic>> fetchAppointments() async {
+  Future<List<dynamic>> fetchAppointments(String email) async {
     final response = await http.post(
-      Uri.parse(Links.dataGetVets),
+        Uri.parse(Links.getAppointment),
+        body: {
+          'userEmail': email,
+        }
     );
 
     if (response.statusCode == 200) {
