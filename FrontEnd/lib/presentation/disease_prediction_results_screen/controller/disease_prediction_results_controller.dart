@@ -6,6 +6,7 @@ import 'package:mihan_s_application1/presentation/disease_prediction_results_scr
 /// This class manages the state of the DiseasePredictionResultsScreen, including the
 /// current diseasePredictionResultsModelObj
 class DiseasePredictionResultsController extends GetxController {
+
   Rx<DiseasePredictionResultsModel> diseasePredictionResultsModelObj =
       DiseasePredictionResultsModel().obs;
 }

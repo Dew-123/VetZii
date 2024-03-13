@@ -1,3 +1,7 @@
+//import 'dart:js';
+
+import 'package:mihan_s_application1/presentation/disease_prediction_enter_symptoms_screen/disease_prediction_enter_symptoms_screen.dart';
+
 import 'controller/disease_prediction_results_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -47,12 +51,16 @@ class DiseasePredictionResultsScreen
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "msg_our_analysis_indicates2".tr,
+                          text: "Our analysis indicates a potential case of\n\n".tr,
                           style: CustomTextStyles.bodyMediumPoppinsff000000,
                         ),
                         TextSpan(
-                          text: "msg_kidney_failure_please".tr,
+                          text: "Disease\n".tr,
                           style: CustomTextStyles.titleSmallPoppinsffdc2c2c,
+                        ),
+                        TextSpan(
+                          text: "\nPlease consult with a veterinarian for a comprehensive examination and personalized care plan for your pet's well-being.".tr,
+                          style: CustomTextStyles.bodyMediumPoppinsff000000,
                         ),
                       ],
                     ),
@@ -73,18 +81,17 @@ class DiseasePredictionResultsScreen
   PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       leadingWidth: 47.h,
-      leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgArrowDown,
-        margin: EdgeInsets.only(
-          left: 22.h,
-          top: 12.v,
-          bottom: 17.v,
-        ),
-      ),
+      // leading: IconButton(
+      //   icon: Icon(Icons.arrow_back),
+      //   onPressed: (){
+      //     //Navigator.pop();
+      //   },
+      // ),
       centerTitle: true,
       title: AppbarSubtitle(
         text: "msg_disease_prediction".tr,
       ),
+
     );
   }
 

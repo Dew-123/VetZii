@@ -1,6 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
+import 'package:mihan_s_application1/presentation/disease_prediction_results_screen/disease_prediction_results_screen.dart';
+
+import '../../Vet/lib/routes/app_routes.dart';
 
 class DiseasePredictionPage extends StatefulWidget {
   @override
@@ -49,6 +54,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
         setState(() {
           predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
         });
+
       } else {
         throw Exception('Failed to get predictions');
       }
@@ -153,8 +159,12 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
               Container(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: getPredictions,
-                  child: Text('Predict the Disease', style: TextStyle(color: Colors.black,
+                  onPressed: (){
+                    getPredictions();
+                    Get.to(DiseasePredictionResultsScreen());
+                    },
+                    child: Text('Predict the Disease',
+                   style: TextStyle(color: Colors.black,
                       fontSize: 14),),
                 ),
               ),
