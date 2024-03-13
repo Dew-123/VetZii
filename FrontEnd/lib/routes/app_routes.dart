@@ -282,10 +282,10 @@ class AppRoutes {
     ),
     GetPage(
       name: diseasePredictionResultsScreen,
-      page: () => DiseasePredictionResultsScreen(),
-      bindings: [
-        DiseasePredictionResultsBinding(),
-      ],
+      page: () => DiseasePredictionResultsScreen(predictedDisease: '',),
+      // bindings: [
+      //   DiseasePredictionResultsBinding(),
+      // ],
     ),
     GetPage(
       name: appNavigationScreen,

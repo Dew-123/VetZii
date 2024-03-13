@@ -55,6 +55,8 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
           predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
         });
 
+        Get.to(DiseasePredictionResultsScreen(predictedDisease: predictedDisease));
+
       } else {
         throw Exception('Failed to get predictions');
       }
@@ -161,7 +163,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 child: ElevatedButton(
                   onPressed: (){
                     getPredictions();
-                    Get.to(DiseasePredictionResultsScreen());
+                    Get.to(DiseasePredictionResultsScreen(predictedDisease: '',));
                     },
                     child: Text('Predict the Disease',
                    style: TextStyle(color: Colors.black,

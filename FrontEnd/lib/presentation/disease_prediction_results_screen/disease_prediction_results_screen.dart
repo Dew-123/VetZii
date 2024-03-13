@@ -13,7 +13,8 @@ import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 // ignore_for_file: must_be_immutable
 class DiseasePredictionResultsScreen
     extends GetWidget<DiseasePredictionResultsController> {
-  const DiseasePredictionResultsScreen({Key? key})
+  final String predictedDisease;
+  const DiseasePredictionResultsScreen({Key? key, required this.predictedDisease})
       : super(
           key: key,
         );
@@ -32,7 +33,7 @@ class DiseasePredictionResultsScreen
           child: Column(
             children: [
               Text(
-                "msg_prediction_result".tr,
+                "Prediction Result".tr,
                 style: theme.textTheme.titleMedium,
               ),
               SizedBox(height: 43.v),
@@ -55,7 +56,7 @@ class DiseasePredictionResultsScreen
                           style: CustomTextStyles.bodyMediumPoppinsff000000,
                         ),
                         TextSpan(
-                          text: "Disease\n".tr,
+                          text: predictedDisease.tr,
                           style: CustomTextStyles.titleSmallPoppinsffdc2c2c,
                         ),
                         TextSpan(
