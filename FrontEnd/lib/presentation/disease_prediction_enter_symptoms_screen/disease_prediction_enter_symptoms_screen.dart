@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
-import 'package:mihan_s_application1/presentation/disease_prediction_results_screen/disease_prediction_results_screen.dart';
+import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
 
 import '../../Vet/lib/routes/app_routes.dart';
 
@@ -54,8 +53,6 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
         setState(() {
           predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
         });
-
-        Get.to(DiseasePredictionResultsScreen(predictedDisease: predictedDisease));
 
       } else {
         throw Exception('Failed to get predictions');
@@ -163,7 +160,6 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 child: ElevatedButton(
                   onPressed: (){
                     getPredictions();
-                    Get.to(DiseasePredictionResultsScreen(predictedDisease: '',));
                     },
                     child: Text('Predict the Disease',
                    style: TextStyle(color: Colors.black,
@@ -173,6 +169,9 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
               SizedBox(height: 16),
               Text('Predicted Disease: $predictedDisease'),
+              
+
+
             ],
           ),
         ),
