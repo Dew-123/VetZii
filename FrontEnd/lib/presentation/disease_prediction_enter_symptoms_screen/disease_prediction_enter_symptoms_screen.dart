@@ -14,7 +14,7 @@ class DiseasePredictionPage extends StatefulWidget {
 class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController temperatureController = TextEditingController();
-  final TextEditingController animalController = TextEditingController();
+  //final TextEditingController animalController = TextEditingController();
 
   String predictedDisease = '';
   bool showResult = false;
@@ -22,7 +22,8 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   Future<void> getPredictions() async {
     final age = int.tryParse(ageController.text) ?? 0;
     final temperature = double.tryParse(temperatureController.text) ?? 0.0;
-    final animal = animalController.text;
+    //final animal = animalController.text;
+    final animal = _animalspecies;
     final symptom1 = _symptom1;
     final symptom2 = _symptom2;
     final symptom3 = _symptom3;
@@ -67,6 +68,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   String _symptom1 = "";
   String _symptom2 = "";
   String _symptom3 = "";
+  String _animalspecies = "";
 
 
   @override
@@ -93,10 +95,25 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 decoration: InputDecoration(labelText: 'Temperature'),
               ),
               SizedBox(height: 15,),
-              TextField(
-                controller: animalController,
-                decoration: InputDecoration(labelText: 'Animal'),
-              ),
+              //
+              DropdownButtonFormField<String>(
+                value: _animalspecies.isNotEmpty ? _animalspecies : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _animalspecies = newValue ?? '';
+                  });
+                },
+                items: <String>['cow','goat','buffalo'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Animal' : value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Animal', border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ), filled: true, fillColor: Colors.grey[50]),
+                style: TextStyle(color: Colors.black),),
+
               SizedBox(height: 20,),
               DropdownButtonFormField<String>(
                 value: _symptom1.isNotEmpty ? _symptom1 : null,
@@ -170,7 +187,11 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
               ),
 
               SizedBox(height: 16),
-              Text('Predicted Disease: $predictedDisease'),
+              Center(
+                child: Text('Predicted Disease '),
+              ),
+              SizedBox(height: 10,),
+
               if (showResult)
                 Container(
                   width: 100,
@@ -180,7 +201,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                   // You can customize the color as needed
                   child: Center(
                     child: Text(
-                      '$predictedDisease',
+                      '$predictedDisease'.toUpperCase(),
                       style: TextStyle(
                         color: Colors.white, // You can customize the text color as needed
                         fontSize: 16,
@@ -188,25 +209,6 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     ),
                   ),
                 )
-
-              // Container(
-              //   width: 100,
-              //   height: 50,
-              //   decoration: BoxDecoration(color: Colors.red,
-              //   borderRadius: BorderRadius.circular(20)),
-              //    // You can customize the color as needed
-              //   child: Center(
-              //     child: Text(
-              //       '$predictedDisease',
-              //       style: TextStyle(
-              //         color: Colors.white, // You can customize the text color as needed
-              //         fontSize: 16,
-              //       ),
-              //     ),
-              //   ),
-              // )
-
-
 
             ],
           ),
