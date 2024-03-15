@@ -17,6 +17,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   final TextEditingController animalController = TextEditingController();
 
   String predictedDisease = '';
+  bool showResult = false;
 
   Future<void> getPredictions() async {
     final age = int.tryParse(ageController.text) ?? 0;
@@ -52,6 +53,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
         final prediction = jsonDecode(response.body)['predictedDisease'] as String;
         setState(() {
           predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
+          showResult = true;
         });
 
       } else {
@@ -169,7 +171,41 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
               SizedBox(height: 16),
               Text('Predicted Disease: $predictedDisease'),
-              
+              if (showResult)
+                Container(
+                  width: 100,
+                  height: 50,
+                  decoration: BoxDecoration(color: Colors.red,
+                      borderRadius: BorderRadius.circular(20)),
+                  // You can customize the color as needed
+                  child: Center(
+                    child: Text(
+                      '$predictedDisease',
+                      style: TextStyle(
+                        color: Colors.white, // You can customize the text color as needed
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                )
+
+              // Container(
+              //   width: 100,
+              //   height: 50,
+              //   decoration: BoxDecoration(color: Colors.red,
+              //   borderRadius: BorderRadius.circular(20)),
+              //    // You can customize the color as needed
+              //   child: Center(
+              //     child: Text(
+              //       '$predictedDisease',
+              //       style: TextStyle(
+              //         color: Colors.white, // You can customize the text color as needed
+              //         fontSize: 16,
+              //       ),
+              //     ),
+              //   ),
+              // )
+
 
 
             ],
