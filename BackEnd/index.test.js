@@ -25,3 +25,27 @@ describe('POST /dataGetUser', () => {
   });
 
 });
+
+// Test case for successful adding of new user data
+describe('POST /dataAddUser', () => {
+    it('should add user data successfully', async () => {
+      const userData = {
+        Fname: 'John',
+        Lname: 'Doe',
+        nameOfThePet: 'Max',
+        petType: 'Dog',
+        gender: 'Male',
+        email: 'john.doe@example.com',
+        mobileNumber: '1234567890',
+        password: 'password123',
+      };
+  
+      const response = await request(app)
+        .post('/dataAddUser')
+        .send(userData);
+  
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Data added successfully');
+    });
+});
+
