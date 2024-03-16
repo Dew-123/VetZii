@@ -15,6 +15,7 @@ const {
   updateVetPassword,
   updateUserData,
   updateVetData,
+  getRecords
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -417,6 +418,22 @@ app.post("/getAppointment", async (req, res) => {
     }
 
     const result = await getAppointment(userEmail);
+    res.json(result);
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/getDocPassAppointment", async (req, res) => {
+  try {
+    const { docEmail } = req.body;
+    console.log(docEmail);
+    if (!docEmail) {
+      return res.status(400).json({ error: "user doctor email is required" });
+    }
+
+    const result = await getRecords(docEmail);
     res.json(result);
   } catch (error) {
     console.error("Error handling API request:", error);

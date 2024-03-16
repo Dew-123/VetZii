@@ -386,6 +386,32 @@ async function updateVetData(
     throw error;
   }
 }
+
+async function getRecords(docEmail) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+
+    // Access "appointment" database and "toAccept" collection
+    const database = client.db("appointment");
+    const toAcceptCollection = database.collection("toAccept");
+
+    // Retrieve all appointment data associated with the provided userEmail from toAccept collection
+    const records = await toAcceptCollection
+      .find({ vetEmail: docEmail })
+      .toArray();
+
+    if (records.length === 0) {
+      throw new Error("No appointments found.");
+    }
+
+    return records;
+  } catch (error) {
+    console.error("Error retrieving appointment data:", error);
+    throw error;
+  }
+}
+
 async function getAppointment(userEmail) {
   try {
     // Connect to MongoDB
@@ -442,5 +468,5 @@ module.exports = {
   updateUserData,
   updateVetData,
   getAppointment,
-
+  getRecords,
 };
