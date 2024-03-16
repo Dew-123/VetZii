@@ -18,5 +18,8 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.10",
     "parser": "^0.1.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
