@@ -22,6 +22,7 @@ const multer = require("multer");
 const recover = require("./emailHandling");
 
 const app = express();
+module.exports = app;
 const PORT = process.env.PORT || 3000;
 
 // Parse application/x-www-form-urlencoded
