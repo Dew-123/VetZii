@@ -148,7 +148,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     child: Text(value == '' ? 'Symptom 2' : value),
                   );
                 }).toList(),
-                  decoration: InputDecoration(labelText: 'Symptom 1', border: OutlineInputBorder(
+                  decoration: InputDecoration(labelText: 'Symptom 2', border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ), filled: true, fillColor: Colors.grey[50]),
                   style: TextStyle(color: Colors.black),
@@ -168,7 +168,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     child: Text(value == '' ? 'Symptom 3' : value),
                   );
                 }).toList(),
-                  decoration: InputDecoration(labelText: 'Symptom 1', border: OutlineInputBorder(
+                  decoration: InputDecoration(labelText: 'Symptom 3', border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ), filled: true, fillColor: Colors.grey[50]),
                   style: TextStyle(color: Colors.black),
