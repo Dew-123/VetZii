@@ -1,112 +1,220 @@
-import 'widgets/diseasepredictioncheckboxes_item_widget.dart';
-import 'controller/disease_prediction_enter_symptoms_controller.dart';
-import 'models/diseasepredictioncheckboxes_item_model.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:mihan_s_application1/core/app_export.dart';
-import 'package:mihan_s_application1/widgets/app_bar/appbar_leading_image.dart';
-import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle.dart';
-import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
-import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
 
-// ignore_for_file: must_be_immutable
-class DiseasePredictionEnterSymptomsScreen
-    extends GetWidget<DiseasePredictionEnterSymptomsController> {
-  const DiseasePredictionEnterSymptomsScreen({Key? key})
-      : super(
-          key: key,
-        );
+import '../../Vet/lib/routes/app_routes.dart';
+
+class DiseasePredictionPage extends StatefulWidget {
+  @override
+  _DiseasePredictionPageState createState() => _DiseasePredictionPageState();
+}
+
+class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController temperatureController = TextEditingController();
+  //final TextEditingController animalController = TextEditingController();
+
+  String predictedDisease = '';
+  bool showResult = false;
+
+  Future<void> getPredictions() async {
+    final age = int.tryParse(ageController.text) ?? 0;
+    final temperature = double.tryParse(temperatureController.text) ?? 0.0;
+    //final animal = animalController.text;
+    final animal = _animalspecies;
+    final symptom1 = _symptom1;
+    final symptom2 = _symptom2;
+    final symptom3 = _symptom3;
+
+    print("predicting");
+    final inputData = {
+      'Age': [age],
+      'Temperature': [temperature],
+      'Animal': [animal],
+      'Symptom1': [symptom1],
+      'Symptom2': [symptom2],
+      'Symptom3': [symptom3],
+    };
+
+    print(inputData);
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://10.0.2.2:3000/predict'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(inputData),
+      );
+
+      print("running");
+      if (response.statusCode == 200) {
+        final prediction = jsonDecode(response.body)['predictedDisease'] as String;
+        setState(() {
+          predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
+          showResult = true;
+        });
+
+      } else {
+        throw Exception('Failed to get predictions');
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  String _symptom1 = "";
+  String _symptom2 = "";
+  String _symptom3 = "";
+  String _animalspecies = "";
+
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: Container(
-          width: double.maxFinite,
-          padding: EdgeInsets.symmetric(
-            horizontal: 40.h,
-            vertical: 28.v,
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Disease Prediction'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                "msg_please_select_the".tr,
-                style: CustomTextStyles.bodyMediumPoppins14,
+              TextField(
+                controller: ageController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: 'Age'),
               ),
-              SizedBox(height: 32.v),
-              _buildDiseasePredictionCheckboxes(),
+              SizedBox(height: 15,),
+              TextField(
+                controller: temperatureController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(labelText: 'Temperature'),
+              ),
+              SizedBox(height: 15,),
+              //
+              DropdownButtonFormField<String>(
+                value: _animalspecies.isNotEmpty ? _animalspecies : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _animalspecies = newValue ?? '';
+                  });
+                },
+                items: <String>['cow','goat','buffalo'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Animal' : value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Animal', border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ), filled: true, fillColor: Colors.grey[50]),
+                style: TextStyle(color: Colors.black),),
+
+              SizedBox(height: 20,),
+              DropdownButtonFormField<String>(
+                value: _symptom1.isNotEmpty ? _symptom1 : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _symptom1 = newValue ?? '';
+                  });
+                },
+                items: <String>['loss of appetite','depression','crackling sound','difficulty walking','painless lumps','shortness of breath','lameness','chills','swelling in extremities','fatigue','chest discomfort','swelling in limb','sweats','blisters on mouth','sores on mouth','swelling in abdomen','blisters on tongue','swelling in muscle','swelling in neck','sores on tongue','blisters on hooves','blisters on gums','sores on hooves','sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Symptom 1' : value),
+                  );
+                }).toList(),
+                decoration: InputDecoration(labelText: 'Symptom 1', border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ), filled: true, fillColor: Colors.grey[50]),
+              style: TextStyle(color: Colors.black),),
+              SizedBox(height: 20,),
+
+
+              DropdownButtonFormField<String>(
+                value: _symptom2.isNotEmpty ? _symptom2 : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _symptom2 = newValue ?? '';
+                  });
+                },
+                items: <String>['loss of appetite','depression','crackling sound','difficulty walking','painless lumps','shortness of breath','lameness','chills','swelling in extremities','fatigue','chest discomfort','swelling in limb','sweats','blisters on mouth','sores on mouth','swelling in abdomen','blisters on tongue','swelling in muscle','swelling in neck','sores on tongue','blisters on hooves','blisters on gums','sores on hooves','sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Symptom 2' : value),
+                  );
+                }).toList(),
+                  decoration: InputDecoration(labelText: 'Symptom 2', border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ), filled: true, fillColor: Colors.grey[50]),
+                  style: TextStyle(color: Colors.black),
+              ),
+              SizedBox(height: 20,),
+
+              DropdownButtonFormField<String>(
+                value: _symptom3.isNotEmpty ? _symptom3 : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _symptom3 = newValue ?? '';
+                  });
+                },
+                items: <String>['loss of appetite','depression','crackling sound','difficulty walking','painless lumps','shortness of breath','lameness','chills','swelling in extremities','fatigue','chest discomfort','swelling in limb','sweats','blisters on mouth','sores on mouth','swelling in abdomen','blisters on tongue','swelling in muscle','swelling in neck','sores on tongue','blisters on hooves','blisters on gums','sores on hooves','sores on gums'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value == '' ? 'Symptom 3' : value),
+                  );
+                }).toList(),
+                  decoration: InputDecoration(labelText: 'Symptom 3', border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ), filled: true, fillColor: Colors.grey[50]),
+                  style: TextStyle(color: Colors.black),
+              ),
+              SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: (){
+                    getPredictions();
+                    },
+                    child: Text('Predict the Disease',
+                   style: TextStyle(color: Colors.black,
+                      fontSize: 14),),
+                ),
+              ),
+
+              SizedBox(height: 16),
+              Center(
+                child: Text('Predicted Disease '),
+              ),
+              SizedBox(height: 10,),
+
+              if (showResult)
+                Container(
+                  width: 100,
+                  height: 50,
+                  decoration: BoxDecoration(color: Colors.red,
+                      borderRadius: BorderRadius.circular(20)),
+                  // You can customize the color as needed
+                  child: Center(
+                    child: Text(
+                      '$predictedDisease'.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white, // You can customize the text color as needed
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                )
+
             ],
           ),
         ),
-        bottomNavigationBar: _buildPredictButton(),
       ),
     );
-  }
-
-  /// Section Widget
-  PreferredSizeWidget _buildAppBar() {
-    return CustomAppBar(
-      leadingWidth: 47.h,
-      leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgArrowDown,
-        margin: EdgeInsets.only(
-          left: 22.h,
-          top: 12.v,
-          bottom: 17.v,
-        ),
-      ),
-      centerTitle: true,
-      title: AppbarSubtitle(
-        text: "msg_disease_prediction".tr,
-      ),
-    );
-  }
-
-  /// Section Widget
-  Widget _buildDiseasePredictionCheckboxes() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25.h),
-      child: Obx(
-        () => ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          separatorBuilder: (
-            context,
-            index,
-          ) {
-            return SizedBox(
-              height: 15.v,
-            );
-          },
-          itemCount: controller.diseasePredictionEnterSymptomsModelObj.value
-              .diseasepredictioncheckboxesItemList.value.length,
-          itemBuilder: (context, index) {
-            DiseasepredictioncheckboxesItemModel model = controller
-                .diseasePredictionEnterSymptomsModelObj
-                .value
-                .diseasepredictioncheckboxesItemList
-                .value[index];
-            return DiseasepredictioncheckboxesItemWidget(
-              model,
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  /// Section Widget
-  Widget _buildPredictButton() {
-    return CustomElevatedButton(
-        text: "msg_predict_the_disease2".tr,
-        margin: EdgeInsets.only(
-          left: 50.h,
-          right: 49.h,
-          bottom: 42.v,
-        ),
-        onPressed: () {
-          // Navigate to the relevant page (e.g., diseasePredictionEnterScreen)
-          Get.toNamed(AppRoutes.diseasePredictionResultsScreen);
-        });
   }
 }
+

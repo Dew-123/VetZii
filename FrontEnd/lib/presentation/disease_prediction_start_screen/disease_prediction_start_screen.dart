@@ -30,7 +30,7 @@ class DiseasePredictionStartScreen
               SizedBox(
                 width: 302.h,
                 child: Text(
-                  "msg_welcome_to_our_disease".tr,
+                  "Welcome to our Disease Prediction feature! We understand the importance of early detection and proactive pet care. Our advanced system analyzes a variety of symptoms to predict potential health issues in your beloved pets.\nPlease remember that while this tool offers predictive information, consulting with a veterinarian for a professional assessment is crucial for accurate diagnosis and personalized care. Your pet's health is our priority, and we're here to support you on their journey to a happy and healthy life.".tr,
                   maxLines: 13,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
@@ -66,7 +66,7 @@ class DiseasePredictionStartScreen
       ),
       centerTitle: true,
       title: AppbarSubtitle(
-        text: "msg_disease_prediction".tr,
+        text: "Disease Prediction".tr,
       ),
     );
   }
@@ -74,7 +74,7 @@ class DiseasePredictionStartScreen
   /// Section Widget
   Widget _buildStartButton() {
     return CustomElevatedButton(
-      text: "lbl_start".tr,
+      text: "Start".tr,
       margin: EdgeInsets.only(
         left: 50.h,
         right: 49.h,

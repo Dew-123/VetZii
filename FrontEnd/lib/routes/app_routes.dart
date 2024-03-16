@@ -21,8 +21,6 @@ import 'package:mihan_s_application1/presentation/veterinarian_create_an_account
 // import 'package:mihan_s_application1/presentation/user_profile_screen/binding/user_profile_binding.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/main_menu_container_screen.dart';
 import 'package:mihan_s_application1/presentation/main_menu_container_screen/binding/main_menu_container_binding.dart';
-import 'package:mihan_s_application1/presentation/clinic_page_vets_tab_container_screen/clinic_page_vets_tab_container_screen.dart';
-import 'package:mihan_s_application1/presentation/clinic_page_vets_tab_container_screen/binding/clinic_page_vets_tab_container_binding.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_about_tab_container_screen/vet_acccount_page_about_tab_container_screen.dart';
 import 'package:mihan_s_application1/presentation/vet_acccount_page_about_tab_container_screen/binding/vet_acccount_page_about_tab_container_binding.dart';
 import 'package:mihan_s_application1/presentation/book_appointment_screen/book_appointment_screen.dart';
@@ -40,9 +38,6 @@ import 'package:mihan_s_application1/presentation/rehoming_form_screen/binding/r
 import 'package:mihan_s_application1/presentation/disease_prediction_start_screen/disease_prediction_start_screen.dart';
 import 'package:mihan_s_application1/presentation/disease_prediction_start_screen/binding/disease_prediction_start_binding.dart';
 import 'package:mihan_s_application1/presentation/disease_prediction_enter_symptoms_screen/disease_prediction_enter_symptoms_screen.dart';
-import 'package:mihan_s_application1/presentation/disease_prediction_enter_symptoms_screen/binding/disease_prediction_enter_symptoms_binding.dart';
-import 'package:mihan_s_application1/presentation/disease_prediction_results_screen/disease_prediction_results_screen.dart';
-import 'package:mihan_s_application1/presentation/disease_prediction_results_screen/binding/disease_prediction_results_binding.dart';
 import 'package:mihan_s_application1/presentation/app_navigation_screen/app_navigation_screen.dart';
 import 'package:mihan_s_application1/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import '../presentation/book_appointment_confrm_dialog/binding/book_appointment_confrm_controller_binding.dart';
@@ -214,13 +209,6 @@ class AppRoutes {
       ],
     ),
     GetPage(
-      name: clinicPageVetsTabContainerScreen,
-      page: () => ClinicPageVetsTabContainerScreen(),
-      bindings: [
-        ClinicPageVetsTabContainerBinding(),
-      ],
-    ),
-    GetPage(
       name: vetAcccountPageAboutTabContainerScreen,
       page: () => VetAcccountPageAboutTabContainerScreen(),
       bindings: [
@@ -277,6 +265,7 @@ class AppRoutes {
         RehomingFormBinding(),
       ],
     ),
+
     GetPage(
       name: diseasePredictionStartScreen,
       page: () => DiseasePredictionStartScreen(),
@@ -286,18 +275,11 @@ class AppRoutes {
     ),
     GetPage(
       name: diseasePredictionEnterSymptomsScreen,
-      page: () => DiseasePredictionEnterSymptomsScreen(),
-      bindings: [
-        DiseasePredictionEnterSymptomsBinding(),
-      ],
+      page: () => DiseasePredictionPage(),
+
     ),
-    GetPage(
-      name: diseasePredictionResultsScreen,
-      page: () => DiseasePredictionResultsScreen(),
-      bindings: [
-        DiseasePredictionResultsBinding(),
-      ],
-    ),
+
+
     GetPage(
       name: appNavigationScreen,
       page: () => AppNavigationScreen(),
