@@ -352,7 +352,6 @@ async function updateVetData(
     // Connect to MongoDB
     await connectToMongoDB();
 
-
     // Access the database and collection
     const database = client.db("vetzil");
     const collection = database.collection("vet");
@@ -387,7 +386,6 @@ async function updateVetData(
     throw error;
   }
 }
-
 async function getAppointment(userEmail) {
   try {
     // Connect to MongoDB
@@ -414,8 +412,9 @@ async function getAppointment(userEmail) {
     const combinedAppointments = [];
 
     for (const data of appointments) {
-      
-      const vet = await vetDatacollection.find({ email: data["vetEmail"] }).toArray();
+      const vet = await vetDatacollection
+        .find({ email: data["vetEmail"] })
+        .toArray();
       combinedAppointments.push({ appointment: data, vet: vet });
     }
 
@@ -443,4 +442,5 @@ module.exports = {
   updateUserData,
   updateVetData,
   getAppointment,
+
 };

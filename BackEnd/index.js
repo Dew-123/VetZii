@@ -10,6 +10,7 @@ const {
   getPetsData,
   addAppointmentToAccept,
   addAppointmentCurrent,
+  getAppointment,
   updateUserPassword,
   updateVetPassword,
   updateUserData,
@@ -24,7 +25,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // Parse application/json
 app.use(bodyParser.json());
@@ -233,7 +235,7 @@ app.post("/changeEmailVet", async (req, res) => {
 
 app.post("/addPet", async (req, res) => {
   try {
-    const { name, description, contactNo } = req.body;
+    const { name, description, contactNo, image } = req.body;
 
     if (!name || !description || !contactNo) {
       return res.status(400).json({ error: "Missing required fields" });
@@ -244,6 +246,7 @@ app.post("/addPet", async (req, res) => {
       name,
       description,
       contactNo,
+      image,
     };
 
     const result = await addDataPets(newPetData);
