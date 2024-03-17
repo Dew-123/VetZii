@@ -16,7 +16,8 @@ const {
   updateUserData,
   updateVetData,
   getRecords,
-  addPastTreatments
+  addPastTreatments,
+  getPastTreatments
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -472,6 +473,32 @@ app.post("/addPastTreatments", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error adding past treatment record",
+      error: error.message,
+    });
+  }
+});
+
+app.post("/getPastTreatments", async (req, res) => {
+  try {
+    const { doctorEmail } = req.body; // Retrieve email from query parameters
+
+    if (!doctorEmail) {
+      return res.status(400).json({
+        success: false,
+        message: "Email parameter is required.",
+      });
+    }
+
+    const pastTreatments = await getPastTreatments(doctorEmail); // Call function to retrieve past treatments based on email
+
+    res.status(200).json({
+      pastTreatments
+    });
+  } catch (error) {
+    console.error("Error retrieving past treatments:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving past treatments",
       error: error.message,
     });
   }
