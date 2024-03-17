@@ -90,6 +90,7 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                       width: 189.h,
                       text: "lbl_log_in".tr,
                       onPressed: () async {
+                        Get.to(VetProfilePage());
                         String email =
                             controller.userNameController.text.removeAllWhitespace;
                         String password =
@@ -109,7 +110,7 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                             VetData.mobileNumber = data[0]['mobileNumber'] ?? '';
                             VetData.password = data[0]['password'] ?? '';
                             VetData.clinicName = data[0]['clinic'] ?? '';
-                            Get.to(VetProfilePage());
+                            // Get.to(VetProfilePage());
 
                           } else {
                             showDialog(

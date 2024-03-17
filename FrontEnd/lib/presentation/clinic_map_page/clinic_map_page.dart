@@ -54,8 +54,8 @@ class _ClinicMapPageState extends State<ClinicMapPage> {
         },
         zoomControlsEnabled: true,
         zoomGesturesEnabled: true,
-        myLocationButtonEnabled: false,
-        myLocationEnabled: false,
+        myLocationButtonEnabled: true,
+        myLocationEnabled: true,
         markers: Set<Marker>.of(markers),
       ),
     );

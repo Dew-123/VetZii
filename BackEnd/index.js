@@ -22,7 +22,8 @@ const {
 
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const recover = require("./emailHandling");
+const {sendEmail,
+  sendEmailCustom} = require("./emailHandling");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -128,7 +129,7 @@ app.post("/dataAddUser", async (req, res) => {
 app.post("/recoverMailCodeSend", async (req, res) => {
   const email = req.body.email;
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
-  recover.sendEmail(email, recoveryCode);
+  await sendEmail(email, recoveryCode);
   res.json(recoveryCode);
 });
 
@@ -221,13 +222,6 @@ app.get("/dataAddVet", async (req, res) => {
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-});
-
-app.post("/recoverMailCodeSend", async (req, res) => {
-  const email = req.body.email;
-  const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
-  recover.sendEmail(email, recoveryCode);
-  res.json(recoveryCode);
 });
 
 app.post("/changeEmailVet", async (req, res) => {
@@ -501,6 +495,12 @@ app.post("/getPastTreatments", async (req, res) => {
       error: error.message,
     });
   }
+});
+
+app.post("/sendEmail",async(req,res)=>{
+  const {email , msg,heading} = req.body;
+  const data=await sendEmailCustom(email,msg,heading);
+  res.send(data);
 });
 
 app.listen(PORT, () => {

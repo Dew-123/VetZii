@@ -31,6 +31,27 @@ function sendEmail(to, text) {
   });
 }
 
+function sendEmailCustom(to, text,heading) {
+  let mailOptions = {
+    from: "mihanfernando23@gmail.com",
+    to: to,
+    subject: heading,
+    text: text,
+  };
+
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(info.response);
+      }
+    });
+  });
+}
+
+
 module.exports = {
   sendEmail,
+  sendEmailCustom
 };

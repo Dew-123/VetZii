@@ -113,4 +113,22 @@ class ServerHandling {
       throw Exception('Failed to load data');
     }
   }
+
+  Future<String> sendEmail(String email,String heading,String msg) async {
+    final response = await http.post(
+      Uri.parse(Links.recoverMailCodeSend),
+      body: {
+        'email': email,
+        'msg':msg,
+
+      },
+    );
+
+    if (response.statusCode == 200) {
+      String data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
 }
