@@ -452,6 +452,45 @@ async function getAppointment(userEmail) {
   }
 }
 
+async function addPastTreatments(treatmentData) {
+  try {
+  
+    await connectToMongoDB();
+
+    const database = client.db("vetzil");
+    const pastTreatmentsCollection = database.collection("pastTreatments");
+
+    const result = await pastTreatmentsCollection.insertOne(treatmentData);
+    
+    console.log("Treatment record added successfully:", result.insertedId);
+
+  
+    return result.insertedId;
+  } catch (error) {
+    console.error("Error adding past treatment record:", error);
+    throw error;
+  }
+}
+async function getPastTreatments(email) {
+  try {
+    await connectToMongoDB();
+
+    const database = client.db("vetzil");
+    const pastTreatmentsCollection = database.collection("pastTreatments");
+
+    // Assuming email is a field in the pastTreatments documents
+    const pastTreatments = await pastTreatmentsCollection.find({ email }).toArray();
+
+    console.log("Past treatments retrieved successfully:", pastTreatments);
+
+    return pastTreatments;
+  } catch (error) {
+    console.error("Error retrieving past treatments:", error);
+    throw error;
+  }
+}
+
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -469,4 +508,5 @@ module.exports = {
   updateVetData,
   getAppointment,
   getRecords,
+  addPastTreatments,getPastTreatments
 };

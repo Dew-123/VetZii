@@ -15,7 +15,9 @@ const {
   updateVetPassword,
   updateUserData,
   updateVetData,
-  getRecords
+  getRecords,
+  addPastTreatments,
+  getPastTreatments,
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -438,6 +440,66 @@ app.post("/getDocPassAppointment", async (req, res) => {
   } catch (error) {
     console.error("Error handling API request:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/addPastTreatments", async (req, res) => {
+  try {
+    const { email, date, ownerName, petName, petType, description, image } =
+      req.body;
+    const treatmentData = {
+      email: email,
+      date: date,
+      owner: {
+        name: ownerName,
+      },
+      pet: {
+        name: petName,
+        type: petType,
+      },
+      description: description,
+      image: image,
+    };
+
+    const insertedId = await addPastTreatments(treatmentData);
+
+    res.status(200).json({
+      success: true,
+      message: "Treatment record added successfully",
+      insertedId,
+    });
+  } catch (error) {
+    console.error("Error adding past treatment record:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error adding past treatment record",
+      error: error.message,
+    });
+  }
+});
+app.post("/getPastTreatments", async (req, res) => {
+  try {
+    const { doctorEmail } = req.body; // Retrieve email from query parameters
+
+    if (!doctorEmail) {
+      return res.status(400).json({
+        success: false,
+        message: "Email parameter is required.",
+      });
+    }
+
+    const pastTreatments = await getPastTreatments(doctorEmail); // Call function to retrieve past treatments based on email
+
+    res.status(200).json({
+      pastTreatments
+    });
+  } catch (error) {
+    console.error("Error retrieving past treatments:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving past treatments",
+      error: error.message,
+    });
   }
 });
 
