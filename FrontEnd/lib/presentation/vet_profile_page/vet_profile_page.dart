@@ -131,6 +131,26 @@ class _VetProfilePageState extends State<VetProfilePage> {
                         ),
                       ),
                     ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Get.to(()=>VetTreatmentRecords());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      'Add Treatment Records',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
