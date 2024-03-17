@@ -472,6 +472,25 @@ async function addPastTreatments(treatmentData) {
   }
 }
 
+async function getPastTreatments(email) {
+  try {
+    await connectToMongoDB();
+
+    const database = client.db("vetzil");
+    const pastTreatmentsCollection = database.collection("pastTreatments");
+
+    // Assuming email is a field in the pastTreatments documents
+    const pastTreatments = await pastTreatmentsCollection.find({ email }).toArray();
+
+    console.log("Past treatments retrieved successfully:", pastTreatments);
+
+    return pastTreatments;
+  } catch (error) {
+    console.error("Error retrieving past treatments:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -490,4 +509,5 @@ module.exports = {
   getAppointment,
   getRecords,
   addPastTreatments,
+  getPastTreatments,
 };
