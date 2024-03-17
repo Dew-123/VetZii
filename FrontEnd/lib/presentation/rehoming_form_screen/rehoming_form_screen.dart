@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:convert';
 import '../../widgets/custom_text_form_field.dart';
 import 'controller/rehoming_form_controller.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/widgets/app_bar/appbar_leading_image.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -165,12 +164,15 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
   }
 
   void addPetData() async {
-    // Retrieve values from controllers
+
     String name = controller.nameController.text;
     String description = controller.descriptionController.text;
     String contactNo = controller.enterDetailsController.text;
-    // String uploadImage = controller.uploadImageController.text;
+
     File? imageFile = controller.imageFile.value;
+    List<int> imageBytes = imageFile!.readAsBytesSync();
+    String base64Image = base64Encode(imageBytes);
+
     try {
       var response = await http.post(
         Uri.parse('http://10.0.2.2:3000/addPet'), // Update with your API endpoint
@@ -178,47 +180,20 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
           'name': name,
           'description': description,
           'contactNo': contactNo,
-          //'uploadImage': uploadImage,
+          'image': base64Image,
         },
       );
 
-      // // Create a multipart request
-      // var request = http.MultipartRequest(
-      //   'POST',
-      //   Uri.parse(
-      //       'http://10.0.2.2:3000/addPet'), // Update with your API endpoint
-      // );
-      //
-      // // Add fields (pet details)
-      // request.fields['name'] = name;
-      // request.fields['description'] = description;
-      // request.fields['contactNo'] = contactNo;
-      //
-      // // Add the image file
-      // if (imageFile != null) {
-      //   request.files.add(
-      //     await http.MultipartFile.fromPath('image', imageFile.path),
-      //   );
-      // }
-      //
-      // // Send the request
-      // var streamedResponse = await request.send();
-      //
-      // // Get the response
-      // var response = await http.Response.fromStream(streamedResponse);
-
       if (response.statusCode == 200) {
-        // Pet data added successfully
         print('Pet data added successfully');
         Get.toNamed(AppRoutes.adoptionAndRehomingScreen);
       } else {
-        // Failed to add pet data
         print('Failed to add pet data: ${response.body}');
       }
     } catch (error) {
-      // Handle any errors that might occur during the HTTP request
       print('Error adding pet data: $error');
     }
 
   }
+
 }

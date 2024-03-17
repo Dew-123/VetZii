@@ -1,4 +1,4 @@
-import '../book_appointment_confrm_dialog/book_appointment_confrm_dialog.dart';
+
 import 'widgets/hourstabs_item_widget.dart';
 import 'controller/book_appointment_controller.dart';
 import 'models/hourstabs_item_model.dart';
@@ -174,9 +174,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
   Future<void> _getData(BuildContext context) async {
     List<HourstabsItemModel> selectedItems = [];
 
-
     for (HourstabsItemModel model in controller.bookAppointmentModelObj.value.hourstabsItemList.value) {
-
       if (model.isSelected?.value == true) {
         selectedItems.add(model);
       }

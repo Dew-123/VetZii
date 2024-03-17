@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/vetData.dart';
 import 'package:http/http.dart' as http;
 import 'package:mihan_s_application1/http_req/links.dart';
-
 import '../vet_location_picker_page/vet_location_picker_page.dart';
+import 'vet_treatment_records.dart';
 
 class VetProfilePage extends StatefulWidget {
   VetProfilePage({Key? key}) : super(key: key);
@@ -66,27 +65,27 @@ class _VetProfilePageState extends State<VetProfilePage> {
                   SizedBox(height: 20),
 
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MapPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MapPage()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Locate on Map',style: TextStyle(color: Colors.white,
-                            fontSize: 14),),
-                        SizedBox(width: 5,),
-                        Icon(Icons.location_on),
-                      ],
-                    )
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Locate on Map',style: TextStyle(color: Colors.white,
+                              fontSize: 14),),
+                          SizedBox(width: 5,),
+                          Icon(Icons.location_on),
+                        ],
+                      )
                   ),
                   SizedBox(height: 10),
                   if (!_editMode)
@@ -131,6 +130,26 @@ class _VetProfilePageState extends State<VetProfilePage> {
                         ),
                       ),
                     ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Get.to(()=>VetTreatmentRecords());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      'Add Treatment Records',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

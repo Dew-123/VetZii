@@ -16,14 +16,12 @@ class MyAppointmentsModel {
     for (var data in databaseData) {
       print( data["appointment"]["dateTime"]);
 
-      print(data["vet"][0]["fullName"]);
-      print(data["vet"][0]["addressOfTheClinic"]);
-
       Rx<String> time = Rx(data["appointment"]["dateTime"]);
       Rx<String> doctorName = Rx(data["vet"][0]["fullName"]);
       Rx<String> clinicName = Rx(data["vet"][0]["addressOfTheClinic"]);
 
-      AppointmentcardItemModel userModel = AppointmentcardItemModel(
+      AppointmentcardItemModel userModel =
+      AppointmentcardItemModel(
         time: time,
         doctorName: doctorName,
         clinicName: clinicName,

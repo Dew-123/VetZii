@@ -103,29 +103,6 @@ class AppointmentcardItemWidget extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 24.v),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: CustomElevatedButton(
-                  height: 37.v,
-                  text: "lbl_cancel".tr,
-                  margin: EdgeInsets.only(right: 8.h),
-                  buttonStyle: CustomButtonStyles.fillGray,
-                  buttonTextStyle: CustomTextStyles.titleSmallPoppinsBlack90002,
-                ),
-              ),
-              Expanded(
-                child: CustomElevatedButton(
-                  height: 37.v,
-                  text: "lbl_reschedule".tr,
-                  margin: EdgeInsets.only(left: 8.h),
-                  buttonTextStyle: CustomTextStyles.titleSmallPoppinsBlack90002,
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );

@@ -53,7 +53,7 @@ class _ClinicMapPageState extends State<ClinicMapPage> {
           googleMapController.complete(controller);
         },
         zoomControlsEnabled: true,
-        zoomGesturesEnabled: false,
+        zoomGesturesEnabled: true,
         myLocationButtonEnabled: false,
         myLocationEnabled: false,
         markers: Set<Marker>.of(markers),

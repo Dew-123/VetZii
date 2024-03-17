@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
-
 import 'widgets/userprofile1_item_widget.dart';
 import 'controller/adoption_and_rehoming_controller.dart';
 import 'models/userprofile1_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/clinic_map_page/clinic_map_page.dart';
-import 'package:mihan_s_application1/presentation/directory_vets_page/directory_vets_page.dart';
-import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
 import 'package:mihan_s_application1/presentation/my_appointments_page/my_appointments_page.dart';
 import 'package:mihan_s_application1/widgets/app_bar/appbar_leading_image.dart';
 import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle.dart';

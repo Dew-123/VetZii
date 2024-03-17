@@ -490,7 +490,7 @@ app.post("/getPastTreatments", async (req, res) => {
 
     const pastTreatments = await getPastTreatments(doctorEmail); // Call function to retrieve past treatments based on email
 
-    res.status(200).json({
+    res.json({
       pastTreatments
     });
   } catch (error) {
