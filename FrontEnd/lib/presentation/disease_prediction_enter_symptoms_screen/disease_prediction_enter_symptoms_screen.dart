@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
 
-import '../../Vet/lib/routes/app_routes.dart';
+import 'package:http/http.dart' as http;
+
+import '../../http_req/links.dart';
 
 class DiseasePredictionPage extends StatefulWidget {
   @override
@@ -14,7 +13,7 @@ class DiseasePredictionPage extends StatefulWidget {
 class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController temperatureController = TextEditingController();
-  //final TextEditingController animalController = TextEditingController();
+
 
   String predictedDisease = '';
   bool showResult = false;
@@ -22,7 +21,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   Future<void> getPredictions() async {
     final age = int.tryParse(ageController.text) ?? 0;
     final temperature = double.tryParse(temperatureController.text) ?? 0.0;
-    //final animal = animalController.text;
+
     final animal = _animalspecies;
     final symptom1 = _symptom1;
     final symptom2 = _symptom2;
@@ -42,7 +41,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:3000/predict'),
+        Uri.parse(Links.predict),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

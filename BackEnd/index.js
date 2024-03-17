@@ -1,5 +1,5 @@
 const express = require("express");
-const { spawn } = require('child_process');
+const { spawn } = require("child_process");
 const {
   connectToMongoDB,
   getDataUsers,
@@ -18,13 +18,11 @@ const {
   updateVetData,
   getRecords,
   addPastTreatments,
-  getPastTreatments
+  getPastTreatments,
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
-const multer = require("multer");
-const {sendEmail,
-  sendEmailCustom} = require("./emailHandling");
+const { sendEmail, sendEmailCustom } = require("./emailHandling");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -486,7 +484,7 @@ app.post("/getPastTreatments", async (req, res) => {
     const pastTreatments = await getPastTreatments(doctorEmail); // Call function to retrieve past treatments based on email
 
     res.json({
-      pastTreatments
+      pastTreatments,
     });
   } catch (error) {
     console.error("Error retrieving past treatments:", error);
@@ -498,9 +496,9 @@ app.post("/getPastTreatments", async (req, res) => {
   }
 });
 
-app.post("/sendEmail",async(req,res)=>{
-  const {email , msg,heading} = req.body;
-  const data=await sendEmailCustom(email,msg,heading);
+app.post("/sendEmail", async (req, res) => {
+  const { email, msg, heading } = req.body;
+  const data = await sendEmailCustom(email, msg, heading);
   res.send(data);
 });
 
