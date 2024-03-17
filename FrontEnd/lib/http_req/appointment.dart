@@ -34,4 +34,5 @@ class Appointment {
       print('Error occurred while calling the API: $error');
     }
   }
+
 }
