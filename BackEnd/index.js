@@ -17,7 +17,7 @@ const {
   updateVetData,
   getRecords,
   addPastTreatments,
-  getPastTreatments,
+  getPastTreatments
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");

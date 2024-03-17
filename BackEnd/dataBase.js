@@ -454,17 +454,13 @@ async function getAppointment(userEmail) {
 
 async function addPastTreatments(treatmentData) {
   try {
-  
     await connectToMongoDB();
-
     const database = client.db("vetzil");
     const pastTreatmentsCollection = database.collection("pastTreatments");
 
     const result = await pastTreatmentsCollection.insertOne(treatmentData);
-    
-    console.log("Treatment record added successfully:", result.insertedId);
 
-  
+    console.log("Treatment record added successfully:", result.insertedId);
     return result.insertedId;
   } catch (error) {
     console.error("Error adding past treatment record:", error);
@@ -490,7 +486,6 @@ async function getPastTreatments(email) {
   }
 }
 
-
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -508,5 +503,6 @@ module.exports = {
   updateVetData,
   getAppointment,
   getRecords,
-  addPastTreatments,getPastTreatments
+  addPastTreatments,
+  getPastTreatments,
 };
