@@ -9,8 +9,8 @@ class UserData {
   static String mobileNumber = '';
   static String password = '';
 
-
-
+  static String lat = '';
+  static String long = '';
 
   static String fullName_vet='';
   static String addressOfTheClinic_vet='';

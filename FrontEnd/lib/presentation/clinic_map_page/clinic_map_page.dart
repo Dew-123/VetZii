@@ -1,36 +1,41 @@
-import 'controller/clinic_map_controller.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import 'dart:async';
-import 'models/clinic_map_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 
-class ClinicMapPage extends StatelessWidget {
-  ClinicMapPage({Key? key})
-      : super(
-          key: key,
-        );
-
-  Completer<GoogleMapController> googleMapController = Completer();
-
-  ClinicMapController controller =
-      Get.put(ClinicMapController(ClinicMapModel().obs));
+class ClinicMapPage extends StatefulWidget {
+  ClinicMapPage({Key? key}) : super(key: key);
 
   @override
+  _ClinicMapPageState createState() => _ClinicMapPageState();
+}
+
+class _ClinicMapPageState extends State<ClinicMapPage> {
+  Completer<GoogleMapController> googleMapController = Completer();
+  List<Marker> markers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getClinicLocations();
+
+  }
+  @override
   Widget build(BuildContext context) {
+   // return SafeArea(child: Text("asd"));
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
           width: SizeUtils.width,
           height: SizeUtils.height,
-            child: _buildMapSection(),
-          ),
+          child: _buildMapSection(),
         ),
+      ),
     );
   }
 
-  /// Section Widget
   Widget _buildMapSection() {
     return SizedBox(
       height: 627.v,
@@ -48,11 +53,43 @@ class ClinicMapPage extends StatelessWidget {
           googleMapController.complete(controller);
         },
         zoomControlsEnabled: true,
-        zoomGesturesEnabled: false,
-        myLocationButtonEnabled: false,
-        myLocationEnabled: false,
+        zoomGesturesEnabled: true,
+        myLocationButtonEnabled: true,
+        myLocationEnabled: true,
+        markers: Set<Marker>.of(markers),
       ),
     );
   }
-}
 
+  Future<void> _getClinicLocations() async {
+    ServerHandling serverHandling = ServerHandling();
+    List<dynamic> datas = await serverHandling.fetchVetsData();
+    for (var data in datas) {
+      // Check if "lat" and "long" keys exist in data
+      if (data.containsKey("lat") && data.containsKey("long")) {
+        double lat = data["lat"];
+        double long = data["long"];
+        String clinicName = data["clinic"] ?? "";
+        print(lat);
+        print(long);
+        print(clinicName);
+        _addMarker(LatLng(lat, long), clinicName);
+      }
+    }
+  }
+
+
+  void _addMarker(LatLng position, String clinicName) {
+    setState(() {
+      markers.add(
+        Marker(
+          markerId: MarkerId(clinicName),
+          position: position,
+          infoWindow: InfoWindow(
+            title: clinicName,
+          ),
+        ),
+      );
+    });
+  }
+}

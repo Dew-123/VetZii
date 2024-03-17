@@ -352,7 +352,6 @@ async function updateVetData(
     // Connect to MongoDB
     await connectToMongoDB();
 
-
     // Access the database and collection
     const database = client.db("vetzil");
     const collection = database.collection("vet");
@@ -388,6 +387,31 @@ async function updateVetData(
   }
 }
 
+async function getRecords(docEmail) {
+  try {
+    // Connect to MongoDB
+    await connectToMongoDB();
+
+    // Access "appointment" database and "toAccept" collection
+    const database = client.db("appointment");
+    const toAcceptCollection = database.collection("toAccept");
+
+    // Retrieve all appointment data associated with the provided userEmail from toAccept collection
+    const records = await toAcceptCollection
+      .find({ vetEmail: docEmail })
+      .toArray();
+
+    if (records.length === 0) {
+      throw new Error("No appointments found.");
+    }
+
+    return records;
+  } catch (error) {
+    console.error("Error retrieving appointment data:", error);
+    throw error;
+  }
+}
+
 async function getAppointment(userEmail) {
   try {
     // Connect to MongoDB
@@ -402,7 +426,7 @@ async function getAppointment(userEmail) {
       .find({ patientEmail: userEmail })
       .toArray();
 
-    if (appointments.length == 0) {
+    if (appointments.length === 0) {
       throw new Error("No appointments found.");
     }
 
@@ -413,23 +437,51 @@ async function getAppointment(userEmail) {
     // Array to store combined data
     const combinedAppointments = [];
 
-    // Fetch vet data for each vetEmail
-    for (const appointment of appointments) {
-      const vet = await vetDatacollection.findOne({
-        email: appointment.vetEmail,
-      });
-      const combinedData = {
-        dateTime: appointment.dateTime,
-        doctorName: vet.fullName,
-        clinicName: vet.clinic,
-      };
-      combinedAppointments.push(combinedData);
+    for (const data of appointments) {
+      const vet = await vetDatacollection
+        .find({ email: data["vetEmail"] })
+        .toArray();
+      combinedAppointments.push({ appointment: data, vet: vet });
     }
-    console.log(combinedAppointments);
+
     // Return the array of combined data
     return combinedAppointments;
   } catch (error) {
     console.error("Error retrieving appointment data:", error);
+    throw error;
+  }
+}
+
+async function addPastTreatments(treatmentData) {
+  try {
+    await connectToMongoDB();
+    const database = client.db("vetzil");
+    const pastTreatmentsCollection = database.collection("pastTreatments");
+
+    const result = await pastTreatmentsCollection.insertOne(treatmentData);
+
+    console.log("Treatment record added successfully:", result.insertedId);
+    return result.insertedId;
+  } catch (error) {
+    console.error("Error adding past treatment record:", error);
+    throw error;
+  }
+}
+async function getPastTreatments(email) {
+  try {
+    await connectToMongoDB();
+
+    const database = client.db("vetzil");
+    const pastTreatmentsCollection = database.collection("pastTreatments");
+
+    // Assuming email is a field in the pastTreatments documents
+    const pastTreatments = await pastTreatmentsCollection.find({ email }).toArray();
+
+    console.log("Past treatments retrieved successfully:", pastTreatments);
+
+    return pastTreatments;
+  } catch (error) {
+    console.error("Error retrieving past treatments:", error);
     throw error;
   }
 }
@@ -450,4 +502,7 @@ module.exports = {
   updateUserData,
   updateVetData,
   getAppointment,
+  getRecords,
+  addPastTreatments,
+  getPastTreatments,
 };

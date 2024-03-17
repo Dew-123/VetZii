@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import '../../../core/app_export.dart';
 
 /// This class is used in the [userprofile1_item_widget] screen.
@@ -9,21 +11,20 @@ class Userprofile1ItemModel {
     this.dogDetails,
     this.id,
   }) {
-    userImage = userImage ?? Rx(ImageConstant.imgRectangle4235);
-    userName = userName ?? Rx("Bruno");
-    contactInfo = contactInfo ?? Rx("123456789");
+    userImage = (userImage ?? ImageConstant.imgRectangle4235) as Uint8List?;
+    userName = userName ?? "Bruno";
+    contactInfo = contactInfo ?? "123456789";
     dogDetails =
-        dogDetails ?? Rx("German Shepherd \n5 months\nContact - 0715486235");
-    id = id ?? Rx("");
+        dogDetails ?? "German Shepherd \n5 months\nContact - 0715486235";
+    id = id ?? "";
   }
 
-  Rx<String>? userImage;
+  Uint8List? userImage;
 
-  Rx<String>? userName;
+  String? userName;
+  String? contactInfo;
 
-  Rx<String>? contactInfo;
+  String? dogDetails;
 
-  Rx<String>? dogDetails;
-
-  Rx<String>? id;
+  String? id;
 }

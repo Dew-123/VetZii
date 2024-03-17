@@ -1,3 +1,5 @@
+
+
 class VetData {
 
   static String fullName = '';
@@ -8,6 +10,9 @@ class VetData {
   static String mobileNumber = '';
   static String clinicName = '';
 
+  static String lat = '';
+  static String long = '';
+
+
 
 }
-

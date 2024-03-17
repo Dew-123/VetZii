@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:location/location.dart' as loc;
 
 import '../../dataHandling/vetData.dart';
 import '../../http_req/links.dart';
@@ -16,13 +17,42 @@ class _MapPageState extends State<MapPage> {
   late GoogleMapController mapController;
   late LatLng _pinPosition; // Position of the draggable pin
 
-  // Set initial camera position to show a specific location
+
   static const LatLng _initialPosition = LatLng(37.422, -122.084);
+
+
+  final loc.Location _location = loc.Location();
 
   @override
   void initState() {
     super.initState();
     _pinPosition = _initialPosition; // Initialize pin position with initial position
+    _requestLocationPermission();
+  }
+
+
+  void _requestLocationPermission() async {
+    final hasPermission = await _location.requestPermission();
+    if (hasPermission == loc.PermissionStatus.granted) {
+
+      _getCurrentLocation();
+    } else {
+
+      print('Location permission denied');
+    }
+  }
+
+
+  void _getCurrentLocation() async {
+    try {
+      final locationData = await _location.getLocation();
+      setState(() {
+        _pinPosition = LatLng(locationData.latitude!, locationData.longitude!);
+      });
+    } catch (e) {
+
+      print('Unable to get current location: $e');
+    }
   }
 
   @override
@@ -44,20 +74,24 @@ class _MapPageState extends State<MapPage> {
                   onMapCreated: (GoogleMapController controller) {
                     mapController = controller;
                   },
+                  zoomControlsEnabled: true,
+                  zoomGesturesEnabled: true,
+                  myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
                   markers: {
                     Marker(
                       markerId: MarkerId('pin'),
                       position: _pinPosition,
-                      draggable: true, // Make the marker draggable
+                      draggable: true,
                       onDragEnd: (LatLng newPosition) {
                         setState(() {
-                          _pinPosition = newPosition; // Update pin position
+                          _pinPosition = newPosition;
                         });
                       },
                     ),
                   },
                 ),
-                // You can add other UI components on top of the map if needed
+
               ],
             ),
           ),

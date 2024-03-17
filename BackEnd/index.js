@@ -11,21 +11,27 @@ const {
   getPetsData,
   addAppointmentToAccept,
   addAppointmentCurrent,
+  getAppointment,
   updateUserPassword,
   updateVetPassword,
   updateUserData,
   updateVetData,
+  getRecords,
+  addPastTreatments,
+  getPastTreatments
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const recover = require("./emailHandling");
+const {sendEmail,
+  sendEmailCustom} = require("./emailHandling");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // Parse application/json
 app.use(bodyParser.json());
@@ -124,7 +130,7 @@ app.post("/dataAddUser", async (req, res) => {
 app.post("/recoverMailCodeSend", async (req, res) => {
   const email = req.body.email;
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
-  recover.sendEmail(email, recoveryCode);
+  await sendEmail(email, recoveryCode);
   res.json(recoveryCode);
 });
 
@@ -219,13 +225,6 @@ app.get("/dataAddVet", async (req, res) => {
   }
 });
 
-app.post("/recoverMailCodeSend", async (req, res) => {
-  const email = req.body.email;
-  const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
-  recover.sendEmail(email, recoveryCode);
-  res.json(recoveryCode);
-});
-
 app.post("/changeEmailVet", async (req, res) => {
   const { email, password } = req.body;
   data = await updateVetPassword(email, password);
@@ -234,7 +233,7 @@ app.post("/changeEmailVet", async (req, res) => {
 
 app.post("/addPet", async (req, res) => {
   try {
-    const { name, description, contactNo } = req.body;
+    const { name, description, contactNo, image } = req.body;
 
     if (!name || !description || !contactNo) {
       return res.status(400).json({ error: "Missing required fields" });
@@ -245,6 +244,7 @@ app.post("/addPet", async (req, res) => {
       name,
       description,
       contactNo,
+      image,
     };
 
     const result = await addDataPets(newPetData);
@@ -422,55 +422,86 @@ app.post("/getAppointment", async (req, res) => {
   }
 });
 
-// API endpoint to receive user inputs and get predictions
-app.post('/predict', async (req, res) => {
-  // Extract user inputs from request body
-  const { Age, Temperature, Animal, Symptom1, Symptom2, Symptom3 } = req.body;
-  
-  // Execute Python script
-  const pythonProcess = spawn('python', ['predict.py'], { stdio: 'pipe' });
+app.post("/getDocPassAppointment", async (req, res) => {
+  try {
+    const { docEmail } = req.body;
+    console.log(docEmail);
+    if (!docEmail) {
+      return res.status(400).json({ error: "user doctor email is required" });
+    }
 
-  // Send input data to the Python process
-  const inputData = {
-      Age: Age[0],
-      Temperature: Temperature[0], 
-      Animal: Animal[0], 
-      Symptom1: Symptom1[0],
-      Symptom2: Symptom2[0], 
-      Symptom3: Symptom3[0]
-  };
+    const result = await getRecords(docEmail);
+    res.json(result);
+  } catch (error) {
+    console.error("Error handling API request:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
-  pythonProcess.stdin.write(JSON.stringify(inputData));
-  pythonProcess.stdin.end();
+app.post("/addPastTreatments", async (req, res) => {
+  try {
+    const { email, date, ownerName, petName, petType, description, image } =
+      req.body;
+    const treatmentData = {
+      email: email,
+      date: date,
+      owner: {
+        name: ownerName,
+      },
+      pet: {
+        name: petName,
+        type: petType,
+      },
+      description: description,
+      image: image,
+    };
 
-  // Handle stdout data from the Python process
-  let predictedDisease = '';
-  
-  pythonProcess.stdout.on('data', (data) => {
-      const predictions = JSON.parse(data);
-      predictedDisease = predictions.predictedDisease;
-  });
+    const insertedId = await addPastTreatments(treatmentData);
 
-  // Handle end of stdout data from the Python process
-  pythonProcess.stdout.on('end', () => {
-      // Send the predicted label to the frontend
-      console.log(predictedDisease);
-      res.json({ predictedDisease }); // Send predictions back to frontend
-  });
+    res.status(200).json({
+      success: true,
+      message: "Treatment record added successfully",
+      insertedId,
+    });
+  } catch (error) {
+    console.error("Error adding past treatment record:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error adding past treatment record",
+      error: error.message,
+    });
+  }
+});
+app.post("/getPastTreatments", async (req, res) => {
+  try {
+    const { doctorEmail } = req.body; // Retrieve email from query parameters
 
-  // Handle stderr data from the Python process
-  pythonProcess.stderr.on('data', (data) => {
-      console.error(`Python stderr: ${data}`);
-      res.status(500).send('Error occurred'); // Send error response
-  });
+    if (!doctorEmail) {
+      return res.status(400).json({
+        success: false,
+        message: "Email parameter is required.",
+      });
+    }
 
-  // Handle Python process exit
-  pythonProcess.on('close', (code) => {
-      if (code !== 0) {
-          console.error(`Python process exited with code ${code}`);
-          res.status(500).send('Error occurred'); // Send error response
-      }
-  });
+    const pastTreatments = await getPastTreatments(doctorEmail); // Call function to retrieve past treatments based on email
+
+    res.json({
+      pastTreatments
+    });
+  } catch (error) {
+    console.error("Error retrieving past treatments:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving past treatments",
+      error: error.message,
+    });
+  }
+});
+
+app.post("/sendEmail",async(req,res)=>{
+  const {email , msg,heading} = req.body;
+  const data=await sendEmailCustom(email,msg,heading);
+  res.send(data);
 });
 
 app.listen(PORT, () => {

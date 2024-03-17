@@ -1,4 +1,7 @@
-import '../book_appointment_confrm_dialog/book_appointment_confrm_dialog.dart';
+
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
+
+import '../../dataHandling/vetData.dart';
 import 'widgets/hourstabs_item_widget.dart';
 import 'controller/book_appointment_controller.dart';
 import 'models/hourstabs_item_model.dart';
@@ -174,9 +177,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
   Future<void> _getData(BuildContext context) async {
     List<HourstabsItemModel> selectedItems = [];
 
-
     for (HourstabsItemModel model in controller.bookAppointmentModelObj.value.hourstabsItemList.value) {
-
       if (model.isSelected?.value == true) {
         selectedItems.add(model);
       }
@@ -184,17 +185,8 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
     List<String> selectedTimes = selectedItems.map((item) => item.tabVar?.value ?? "").toList();
 
     List<DateTime?> date = controller.selectedDatesFromCalendar1.value;
-
-    // Print or use the selected times as required
-    print(selectedTimes[0]);
-
-    // Create and display the AlertDialog
-
     var appointment = Appointment();
-
-
     String formattedDate = "${date[0]?.year}-${date[0]?.month.toString().padLeft(2, '0')}-${date[0]?.day.toString().padLeft(2, '0')}";
-    print(formattedDate);
     var time = selectedTimes[0];
     var patientEmail = UserData.email;
     var petType = UserData.petType;
@@ -273,6 +265,13 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
         );
       },
     );
+    String msg ="Your appointment has been booked for $formattedDate at $time with Dr.${VetData.fullName}\n"
+        "Clinic name:${VetData.clinicName}\n";
+        "Clinic location:${VetData.addressClinic}";
+
+    ServerHandling serverHandling = new ServerHandling();
+    serverHandling.sendEmail(UserData.email,"Appoinment booked",msg);
+
 
     Future.delayed(Duration(seconds: 3), ()=> {
       Navigator.pop(context)

@@ -15,13 +15,3 @@ Future<List<dynamic>> fetchPetsData() async {
   }
 }
 
-Future<List<dynamic>> fetchFromDatabase() async {
-  try {
-    List<dynamic> dataSet = await fetchPetsData();
-    return dataSet;
-  } catch (e) {
-    print("Error fetching pets data: $e");
-
-    return [];
-  }
-}

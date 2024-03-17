@@ -98,13 +98,34 @@ class ServerHandling {
     }
   }
 
-  Future<List<dynamic>> fetchAppointments() async {
+  Future<List<dynamic>> fetchAppointments(String email) async {
     final response = await http.post(
-      Uri.parse(Links.dataGetVets),
+        Uri.parse(Links.getAppointment),
+        body: {
+          'userEmail': email,
+        }
     );
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  Future<String> sendEmail(String email,String heading,String msg) async {
+    final response = await http.post(
+      Uri.parse(Links.recoverMailCodeSend),
+      body: {
+        'email': email,
+        'msg':msg,
+
+      },
+    );
+
+    if (response.statusCode == 200) {
+      String data = json.decode(response.body);
       return data;
     } else {
       throw Exception('Failed to load data');
