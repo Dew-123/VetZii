@@ -109,8 +109,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                      });
+                      //api hadahn account delete karanna =>database.js eke database ekan delete karana method eka hadahn
+                      //api eka meke call karhan.
+                      //user ge email eka methanin access karanna pulavan UserData. kiyala gahuwama enav details ethanin email eka ganin 
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
