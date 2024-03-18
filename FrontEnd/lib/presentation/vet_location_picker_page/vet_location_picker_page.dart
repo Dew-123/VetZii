@@ -105,13 +105,13 @@ class _MapPageState extends State<MapPage> {
                     'Content-Type': 'application/json; charset=UTF-8',
                   },
                   body: jsonEncode({
-                    'prevEmail': VetData.email, // Pass the current user's email
+                    'prevEmail': VetData.email,
                     'fullName': VetData.fullName,
                     'addressClinic': VetData.addressClinic,
                     'fieldOfExpertise': VetData.fieldOfExpertise,
                     'email': VetData.email,
-                    'password': VetData.password,
                     'mobileNumber': VetData.mobileNumber,
+                    'password': VetData.password,
                     'clinic': VetData.clinicName,
                     'lat': _pinPosition.latitude,
                     'long': _pinPosition.longitude,

@@ -1,5 +1,5 @@
 import 'package:mihan_s_application1/core/app_export.dart';
-import '../../Vet/lib/data/apiClient/api_client.dart';
+import '/data/apiClient/api_client.dart';
 class InitialBindings extends Bindings {
   @override
   void dependencies() {
