@@ -63,114 +63,134 @@ class _VetProfilePageState extends State<VetProfilePage> {
                   _buildTextFormField("Password", VetData.password, obscureText: true),
                   _buildTextFormField("Name of the Clinic", VetData.clinicName),
                   SizedBox(height: 20),
+                  Container(
+                    width: 280,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MapPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 30,vertical: 25),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Locate on Map',style: TextStyle(color: Colors.white,
+                                fontSize: 14),),
+                            SizedBox(width: 5,),
+                            Icon(Icons.location_on),
+                          ],
+                        )
+                    ),
+                  ),
 
-                  ElevatedButton(
+
+                  SizedBox(height: 10),
+                  if (!_editMode)
+                    Container(
+                      width: 280,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _editMode = true;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Button border radius
+                          ),
+                        ),
+                        child: Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  if (_editMode)
+                    Container(
+                      width: 280,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _saveChanges();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Button border radius
+                          ),
+                        ),
+                        child: Text(
+                          'Confirm',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  SizedBox(height: 10,),
+                  Container(
+                    width: 280,
+                    child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MapPage()),
-                        );
+                        Get.to(()=>VetTreatmentRecords());
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Locate on Map',style: TextStyle(color: Colors.white,
-                              fontSize: 14),),
-                          SizedBox(width: 5,),
-                          Icon(Icons.location_on),
-                        ],
-                      )
-                  ),
-                  SizedBox(height: 10),
-                  if (!_editMode)
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _editMode = true;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // Button border radius
-                        ),
-                      ),
                       child: Text(
-                        'Edit Profile',
+                        'Add Treatment Records',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
-                      ),
-                    ),
-                  if (_editMode)
-                    ElevatedButton(
-                      onPressed: () {
-                        _saveChanges();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // Button border radius
-                        ),
-                      ),
-                      child: Text(
-                        'Confirm',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  SizedBox(height: 10,),
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.to(()=>VetTreatmentRecords());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Text(
-                      'Add Treatment Records',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  ElevatedButton(
-                    onPressed: () {
 
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // Button border radius
+                  SizedBox(height: 10,),
+                  Container(
+                    width: 280,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _showConfirmationBox(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10), // Button border radius
+                        ),
+                      ),
+                      child: Text(
+                        'Delete Account',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
-                    child: Text(
-                      'Delete Account',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
+                  )
+
 
                 ],
               ),
@@ -215,6 +235,36 @@ class _VetProfilePageState extends State<VetProfilePage> {
       decoration: InputDecoration(
         labelText: label,
       ),
+    );
+  }
+
+  void _showConfirmationBox(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Confirmation', style: CustomTextStyles.headlineSmallBlack90002),
+          content: Text('Please confirm to delete the account'),
+          actions: [
+            TextButton(onPressed: (){
+              // methan delete function eka danna
+              //api hadahn account delete karanna =>database.js eke database ekan delete karana method eka hadahn
+              //api eka meke call karhan.
+              //user ge email eka methanin access karanna pulavan UserData. kiyala gahuwama enav details ethanin email eka ganin
+              print('Account Deleted!');
+              Navigator.of(context).pop();
+            },
+              child: Text('Yes', style: TextStyle(color: Colors.black),),
+            ),
+            TextButton(onPressed: (){
+              //close
+              Navigator.of(context).pop();
+            },
+              child: Text('No', style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      },
     );
   }
 

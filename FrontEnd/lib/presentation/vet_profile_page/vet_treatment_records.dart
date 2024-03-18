@@ -174,7 +174,7 @@ class _VetTreatmentRecordsState extends State<VetTreatmentRecords> {
                   }
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                  backgroundColor: MaterialStateProperty.all(Colors.lightGreen),
                   padding: MaterialStateProperty.all(
                       EdgeInsets.symmetric(horizontal: 32, vertical: 16)),
                   shape: MaterialStateProperty.all(

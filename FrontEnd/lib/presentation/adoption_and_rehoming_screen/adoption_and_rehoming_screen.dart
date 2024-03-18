@@ -83,7 +83,7 @@ class AdoptionAndRehomingScreen
                       width: 94.h,
                       margin: EdgeInsets.only(left: 2.h),
                       child: Text(
-                        "lbl_search".tr,
+                        "Search".tr,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.headlineSmall,
