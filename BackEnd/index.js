@@ -547,6 +547,8 @@ app.post("/getPastTreatments", async (req, res) => {
   }
 });
 
+
+
 app.post("/sendEmail", async (req, res) => {
   const { email, msg, heading } = req.body;
   const data = await sendEmailCustom(email, msg, heading);

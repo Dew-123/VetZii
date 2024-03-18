@@ -486,13 +486,12 @@ async function getPastTreatments(email) {
   }
 }
 async function deleteUserAccount(email){
+
   try{
     await connectToMongoDB();
 
     const database = client.db("vetzil");
     const users = database.collection("users");
-
-    // const userData = await users.find({email:email}).toArray();
 
     const result = await users.deleteOne({email:email});
 
@@ -504,14 +503,8 @@ async function deleteUserAccount(email){
       console.log("User account not found.")
     }
   }catch(error){
-    
+    console.error(`Error occured in account deletion : ${error}`);
   }
-
-
-  
-
-
-
 
 }
 
@@ -534,4 +527,5 @@ module.exports = {
   getRecords,
   addPastTreatments,
   getPastTreatments,
+  deleteUserAccount
 };
