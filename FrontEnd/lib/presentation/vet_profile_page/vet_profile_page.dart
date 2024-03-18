@@ -152,6 +152,25 @@ class _VetProfilePageState extends State<VetProfilePage> {
                     ),
                   ),
                   SizedBox(height: 10,),
+                  ElevatedButton(
+                    onPressed: () {
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Button border radius
+                      ),
+                    ),
+                    child: Text(
+                      'Delete Account',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
 
                 ],
               ),
