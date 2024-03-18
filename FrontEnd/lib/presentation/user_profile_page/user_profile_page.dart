@@ -82,7 +82,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         'Edit Profile',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                     ),
@@ -102,10 +102,31 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         'Confirm',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                     ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Button border radius
+                      ),
+                    ),
+                    child: Text(
+                      'Delete Account',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
