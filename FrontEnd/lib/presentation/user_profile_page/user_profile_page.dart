@@ -110,9 +110,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ElevatedButton(
                     onPressed: () {
                       _showConfirmationBox(context);
-                      //api hadahn account delete karanna =>database.js eke database ekan delete karana method eka hadahn
-                      //api eka meke call karhan.
-                      //user ge email eka methanin access karanna pulavan UserData. kiyala gahuwama enav details ethanin email eka ganin 
+
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
@@ -188,6 +186,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
           actions: [
             TextButton(onPressed: (){
               // methan delete function eka danna
+              //api hadahn account delete karanna =>database.js eke database ekan delete karana method eka hadahn
+              //api eka meke call karhan.
+              //user ge email eka methanin access karanna pulavan UserData. kiyala gahuwama enav details ethanin email eka ganin
               print('Account Deleted!');
               Navigator.of(context).pop();
             },

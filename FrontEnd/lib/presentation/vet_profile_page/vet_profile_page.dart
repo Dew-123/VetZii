@@ -130,6 +130,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
                         ),
                       ),
                     ),
+                  SizedBox(height: 10,),
                   ElevatedButton(
                     onPressed: () {
                       Get.to(()=>VetTreatmentRecords());
@@ -150,6 +151,8 @@ class _VetProfilePageState extends State<VetProfilePage> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 10,),
+
                 ],
               ),
             ),
