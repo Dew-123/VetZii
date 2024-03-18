@@ -109,6 +109,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
+                      _showConfirmationBox(context);
                       //api hadahn account delete karanna =>database.js eke database ekan delete karana method eka hadahn
                       //api eka meke call karhan.
                       //user ge email eka methanin access karanna pulavan UserData. kiyala gahuwama enav details ethanin email eka ganin 
@@ -176,6 +177,34 @@ class _UserProfilePageState extends State<UserProfilePage> {
       ),
     );
   }
+
+  void _showConfirmationBox(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Confirmation', style: CustomTextStyles.headlineSmallBlack90002),
+          content: Text('Please confirm to delete the account'),
+          actions: [
+            TextButton(onPressed: (){
+              // methan delete function eka danna
+              print('Account Deleted!');
+              Navigator.of(context).pop();
+            },
+                child: Text('Yes', style: TextStyle(color: Colors.black),),
+            ),
+            TextButton(onPressed: (){
+              //close
+              Navigator.of(context).pop();
+            },
+                child: Text('No', style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   void _saveChanges() async {
 
