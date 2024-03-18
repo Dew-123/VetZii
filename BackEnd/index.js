@@ -19,6 +19,7 @@ const {
   getRecords,
   addPastTreatments,
   getPastTreatments,
+  deleteUserAccount
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -547,7 +548,17 @@ app.post("/getPastTreatments", async (req, res) => {
   }
 });
 
+app.post("/deleteUserAccount", async(req, res) =>{
+  const {email}= req.body;
+  try {
+    await deleteUserAccount(email);
+    res.status(200).send('User account deleted successfully.');
 
+  } catch (error) {
+    console.error('Error deleting user account:', error);
+    res.status(500).send('Error deleting user account.');
+  }
+})
 
 app.post("/sendEmail", async (req, res) => {
   const { email, msg, heading } = req.body;
