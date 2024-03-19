@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../dataHandling/data.dart';
+import '../dataHandling/vetData.dart';
 import 'links.dart';
 
 class ServerHandling {
@@ -101,6 +102,47 @@ class ServerHandling {
       // Handle error
       print('Error updating user profile: $error');
     };
+  }
+  Future <void> saveChangesVet(
+      String fullName,
+      String clinicAddress,
+      String fieldOfExpertise,
+      String email,
+      String password,
+      String mobileNumber,
+      String clinicName)async{
+    try {
+      final response = await http.post(
+        Uri.parse(Links.updateVetData),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'prevEmail': VetData.email, // Pass the current user's email
+          'fullName': fullName.isNotEmpty ? fullName : VetData.fullName,
+          'addressClinic': clinicAddress.isNotEmpty ? clinicAddress : VetData.addressClinic,
+          'fieldOfExpertise': fieldOfExpertise.isNotEmpty ? fieldOfExpertise : VetData.fieldOfExpertise,
+          'email': email.isNotEmpty ? email : VetData.email,
+          'password': password.isNotEmpty ? password : VetData.password,
+          'mobileNumber': mobileNumber.isNotEmpty ? mobileNumber : VetData.mobileNumber,
+          'clinic': clinicName.isNotEmpty ? clinicName : VetData.clinicName,
+          'lat':0,
+          'long':0,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('Vet profile updated successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to update vet profile');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error updating vet profile: $error');
+    }
   }
 
   Future<List<dynamic>> fetchUserData(String email, String password) async {
