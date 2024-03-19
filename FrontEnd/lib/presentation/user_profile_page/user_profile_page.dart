@@ -185,10 +185,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           content: Text('Please confirm to delete the account'),
           actions: [
             TextButton(onPressed: (){
-              // methan delete function eka danna
-              //api hadahn account delete karanna =>database.js eke database ekan delete karana method eka hadahn
-              //api eka meke call karhan.
-              //user ge email eka methanin access karanna pulavan UserData. kiyala gahuwama enav details ethanin email eka ganin
+              _deleteAccount(UserData.email);
               print('Account Deleted!');
               Navigator.of(context).pop();
             },
@@ -204,6 +201,30 @@ class _UserProfilePageState extends State<UserProfilePage> {
         );
       },
     );
+  }
+
+  void _deleteAccount(String email) async{
+    try {
+      final response = await http.post(
+        Uri.parse(Links.deleteUserAccount),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'email': email}),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('User account deleted successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to delete user account');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error deleting user account: $error');
+    }
   }
 
 

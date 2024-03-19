@@ -15,5 +15,6 @@ class Links {
   static const String getPastTreatments = baseUrl + 'getPastTreatments';
   static const String sendEmail = baseUrl + 'sendEmail';
   static const String predict = baseUrl+'predict';
+  static const String deleteUserAccount = baseUrl + 'deleteUserAccount';
 
 }
