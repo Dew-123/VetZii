@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../dataHandling/data.dart';
 import 'links.dart';
 
 class ServerHandling {
@@ -64,6 +65,42 @@ class ServerHandling {
       // Handle error
       print('Error deleting user account: $error');
     }
+  }
+
+  Future<void> saveChanges(firstName, lastName, petName, petType, gender,
+      email, mobileNumber, password) async {
+    try {
+      final response = await http.post(
+        Uri.parse(Links.updateUserData),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+
+          'PrevEmail': UserData.email, // Pass the current user's email
+          'Fname': firstName.isNotEmpty ? firstName : UserData.firstName,
+          'Lname': lastName.isNotEmpty ? lastName : UserData.lastName,
+          'nameOfThePet': petName.isNotEmpty ? petName : UserData.petName,
+          'petType': petType.isNotEmpty ? petType : UserData.petType,
+          'gender': gender.isNotEmpty ? gender : UserData.gender,
+          'email': email.isNotEmpty ? email : UserData.email,
+          'mobileNumber': mobileNumber.isNotEmpty ? mobileNumber : UserData.mobileNumber,
+          'password': password.isNotEmpty ? password : UserData.password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('User profile updated successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to update user profile');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error updating user profile: $error');
+    };
   }
 
   Future<List<dynamic>> fetchUserData(String email, String password) async {

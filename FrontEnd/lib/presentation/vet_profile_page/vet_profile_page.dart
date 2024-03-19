@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/data.dart';
