@@ -77,7 +77,7 @@ class StartPageScreen extends GetWidget<StartPageController> {
             SizedBox(
               width: 180.h,
               child: Text(
-                "lbl_get_started".tr,
+                "Get \nStarted".tr,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.displayMedium,
@@ -85,19 +85,19 @@ class StartPageScreen extends GetWidget<StartPageController> {
             ),
             SizedBox(height: 15.v),
             Text(
-              "msg_are_you_a_pet_owner".tr,
+              "Are you a pet owner or a veterinarian?".tr,
               style: CustomTextStyles.titleSmallPoppinsBlack90002_1,
             ),
             SizedBox(height: 45.v),
             CustomElevatedButton(
-              text: "lbl_pet_owner".tr,
+              text: "Pet Owner".tr,
               onPressed: (){
                 Get.toNamed(AppRoutes.petOwnerLoginScreen);
               },
             ),
             SizedBox(height: 10.v),
             CustomElevatedButton(
-              text: "lbl_veterinarian".tr,
+              text: "Veterinarian".tr,
               onPressed: (){
                 Get.toNamed(AppRoutes.vetLoginScreen);
               },

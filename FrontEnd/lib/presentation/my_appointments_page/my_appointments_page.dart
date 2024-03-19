@@ -108,7 +108,7 @@ class MyAppointmentsPage extends StatelessWidget {
       ),
       centerTitle: true,
       title: AppbarSubtitleOne(
-        text: "lbl_my_appointments".tr,
+        text: "My Appointments".tr,
       ),
     );
   }

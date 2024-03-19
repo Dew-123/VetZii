@@ -91,7 +91,7 @@ class VeterinarianCreateAnAccountScreen
                         right: 23.h,
                       ),
                       child: Text(
-                        "msg_you_must_be_verified".tr,
+                        "You must be verified as a veterinarian by admin to create an account".tr,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
@@ -100,7 +100,7 @@ class VeterinarianCreateAnAccountScreen
                     ),
                     SizedBox(height: 6.v),
                     Text(
-                      "lbl_contact_admin".tr,
+                      "Contact Admin".tr,
                       style: CustomTextStyles.bodySmallLatoOnPrimary.copyWith(
                         decoration: TextDecoration.underline,
                       ),
@@ -132,7 +132,7 @@ class VeterinarianCreateAnAccountScreen
       ),
       centerTitle: true,
       title: AppbarSubtitleOne(
-        text: "msg_create_account_for2".tr,
+        text: "Create Account for Veterinarian".tr,
       ),
     );
   }
@@ -141,11 +141,11 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildFullName() {
     return CustomTextFormField(
       controller: controller.fullNameController,
-      hintText: "lbl_full_name".tr,
+      hintText: "full name".tr,
       hintStyle: theme.textTheme.titleSmall!,
       validator: (value) {
         if (!isText(value)) {
-          return "err_msg_please_enter_valid_text".tr;
+          return "Please enter valid text".tr;
         }
         return null;
       },
@@ -156,7 +156,7 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildAddress() {
     return CustomTextFormField(
       controller: controller.addressController,
-      hintText: "msg_address_of_the_clinic".tr,
+      hintText: "address of the clinic".tr,
       hintStyle: theme.textTheme.titleSmall!,
     );
   }
@@ -165,7 +165,7 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildFieldOfExpertise() {
     return CustomTextFormField(
       controller: controller.fieldOfExpertiseController,
-      hintText: "msg_field_of_expertise".tr,
+      hintText: "field of expertise".tr,
       hintStyle: theme.textTheme.titleSmall!,
     );
   }
@@ -174,12 +174,12 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildEmail() {
     return CustomTextFormField(
       controller: controller.emailController,
-      hintText: "lbl_email".tr,
+      hintText: "email".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputType: TextInputType.emailAddress,
       validator: (value) {
         if (value == null || (!isValidEmail(value, isRequired: true))) {
-          return "err_msg_please_enter_valid_email".tr;
+          return "Please enter valid email".tr;
         }
         return null;
       },
@@ -190,12 +190,12 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildMobileNumber() {
     return CustomTextFormField(
       controller: controller.mobileNumberController,
-      hintText: "lbl_mobile_number".tr,
+      hintText: "mobile number".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputType: TextInputType.phone,
       validator: (value) {
         if (!isValidPhone(value)) {
-          return "err_msg_please_enter_valid_phone_number".tr;
+          return "Please enter valid phone number".tr;
         }
         return null;
       },
@@ -206,12 +206,12 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildPassword() {
     return CustomTextFormField(
       controller: controller.passwordController,
-      hintText: "lbl_password".tr,
+      hintText: "password".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputType: TextInputType.visiblePassword,
       validator: (value) {
         if (value == null || (!isValidPassword(value, isRequired: true))) {
-          return "err_msg_please_enter_valid_password".tr;
+          return "Please enter valid password".tr;
         }
         return null;
       },
@@ -223,13 +223,13 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildConfirmPassword() {
     return CustomTextFormField(
       controller: controller.confirmPasswordController,
-      hintText: "msg_confirm_password".tr,
+      hintText: "confirm password".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       validator: (value) {
         if (value == null || (!isValidPassword(value, isRequired: true))) {
-          return "err_msg_please_enter_valid_password".tr;
+          return "Please enter valid password".tr;
         }
         return null;
       },
@@ -241,7 +241,7 @@ class VeterinarianCreateAnAccountScreen
   Widget _buildCreateAccount() {
     return CustomElevatedButton(
       width: 189.h,
-      text: "lbl_create_account".tr,
+      text: "Create Account".tr,
       margin: EdgeInsets.only(
         left: 85.h,
         right: 86.h,

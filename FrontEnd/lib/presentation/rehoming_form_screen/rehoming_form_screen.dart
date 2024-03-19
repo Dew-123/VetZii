@@ -32,7 +32,7 @@ class RehomingFormScreen extends GetWidget<RehomingFormController> {
                   right: 25.h,
                 ),
                 child: Text(
-                  "msg_enter_details_of".tr,
+                  "Enter details of your pet who needs to find a home".tr,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: CustomTextStyles.titleMediumMedium,
