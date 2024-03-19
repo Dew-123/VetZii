@@ -566,6 +566,22 @@ app.post("/deleteUserAccount", async(req, res) =>{
   }
 })
 
+app.post("/deleteVetAccount", async(req, res) =>{
+  const {email}= req.body;
+
+  try {
+    const response =await deleteVetAccount(email);
+    if(response.deletedCount===1){
+      res.status(200).send('Vet account deleted successfully.');
+    }
+    else{
+      res.status(500).send('No vet found.');
+    }
+  } catch (error) {
+    console.error('Error deleting vet account:', error);
+    res.status(500).send('Error deleting vet account.');
+  }
+})
 
 
 app.post("/sendEmail", async (req, res) => {
