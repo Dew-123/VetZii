@@ -550,10 +550,15 @@ app.post("/getPastTreatments", async (req, res) => {
 
 app.post("/deleteUserAccount", async(req, res) =>{
   const {email}= req.body;
-  try {
-    await deleteUserAccount(email);
-    res.status(200).send('User account deleted successfully.');
 
+  try {
+    const response =await deleteUserAccount(email);
+    if(response.deletedCount===1){
+      res.status(200).send('User account deleted successfully.');
+    }
+    else{
+      res.status(500).send('No user found.');
+    }
   } catch (error) {
     console.error('Error deleting user account:', error);
     res.status(500).send('Error deleting user account.');

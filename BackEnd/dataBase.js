@@ -485,27 +485,19 @@ async function getPastTreatments(email) {
     throw error;
   }
 }
-async function deleteUserAccount(email){
-
-  try{
+async function deleteUserAccount(email) {
+  try {
     await connectToMongoDB();
 
     const database = client.db("vetzil");
     const users = database.collection("users");
 
-    const result = await users.deleteOne({email:email});
+    const result = await users.deleteOne({ email: email });
 
-    if(result.deletedCount===1){
-      console.log(`User account linked with ${email} email address deleted successfully.`);
-      return result;
-    }
-    else{
-      console.log("User account not found.")
-    }
-  }catch(error){
+    return result;
+  } catch (error) {
     console.error(`Error occured in account deletion : ${error}`);
   }
-
 }
 
 module.exports = {
