@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:mihan_s_application1/dataHandling/vetData.dart';
 import 'package:http/http.dart' as http;
 import 'package:mihan_s_application1/http_req/links.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import '../vet_location_picker_page/vet_location_picker_page.dart';
 import 'vet_treatment_records.dart';
 
@@ -248,7 +250,8 @@ class _VetProfilePageState extends State<VetProfilePage> {
           content: Text('Please confirm to delete the account'),
           actions: [
             TextButton(onPressed: (){
-              _deleteVetAccount(VetData.email);
+              ServerHandling serverObject = new ServerHandling();
+              serverObject.deleteVetAccount(VetData.email);
               print('Account Deleted!');
               Navigator.of(context).pop();
             },
@@ -264,30 +267,6 @@ class _VetProfilePageState extends State<VetProfilePage> {
         );
       },
     );
-  }
-
-  void _deleteVetAccount(String email) async{
-    try {
-      final response = await http.post(
-        Uri.parse(Links.deleteVetAccount),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({'email': email}),
-      );
-
-      if (response.statusCode == 200) {
-        // Handle success
-        print('Vet account deleted successfully');
-      } else {
-        // Handle error
-        print(response.body);
-        print('Failed to delete vet account');
-      }
-    } catch (error) {
-      // Handle error
-      print('Error deleting vet account: $error');
-    }
   }
 
   void _saveChanges() async {

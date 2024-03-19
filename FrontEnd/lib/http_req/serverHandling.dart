@@ -18,6 +18,54 @@ class ServerHandling {
     }
   }
 
+  Future <void> deleteVetAccount(String email) async{
+    try {
+      final response = await http.post(
+        Uri.parse(Links.deleteVetAccount),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'email': email}),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('Vet account deleted successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to delete vet account');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error deleting vet account: $error');
+    }
+  }
+
+  Future <void> deleteUserAccount(String email) async{
+    try {
+      final response = await http.post(
+        Uri.parse(Links.deleteUserAccount),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'email': email}),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('User account deleted successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to delete user account');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error deleting user account: $error');
+    }
+  }
+
   Future<List<dynamic>> fetchUserData(String email, String password) async {
     final response = await http.post(
       Uri.parse(Links.dataGetUser),
@@ -34,6 +82,8 @@ class ServerHandling {
       throw Exception('Failed to load data');
     }
   }
+
+
 
   Future<List<dynamic>> fetchVetData(String email, String password) async {
     final response = await http.post(

@@ -5,6 +5,7 @@ import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:http/http.dart' as http;
 import 'package:mihan_s_application1/http_req/links.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 class UserProfilePage extends StatefulWidget {
   UserProfilePage({Key? key}) : super(key: key);
@@ -185,7 +186,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
           content: Text('Please confirm to delete the account'),
           actions: [
             TextButton(onPressed: (){
-              _deleteAccount(UserData.email);
+              ServerHandling serverObject = new ServerHandling();
+              serverObject.deleteUserAccount(UserData.email);
               print('Account Deleted!');
               Navigator.of(context).pop();
             },
@@ -203,33 +205,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
-  void _deleteAccount(String email) async{
-    try {
-      final response = await http.post(
-        Uri.parse(Links.deleteUserAccount),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({'email': email}),
-      );
-
-      if (response.statusCode == 200) {
-        // Handle success
-        print('User account deleted successfully');
-      } else {
-        // Handle error
-        print(response.body);
-        print('Failed to delete user account');
-      }
-    } catch (error) {
-      // Handle error
-      print('Error deleting user account: $error');
-    }
-  }
-
 
   void _saveChanges() async {
-
     try {
       final response = await http.post(
         Uri.parse(Links.updateUserData),
