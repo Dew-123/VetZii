@@ -499,7 +499,20 @@ async function deleteUserAccount(email) {
     console.error(`Error occured in account deletion : ${error}`);
   }
 }
+async function deleteVetAccount(email) {
+  try {
+    await connectToMongoDB();
 
+    const database = client.db("vetzil");
+    const vets = database.collection("vet");
+
+    const result = await vets.deleteOne({ email: email });
+
+    return result;
+  } catch (error) {
+    console.error(`Error occured in account deletion : ${error}`);
+  }
+}
 module.exports = {
   connectToMongoDB,
   getDataUsers,
@@ -519,5 +532,6 @@ module.exports = {
   getRecords,
   addPastTreatments,
   getPastTreatments,
-  deleteUserAccount
+  deleteUserAccount,
+  deleteVetAccount
 };
