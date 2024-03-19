@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         translations: AppLocalization(),
         locale: Get.deviceLocale, //for setting  localization strings
         fallbackLocale: Locale('en', 'US'),
-        title: 'mihan_s_application1',
+        title: 'Vetzii',
         initialBinding: InitialBindings(),
         initialRoute: AppRoutes.initialRoute,
         getPages: AppRoutes.pages,

@@ -123,7 +123,7 @@ class PetOwnerCreateAnAccountScreen
       ),
       centerTitle: true,
       title: AppbarSubtitleOne(
-        text: "msg_create_account_for".tr,
+        text: "Create Account for Pet Owner".tr,
       ),
     );
   }
@@ -136,7 +136,7 @@ class PetOwnerCreateAnAccountScreen
       hintStyle: theme.textTheme.titleSmall!,
       validator: (value) {
         if (!isText(value)) {
-          return "err_msg_please_enter_valid_text".tr;
+          return "Please enter valid text".tr;
         }
         return null;
       },
@@ -149,7 +149,7 @@ class PetOwnerCreateAnAccountScreen
       hintStyle: theme.textTheme.titleSmall!,
       validator: (value) {
         if (!isText(value)) {
-          return "err_msg_please_enter_valid_text".tr;
+          return "Please enter valid text".tr;
         }
         return null;
       },
@@ -160,7 +160,7 @@ class PetOwnerCreateAnAccountScreen
   Widget _buildNameOfThePet() {
     return CustomTextFormField(
       controller: controller.nameOfThePetController,
-      hintText: "lbl_nam_of_the_pet".tr,
+      hintText: "name of the pet".tr,
       hintStyle: theme.textTheme.titleSmall!,
     );
   }
@@ -169,7 +169,7 @@ class PetOwnerCreateAnAccountScreen
   Widget _buildPetType() {
     return CustomTextFormField(
       controller: controller.petTypeController,
-      hintText: "lbl_pet_type".tr,
+      hintText: "pet type".tr,
       hintStyle: theme.textTheme.titleSmall!,
     );
   }
@@ -216,7 +216,7 @@ class PetOwnerCreateAnAccountScreen
             () => Row(
           children: [
             Text(
-              'Pets Gender:', // Text indicating the purpose
+              'Pet\'s Gender:', // Text indicating the purpose
               style: TextStyle(fontSize: 14), // Adjust font size as needed
             ),
             SizedBox(width: 10), // Adjust spacing between text and radio buttons
@@ -250,12 +250,12 @@ class PetOwnerCreateAnAccountScreen
   Widget _buildEmail() {
     return CustomTextFormField(
       controller: controller.emailController,
-      hintText: "lbl_email".tr,
+      hintText: "email".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputType: TextInputType.emailAddress,
       validator: (value) {
         if (value == null || (!isValidEmail(value, isRequired: true))) {
-          return "err_msg_please_enter_valid_email".tr;
+          return "Please enter valid text".tr;
         }
         return null;
       },
@@ -266,12 +266,12 @@ class PetOwnerCreateAnAccountScreen
   Widget _buildMobileNumber() {
     return CustomTextFormField(
       controller: controller.mobileNumberController,
-      hintText: "lbl_mobile_number".tr,
+      hintText: "mobile number".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputType: TextInputType.phone,
       validator: (value) {
         if (!isValidPhone(value)) {
-          return "err_msg_please_enter_valid_phone_number".tr;
+          return "Please enter valid phone number".tr;
         }
         return null;
       },
@@ -282,12 +282,12 @@ class PetOwnerCreateAnAccountScreen
   Widget _buildPassword() {
     return CustomTextFormField(
       controller: controller.passwordController,
-      hintText: "lbl_password".tr,
+      hintText: "password".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputType: TextInputType.visiblePassword,
       validator: (value) {
         if (value == null || (!isValidPassword(value, isRequired: true))) {
-          return "err_msg_please_enter_valid_password".tr;
+          return "Please enter valid password".tr;
         }
         return null;
       },
@@ -299,13 +299,13 @@ class PetOwnerCreateAnAccountScreen
   Widget _buildConfirmPassword() {
     return CustomTextFormField(
       controller: controller.confirmPasswordController,
-      hintText: "msg_confirm_password".tr,
+      hintText: "confirm password".tr,
       hintStyle: theme.textTheme.titleSmall!,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
       validator: (value) {
         if (value == null || (!isValidPassword(value, isRequired: true))) {
-          return "err_msg_please_enter_valid_password".tr;
+          return "Please enter valid password".tr;
         }
         return null;
       },
@@ -318,7 +318,7 @@ class PetOwnerCreateAnAccountScreen
     return CustomElevatedButton(
       onPressed: ()=> createAccount(context),
       width: 189.h,
-      text: "lbl_create_account".tr,
+      text: "Create Account".tr,
       margin: EdgeInsets.only(
         left: 85.h,
         right: 86.h,

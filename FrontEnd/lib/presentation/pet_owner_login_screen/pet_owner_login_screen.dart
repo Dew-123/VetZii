@@ -33,7 +33,7 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
                 width: 243.h,
                 margin: EdgeInsets.only(right: 66.h),
                 child: Text(
-                  "msg_welcome_pet_parents".tr,
+                  "Welcome, Pet Parents..!".tr,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.displaySmall,
@@ -48,7 +48,7 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
               ),
               SizedBox(height: 71.v),
               CustomElevatedButton(
-                text: "lbl_log_in".tr,
+                text: "Log in".tr,
                 onPressed: (){
                   Get.toNamed(AppRoutes.userSignInScreen);
                 },
@@ -61,7 +61,7 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 1.v),
                       child: Text(
-                        "msg_don_t_have_an_account".tr,
+                        "Don't have an account?".tr,
                         style: CustomTextStyles.titleSmallBlack90002Medium,
                       ),
                     ),
@@ -72,7 +72,7 @@ class PetOwnerLoginScreen extends GetWidget<PetOwnerLoginController> {
                           Get.toNamed(AppRoutes.petOwnerCreateAnAccountScreen);
                         },
                         child: Text(
-                          "lbl_sign_up".tr,
+                          "Sign up".tr,
                           style: CustomTextStyles.titleSmallIndigoA700,
                         ),
                       ),

@@ -43,7 +43,7 @@ class BookAppointmentConfrmDialog extends StatelessWidget {
           ),
           SizedBox(height: 36.v),
           Text(
-            "msg_congratulations".tr,
+            "Congratulations!".tr,
             style: CustomTextStyles.titleLargeInterBluegray900,
           ),
           SizedBox(height: 9.v),
@@ -62,13 +62,13 @@ class BookAppointmentConfrmDialog extends StatelessWidget {
           SizedBox(height: 31.v),
           CustomElevatedButton(
             height: 48.v,
-            text: "lbl_done".tr,
+            text: "Done".tr,
             buttonStyle: CustomButtonStyles.fillPrimaryTL24,
             buttonTextStyle: theme.textTheme.titleMedium!,
           ),
           SizedBox(height: 19.v),
           Text(
-            "msg_edit_your_appointment".tr,
+            "Edit your appointment".tr,
             style: CustomTextStyles.bodyMediumGray60002,
           ),
         ],

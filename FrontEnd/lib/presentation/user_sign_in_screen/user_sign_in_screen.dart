@@ -47,17 +47,17 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     ),
                     SizedBox(height: 4.v),
                     Text(
-                      "msg_hi_welcome_back".tr,
+                      "Hi, Welcome Back!".tr,
                       style: CustomTextStyles.headlineSmallBlack90002,
                     ),
                     SizedBox(height: 56.v),
                     CustomTextFormField(
                       controller: controller.userNameController,
-                      hintText: "lbl_email".tr,
+                      hintText: "email".tr,
                       hintStyle: theme.textTheme.titleSmall!,
                       validator: (value) {
                         if (!isText(value)) {
-                          return "err_msg_please_enter_valid_text".tr;
+                          return "Please enter valid text.".tr;
                         }
                         return null;
                       },
@@ -65,14 +65,14 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     SizedBox(height: 21.v),
                     CustomTextFormField(
                       controller: controller.passwordController,
-                      hintText: "lbl_password".tr,
+                      hintText: "password".tr,
                       hintStyle: theme.textTheme.titleSmall!,
                       textInputAction: TextInputAction.done,
                       textInputType: TextInputType.visiblePassword,
                       validator: (value) {
                         if (value == null ||
                             (!isValidPassword(value, isRequired: true))) {
-                          return "err_msg_please_enter_valid_password".tr;
+                          return "Please enter valid password.".tr;
                         }
                         return null;
                       },
@@ -80,13 +80,13 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     ),
                     SizedBox(height: 27.v),
                     GestureDetector(child: Text(
-                      "msg_forgot_password".tr,
+                      "Forgot password?".tr,
                       style: CustomTextStyles.titleSmallBlack90002,
                     ),onTap: ()=>{Get.toNamed(AppRoutes.forgotPasswordOneScreen)}),
                     SizedBox(height: 22.v),
                   CustomElevatedButton(
                     width: 189.h,
-                    text: "lbl_log_in".tr,
+                    text: "Log In".tr,
                     onPressed: () async {
                       Get.toNamed(AppRoutes.mainMenuContainerScreen);
                       // String email = controller.userNameController.text.removeAllWhitespace;

@@ -125,7 +125,7 @@ class AdoptionAndRehomingScreen
       ),
       centerTitle: true,
       title: AppbarSubtitle(
-        text: "msg_adopt_or_find_a".tr,
+        text: "Adopt or Find a Home".tr,
       ),
     );
   }

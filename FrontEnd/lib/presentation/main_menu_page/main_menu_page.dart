@@ -45,7 +45,7 @@ class MainMenuPage extends StatelessWidget {
                           right: 44.h,
                         ),
                         child: Text(
-                          "msg_vet_care_predictive".tr,
+                          "Vet Care + Predictive Health: \nYour Pet's Best Friend".tr,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
@@ -101,7 +101,7 @@ class MainMenuPage extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   children: [
                     AppbarSubtitleTwo(
-                      text: "lbl_welcome".tr,
+                      text: "Welcome".tr,
                       margin: EdgeInsets.only(
                         left: 2.h,
                         right: 50.h,

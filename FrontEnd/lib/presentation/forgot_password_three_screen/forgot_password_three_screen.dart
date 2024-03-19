@@ -54,7 +54,7 @@ class ForgotPasswordThreeScreen
                       validator: (value) {
                         if (value == null ||
                             (!isValidPassword(value, isRequired: true))) {
-                          return "err_msg_please_enter_valid_password".tr;
+                          return "Please enter valid password".tr;
                         }
                         return null;
                       },
@@ -69,7 +69,7 @@ class ForgotPasswordThreeScreen
                       validator: (value) {
                         if (value == null ||
                             (!isValidPassword(value, isRequired: true))) {
-                          return "err_msg_please_enter_valid_password".tr;
+                          return "Please enter valid password".tr;
                         }
                         return null;
                       },

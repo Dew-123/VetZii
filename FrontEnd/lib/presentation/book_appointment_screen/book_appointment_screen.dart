@@ -36,7 +36,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
               Padding(
                 padding: EdgeInsets.only(left: 8.h),
                 child: Text(
-                  "lbl_select_date".tr,
+                  "Select Date".tr,
                   style: CustomTextStyles.titleMediumMedium,
                 ),
               ),
@@ -46,7 +46,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
               Padding(
                 padding: EdgeInsets.only(left: 17.h),
                 child: Text(
-                  "lbl_select_hour".tr,
+                  "Select Hour".tr,
                   style: CustomTextStyles.titleLargeBluegray900,
                 ),
               ),
@@ -76,7 +76,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
       ),
       centerTitle: true,
       title: AppbarSubtitle(
-        text: "msg_book_apoointment".tr,
+        text: "Book Appointment".tr,
       ),
       actions: [
         AppbarTrailingImage(
@@ -164,7 +164,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
   /// Section Widget
   Widget _buildConfirm(BuildContext context) {
     return CustomElevatedButton(
-      text: "lbl_confirm".tr,
+      text: "Confirm".tr,
       margin: EdgeInsets.only(
         left: 50.h,
         right: 49.h,
@@ -270,7 +270,7 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
         "Clinic location:${VetData.addressClinic}";
 
     ServerHandling serverHandling = new ServerHandling();
-    serverHandling.sendEmail(UserData.email,"Appoinment booked",msg);
+    serverHandling.sendEmail(UserData.email,"Appointment booked",msg);
 
 
     Future.delayed(Duration(seconds: 3), ()=> {
