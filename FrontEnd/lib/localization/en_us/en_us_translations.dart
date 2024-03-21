@@ -32,15 +32,7 @@ final Map<String, String> enUs = {
       "You must be verified as a veterinarian by admin to create an account",
 
   // user profile Screen
-  "lbl_07245689536": "07245689536",
-  "lbl_email2": "Email",
-  "lbl_kitty": "Kitty",
-  "lbl_log_out": "Log out",
-  "lbl_name": "Name",
-  "lbl_name_of_the_pet": "Name of the Pet",
-  "lbl_phone_number": "Phone number",
-  "lbl_user_profile": "User Profile",
-  "msg_johnbrown_gmail_com": "johnbrown@gmail.com",
+
 
   // main menu Screen
   "lbl_adopt_a_pet": "Adopt a pet",
@@ -68,9 +60,6 @@ final Map<String, String> enUs = {
   "msg_galle_vet_care_animal": "Galle vet care animal clinic ",
 
   // directory vets Screen
-  "lbl_dr_brown": "Dr. Brown",
-  "lbl_dr_swanson": "Dr. Swanson",
-  "lbl_dr_william": "Dr. William",
   "lbl_filters": "Filters",
   "msg_all_veterinarians": "All Veterinarians",
 
@@ -146,26 +135,6 @@ final Map<String, String> enUs = {
   "lbl_sun": "Sun",
   "msg_book_apoointment": "Book Apoointment",
 
-  // payment page Screen
-  "lbl_01_25": "01 / 25",
-  "lbl_8790": "8790",
-  "lbl_bank_transfer": "Bank Transfer",
-  "lbl_card_holder": "Card holder",
-  "lbl_card_number": "Card number",
-  "lbl_confirm_payment": "Confirm Payment",
-  "lbl_credit_card": "Credit Card",
-  "lbl_cvv": "CVV",
-  "lbl_expires": "Expires",
-  "lbl_james_brown": "James brown",
-  "lbl_make_a_payment": "Make a  payment",
-  "lbl_month_year": "Month / Year",
-  "lbl_payment": "Payment",
-  "lbl_paypal": "Paypal",
-  "lbl_save_this_card": "Save this card",
-  "lbl_xxxx": "XXXX",
-  "msg_name_on_the_card": "Name on the card",
-  "msg_select_payment_method": "Select Payment Method",
-
   // book appointment confrm Screen
   "lbl_done": "Done",
   "msg_congratulations": "Congratulations!",
@@ -208,15 +177,6 @@ final Map<String, String> enUs = {
   "msg_you_have_successfully4":
       "You have successfully booked your appointment with Dr. David Patel.",
 
-  // adoption and rehoming Screen
-  "lbl_abby": "Abby",
-  "lbl_bruno": "Bruno",
-  "lbl_whisker": "Whisker",
-  "msg_adopt_or_find_a": "Adopt or Find a Home",
-  "msg_beagle_dog_needs":
-      "Beagle dog needs a home \n5 months\nContact - 0715486235",
-  "msg_cat_1_year_contact": "Cat\n1 year\nContact - 0774567892",
-  "msg_german_shepherd": "German Shepherd \n5 months\nContact - 0715486235",
 
   // rehoming form Screen
   "lbl_add_your_pet": "Add your pet",
@@ -231,16 +191,6 @@ final Map<String, String> enUs = {
       "Welcome to our Disease Prediction feature! We understand the importance of early detection and proactive pet care. Our advanced system analyzes a variety of symptoms to predict potential health issues in your beloved pets.\nPlease remember that while this tool offers predictive information, consulting with a veterinarian for a professional assessment is crucial for accurate diagnosis and personalized care. Your pet's health is our priority, and we're here to support you on their journey to a happy and healthy life.",
 
   // disease prediction enter symptoms Screen
-  "lbl_diarrhea": "Diarrhea",
-  "lbl_fever": "Fever",
-  "lbl_lethargy": "Lethargy",
-  "lbl_skin_issues": "Skin Issues",
-  "lbl_vomiting": "Vomiting",
-  "msg_changes_in_appetite": "Changes in Appetite:",
-  "msg_coughing_or_sneezing": "Coughing or Sneezing",
-  "msg_difficulty_in_breathing": "Difficulty in Breathing",
-  "msg_excessive_scratching": "Excessive Scratching",
-  "msg_excessive_thirst": "Excessive Thirst or Urination",
   "msg_please_select_the": "Please select the symptoms of your pet.",
   "msg_predict_the_disease2": "Predict the Disease",
 
@@ -256,11 +206,8 @@ final Map<String, String> enUs = {
 
   // Common String
   "lbl_create_account": "Create account",
-  "lbl_dr_samson": "Dr. Samson",
-  "lbl_dr_scott": "Dr. Scott",
   "lbl_email": "email",
   "lbl_full_name": "full name",
-  "lbl_john_brown": "John Brown",
   "lbl_log_in": "Log in",
   "lbl_mobile_number": "mobile number",
   "lbl_notifications": "Notifications",

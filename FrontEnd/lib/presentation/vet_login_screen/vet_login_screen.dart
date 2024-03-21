@@ -27,7 +27,7 @@ class VetLoginScreen extends GetWidget<VetLoginController> {
                 width: 298.h,
                 margin: EdgeInsets.only(right: 11.h),
                 child: Text(
-                  "msg_welcome_healing".tr,
+                  "Welcome, Healing Heroes..!".tr,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.displaySmall,
@@ -42,7 +42,7 @@ class VetLoginScreen extends GetWidget<VetLoginController> {
               ),
               SizedBox(height: 60.v),
               CustomElevatedButton(
-                text: "lbl_log_in".tr,
+                text: "Log in".tr,
                 onPressed: (){
                   Get.toNamed(AppRoutes.vetSignIn);
                 },
@@ -55,14 +55,14 @@ class VetLoginScreen extends GetWidget<VetLoginController> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 1.v),
                       child: Text(
-                        "msg_don_t_have_an_account".tr,
+                        "Don't have an account?".tr,
                         style: CustomTextStyles.titleSmallBlack90002Medium,
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 13.h),
                       child: GestureDetector(child:Text(
-                        "lbl_sign_up".tr,
+                        "Sign up".tr,
                         style: CustomTextStyles.titleSmallIndigoA700,
                       ),
                       onTap:() {Get.toNamed(AppRoutes.veterinarianCreateAnAccountScreen);}),

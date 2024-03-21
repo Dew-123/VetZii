@@ -19,6 +19,8 @@ const {
   getRecords,
   addPastTreatments,
   getPastTreatments,
+  deleteUserAccount,
+  deleteVetAccount
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -546,6 +548,41 @@ app.post("/getPastTreatments", async (req, res) => {
     });
   }
 });
+
+app.post("/deleteUserAccount", async(req, res) =>{
+  const {email}= req.body;
+
+  try {
+    const response =await deleteUserAccount(email);
+    if(response.deletedCount===1){
+      res.status(200).send('User account deleted successfully.');
+    }
+    else{
+      res.status(500).send('No user found.');
+    }
+  } catch (error) {
+    console.error('Error deleting user account:', error);
+    res.status(500).send('Error deleting user account.');
+  }
+})
+
+app.post("/deleteVetAccount", async(req, res) =>{
+  const {email}= req.body;
+
+  try {
+    const response =await deleteVetAccount(email);
+    if(response.deletedCount===1){
+      res.status(200).send('Vet account deleted successfully.');
+    }
+    else{
+      res.status(500).send('No vet found.');
+    }
+  } catch (error) {
+    console.error('Error deleting vet account:', error);
+    res.status(500).send('Error deleting vet account.');
+  }
+})
+
 
 app.post("/sendEmail", async (req, res) => {
   const { email, msg, heading } = req.body;

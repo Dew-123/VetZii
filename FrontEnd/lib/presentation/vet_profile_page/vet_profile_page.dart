@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
+import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:mihan_s_application1/dataHandling/vetData.dart';
 import 'package:http/http.dart' as http;
 import 'package:mihan_s_application1/http_req/links.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import '../vet_location_picker_page/vet_location_picker_page.dart';
 import 'vet_treatment_records.dart';
 
@@ -63,93 +65,147 @@ class _VetProfilePageState extends State<VetProfilePage> {
                   _buildTextFormField("Password", VetData.password, obscureText: true),
                   _buildTextFormField("Name of the Clinic", VetData.clinicName),
                   SizedBox(height: 20),
+                  Container(
+                    width: 280,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MapPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 30,vertical: 25),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Locate on Map',style: TextStyle(color: Colors.white,
+                                fontSize: 14),),
+                            SizedBox(width: 5,),
+                            Icon(Icons.location_on),
+                          ],
+                        )
+                    ),
+                  ),
 
-                  ElevatedButton(
+
+                  SizedBox(height: 10),
+                  if (!_editMode)
+                    Container(
+                      width: 280,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _editMode = true;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Button border radius
+                          ),
+                        ),
+                        child: Text(
+                          'Edit Profile',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  if (_editMode)
+                    Container(
+                      width: 280,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          ServerHandling serverObject = new ServerHandling();
+                          serverObject.saveChangesVet(
+                              _editedFullName,
+                              _editedClinicName,
+                              _editedFieldOfExpertise,
+                              _editedEmail,
+                              _editedPassword,
+                              _editedMobileNumber,
+                              _editedClinicName);
+                          setState(() {
+                            _editMode = false;
+                          });
+                        },
+
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Button border radius
+                          ),
+                        ),
+                        child: Text(
+                          'Confirm',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  SizedBox(height: 10,),
+                  Container(
+                    width: 280,
+                    child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MapPage()),
-                        );
+                        Get.to(()=>VetTreatmentRecords());
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, padding: EdgeInsets.symmetric(horizontal: 5,vertical: 15),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue,
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Locate on Map',style: TextStyle(color: Colors.white,
-                              fontSize: 14),),
-                          SizedBox(width: 5,),
-                          Icon(Icons.location_on),
-                        ],
-                      )
+                      child: Text(
+                        'Add Treatment Records',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 10),
-                  if (!_editMode)
-                    ElevatedButton(
+
+                  SizedBox(height: 10,),
+                  Container(
+                    width: 280,
+                    child: ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          _editMode = true;
-                        });
+                        _showConfirmationBox(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
+                        foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
                         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10), // Button border radius
                         ),
                       ),
                       child: Text(
-                        'Edit Profile',
+                        'Delete Account',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                     ),
-                  if (_editMode)
-                    ElevatedButton(
-                      onPressed: () {
-                        _saveChanges();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // Button border radius
-                        ),
-                      ),
-                      child: Text(
-                        'Confirm',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.to(()=>VetTreatmentRecords());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Text(
-                      'Add Treatment Records',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                  )
+
+
                 ],
               ),
             ),
@@ -196,43 +252,71 @@ class _VetProfilePageState extends State<VetProfilePage> {
     );
   }
 
-  void _saveChanges() async {
-    try {
-      final response = await http.post(
-        Uri.parse(Links.updateVetData),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({
-          'prevEmail': VetData.email, // Pass the current user's email
-          'fullName': _editedFullName.isNotEmpty ? _editedFullName : VetData.fullName,
-          'addressClinic': _editedAddressClinic.isNotEmpty ? _editedAddressClinic : VetData.addressClinic,
-          'fieldOfExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
-          'email': _editedEmail.isNotEmpty ? _editedEmail : VetData.email,
-          'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
-          'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
-          'clinic': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
-          'lat':0,
-          'long':0,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        // Handle success
-        print('Vet profile updated successfully');
-      } else {
-        // Handle error
-        print(response.body);
-        print('Failed to update vet profile');
-      }
-    } catch (error) {
-      // Handle error
-      print('Error updating vet profile: $error');
-    }
-
-    // After saving changes, set edit mode to false
-    setState(() {
-      _editMode = false;
-    });
+  void _showConfirmationBox(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Confirmation', style: CustomTextStyles.headlineSmallBlack90002),
+          content: Text('Please confirm to delete the account'),
+          actions: [
+            TextButton(onPressed: (){
+              ServerHandling serverObject = new ServerHandling();
+              serverObject.deleteVetAccount(VetData.email);
+              print('Account Deleted!');
+              Navigator.of(context).pop();
+            },
+              child: Text('Yes', style: TextStyle(color: Colors.black),),
+            ),
+            TextButton(onPressed: (){
+              //close
+              Navigator.of(context).pop();
+            },
+              child: Text('No', style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      },
+    );
   }
+
+  // void _saveChanges() async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(Links.updateVetData),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode({
+  //         'prevEmail': VetData.email, // Pass the current user's email
+  //         'fullName': _editedFullName.isNotEmpty ? _editedFullName : VetData.fullName,
+  //         'addressClinic': _editedAddressClinic.isNotEmpty ? _editedAddressClinic : VetData.addressClinic,
+  //         'fieldOfExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
+  //         'email': _editedEmail.isNotEmpty ? _editedEmail : VetData.email,
+  //         'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
+  //         'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
+  //         'clinic': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
+  //         'lat':0,
+  //         'long':0,
+  //       }),
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       // Handle success
+  //       print('Vet profile updated successfully');
+  //     } else {
+  //       // Handle error
+  //       print(response.body);
+  //       print('Failed to update vet profile');
+  //     }
+  //   } catch (error) {
+  //     // Handle error
+  //     print('Error updating vet profile: $error');
+  //   }
+  //
+  //   // After saving changes, set edit mode to false
+  //   setState(() {
+  //     _editMode = false;
+  //   });
+  // }
 }

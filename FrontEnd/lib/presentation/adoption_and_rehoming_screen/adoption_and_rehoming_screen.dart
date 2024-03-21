@@ -83,7 +83,7 @@ class AdoptionAndRehomingScreen
                       width: 94.h,
                       margin: EdgeInsets.only(left: 2.h),
                       child: Text(
-                        "lbl_search".tr,
+                        "Search".tr,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.headlineSmall,
@@ -125,7 +125,7 @@ class AdoptionAndRehomingScreen
       ),
       centerTitle: true,
       title: AppbarSubtitle(
-        text: "msg_adopt_or_find_a".tr,
+        text: "Adopt or Find a Home".tr,
       ),
     );
   }

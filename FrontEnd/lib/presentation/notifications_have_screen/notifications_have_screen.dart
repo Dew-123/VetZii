@@ -4,8 +4,6 @@ import 'models/appointmentsuccess_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/clinic_map_page/clinic_map_page.dart';
-import 'package:mihan_s_application1/presentation/directory_vets_page/directory_vets_page.dart';
-import 'package:mihan_s_application1/presentation/main_menu_page/main_menu_page.dart';
 import 'package:mihan_s_application1/presentation/my_appointments_page/my_appointments_page.dart';
 import 'package:mihan_s_application1/widgets/app_bar/appbar_leading_image.dart';
 import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle.dart';
@@ -60,7 +58,7 @@ class NotificationsHaveScreen extends GetWidget<NotificationsHaveController> {
       ),
       centerTitle: true,
       title: AppbarSubtitle(
-        text: "lbl_notifications".tr,
+        text: "Notifications".tr,
       ),
     );
   }
@@ -75,14 +73,14 @@ class NotificationsHaveScreen extends GetWidget<NotificationsHaveController> {
           Padding(
             padding: EdgeInsets.only(top: 1.v),
             child: Text(
-              "lbl_today".tr.toUpperCase(),
+              "Today".tr.toUpperCase(),
               style: theme.textTheme.bodyLarge,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 4.v),
             child: Text(
-              "msg_mark_all_as_read".tr,
+              "Mark all as read".tr,
               style: CustomTextStyles.titleSmallPoppinsBluegray900,
             ),
           ),
@@ -141,14 +139,14 @@ class NotificationsHaveScreen extends GetWidget<NotificationsHaveController> {
                 Padding(
                   padding: EdgeInsets.only(top: 1.v),
                   child: Text(
-                    "lbl_yesterday".tr,
+                    "Yesterday".tr,
                     style: theme.textTheme.bodyLarge,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 4.v),
                   child: Text(
-                    "msg_mark_all_as_read".tr,
+                    "Mark all as read".tr,
                     style: CustomTextStyles.titleSmallPoppinsBluegray900,
                   ),
                 ),

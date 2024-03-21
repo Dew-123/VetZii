@@ -5,6 +5,7 @@ import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:http/http.dart' as http;
 import 'package:mihan_s_application1/http_req/links.dart';
+import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 class UserProfilePage extends StatefulWidget {
   UserProfilePage({Key? key}) : super(key: key);
@@ -82,14 +83,27 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         'Edit Profile',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                     ),
                   if (_editMode)
                     ElevatedButton(
                       onPressed: () {
-                        _saveChanges(); // Function to save changes to database
+                        ServerHandling serverObject = new ServerHandling();
+                        serverObject.saveChanges(
+                            _editedFirstName,
+                            _editedLastName ,
+                            _editedPetName,
+                            _editedPetType,
+                            _editedGender,
+                            _editedEmail,
+                            _editedMobileNumber,
+                            _editedPassword
+                        );
+                        setState(() {
+                          _editMode = false;
+                        });// Function to save changes to database
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white, backgroundColor: Colors.lime, // Text color
@@ -102,10 +116,31 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         'Confirm',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                         ),
                       ),
                     ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      _showConfirmationBox(context);
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25), // Button padding
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // Button border radius
+                      ),
+                    ),
+                    child: Text(
+                      'Delete Account',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -155,43 +190,71 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
-  void _saveChanges() async {
-
-    try {
-      final response = await http.post(
-        Uri.parse(Links.updateUserData),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({
-          'PrevEmail': UserData.email, // Pass the current user's email
-          'Fname': _editedFirstName.isNotEmpty ? _editedFirstName : UserData.firstName,
-          'Lname': _editedLastName.isNotEmpty ? _editedLastName : UserData.lastName,
-          'nameOfThePet': _editedPetName.isNotEmpty ? _editedPetName : UserData.petName,
-          'petType': _editedPetType.isNotEmpty ? _editedPetType : UserData.petType,
-          'gender': _editedGender.isNotEmpty ? _editedGender : UserData.gender,
-          'email': _editedEmail.isNotEmpty ? _editedEmail : UserData.email,
-          'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : UserData.mobileNumber,
-          'password': _editedPassword.isNotEmpty ? _editedPassword : UserData.password,
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        // Handle success
-        print('User profile updated successfully');
-      } else {
-        // Handle error
-        print(response.body);
-        print('Failed to update user profile');
-      }
-    } catch (error) {
-      // Handle error
-      print('Error updating user profile: $error');
-    }
-
-    // After saving changes, set edit mode to false
-    setState(() {
-      _editMode = false;
-    });
+  void _showConfirmationBox(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Confirmation', style: CustomTextStyles.headlineSmallBlack90002),
+          content: Text('Please confirm to delete the account'),
+          actions: [
+            TextButton(onPressed: (){
+              ServerHandling serverObject = new ServerHandling();
+              serverObject.deleteUserAccount(UserData.email);
+              print('Account Deleted!');
+              Navigator.of(context).pop();
+            },
+                child: Text('Yes', style: TextStyle(color: Colors.black),),
+            ),
+            TextButton(onPressed: (){
+              //close
+              Navigator.of(context).pop();
+            },
+                child: Text('No', style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      },
+    );
   }
+
+
+  // void _saveChanges() async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(Links.updateUserData),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       },
+  //       body: jsonEncode({
+  //         'PrevEmail': UserData.email, // Pass the current user's email
+  //         'Fname': _editedFirstName.isNotEmpty ? _editedFirstName : UserData.firstName,
+  //         'Lname': _editedLastName.isNotEmpty ? _editedLastName : UserData.lastName,
+  //         'nameOfThePet': _editedPetName.isNotEmpty ? _editedPetName : UserData.petName,
+  //         'petType': _editedPetType.isNotEmpty ? _editedPetType : UserData.petType,
+  //         'gender': _editedGender.isNotEmpty ? _editedGender : UserData.gender,
+  //         'email': _editedEmail.isNotEmpty ? _editedEmail : UserData.email,
+  //         'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : UserData.mobileNumber,
+  //         'password': _editedPassword.isNotEmpty ? _editedPassword : UserData.password,
+  //       }),
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       // Handle success
+  //       print('User profile updated successfully');
+  //     } else {
+  //       // Handle error
+  //       print(response.body);
+  //       print('Failed to update user profile');
+  //     }
+  //   } catch (error) {
+  //     // Handle error
+  //     print('Error updating user profile: $error');
+  //   }
+  //
+  //   // After saving changes, set edit mode to false
+  //   setState(() {
+  //     _editMode = false;
+  //   });
+  // }
 }

@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../dataHandling/data.dart';
+import '../dataHandling/vetData.dart';
 import 'links.dart';
 
 class ServerHandling {
@@ -15,6 +17,131 @@ class ServerHandling {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future <void> deleteVetAccount(String email) async{
+    try {
+      final response = await http.post(
+        Uri.parse(Links.deleteVetAccount),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'email': email}),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('Vet account deleted successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to delete vet account');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error deleting vet account: $error');
+    }
+  }
+
+  Future <void> deleteUserAccount(String email) async{
+    try {
+      final response = await http.post(
+        Uri.parse(Links.deleteUserAccount),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({'email': email}),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('User account deleted successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to delete user account');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error deleting user account: $error');
+    }
+  }
+
+  Future<void> saveChanges(firstName, lastName, petName, petType, gender,
+      email, mobileNumber, password) async {
+    try {
+      final response = await http.post(
+        Uri.parse(Links.updateUserData),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+
+          'PrevEmail': UserData.email, // Pass the current user's email
+          'Fname': firstName.isNotEmpty ? firstName : UserData.firstName,
+          'Lname': lastName.isNotEmpty ? lastName : UserData.lastName,
+          'nameOfThePet': petName.isNotEmpty ? petName : UserData.petName,
+          'petType': petType.isNotEmpty ? petType : UserData.petType,
+          'gender': gender.isNotEmpty ? gender : UserData.gender,
+          'email': email.isNotEmpty ? email : UserData.email,
+          'mobileNumber': mobileNumber.isNotEmpty ? mobileNumber : UserData.mobileNumber,
+          'password': password.isNotEmpty ? password : UserData.password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('User profile updated successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to update user profile');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error updating user profile: $error');
+    };
+  }
+  Future <void> saveChangesVet(
+      String fullName,
+      String clinicAddress,
+      String fieldOfExpertise,
+      String email,
+      String password,
+      String mobileNumber,
+      String clinicName)async{
+    try {
+      final response = await http.post(
+        Uri.parse(Links.updateVetData),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'prevEmail': VetData.email, // Pass the current user's email
+          'fullName': fullName.isNotEmpty ? fullName : VetData.fullName,
+          'addressClinic': clinicAddress.isNotEmpty ? clinicAddress : VetData.addressClinic,
+          'fieldOfExpertise': fieldOfExpertise.isNotEmpty ? fieldOfExpertise : VetData.fieldOfExpertise,
+          'email': email.isNotEmpty ? email : VetData.email,
+          'password': password.isNotEmpty ? password : VetData.password,
+          'mobileNumber': mobileNumber.isNotEmpty ? mobileNumber : VetData.mobileNumber,
+          'clinic': clinicName.isNotEmpty ? clinicName : VetData.clinicName,
+          'lat':0,
+          'long':0,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle success
+        print('Vet profile updated successfully');
+      } else {
+        // Handle error
+        print(response.body);
+        print('Failed to update vet profile');
+      }
+    } catch (error) {
+      // Handle error
+      print('Error updating vet profile: $error');
     }
   }
 
@@ -34,6 +161,8 @@ class ServerHandling {
       throw Exception('Failed to load data');
     }
   }
+
+
 
   Future<List<dynamic>> fetchVetData(String email, String password) async {
     final response = await http.post(

@@ -86,7 +86,7 @@ class DirectoryVetsPage extends StatelessWidget {
       ),
       centerTitle: true,
       title: AppbarSubtitle(
-        text: "msg_all_veterinarians".tr,
+        text: "All Veterinarians".tr,
       ),
     );
   }
@@ -158,7 +158,7 @@ class DirectoryVetsPage extends StatelessWidget {
             CustomElevatedButton(
               height: 32.v,
               width: 75.h,
-              text: "lbl_filters".tr,
+              text: "Filters".tr,
               margin: EdgeInsets.only(left: 200.h),
               leftIcon: Container(
                 margin: EdgeInsets.only(right: 4.h),
