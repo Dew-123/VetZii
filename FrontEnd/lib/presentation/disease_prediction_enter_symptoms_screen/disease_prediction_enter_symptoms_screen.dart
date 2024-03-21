@@ -177,6 +177,31 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: (){
+                    if (ageController.text.isEmpty ||
+                        temperatureController.text.isEmpty ||
+                        _animalspecies.isEmpty ||
+                        _symptom1.isEmpty ||
+                        _symptom2.isEmpty ||
+                        _symptom3.isEmpty) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Error'),
+                            content: Text('Please fill out all fields.'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('OK'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      return;
+                    }
                     getPredictions();
                     },
                     child: Text('Predict the Disease',
