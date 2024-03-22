@@ -36,8 +36,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              UserData.reset();
-              Get.offAllNamed(AppRoutes.petOwnerLoginScreen);
+              _showLogooutConfirmationBox(context);
+
             },
           ),
         ],
@@ -211,6 +211,33 @@ class _UserProfilePageState extends State<UserProfilePage> {
               Navigator.of(context).pop();
             },
                 child: Text('No', style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showLogooutConfirmationBox(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Confirmation', style: CustomTextStyles.headlineSmallBlack90002),
+          content: Text('Please confirm to log out.'),
+          actions: [
+            TextButton(onPressed: (){
+              UserData.reset();
+              Get.offAllNamed(AppRoutes.petOwnerLoginScreen);
+              print('Logged Out!');
+            },
+              child: Text('Yes', style: TextStyle(color: Colors.black),),
+            ),
+            TextButton(onPressed: (){
+              //close
+              Navigator.of(context).pop();
+            },
+              child: Text('No', style: TextStyle(color: Colors.black),),
             ),
           ],
         );
