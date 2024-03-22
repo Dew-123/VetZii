@@ -336,7 +336,8 @@ class PetOwnerCreateAnAccountScreen
         if (response.statusCode == 200) {
           ServerHandling server = new ServerHandling();
           List<dynamic> data = await server.fetchUserData(email, password);
-          Get.toNamed(AppRoutes.userSignInScreen, arguments: data);
+          Get.offAllNamed(AppRoutes.userSignInScreen,arguments: data);
+          //Get.toNamed(AppRoutes.userSignInScreen, arguments: data);
         } else if (response.statusCode == 400) {
           showDialogBox(context,'Email Already in Use','The email provided is already associated with an existing account.');
         } else {
