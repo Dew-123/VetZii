@@ -245,7 +245,7 @@ class ServerHandling {
 
   Future<String> sendEmail(String email,String heading,String msg) async {
     final response = await http.post(
-      Uri.parse(Links.recoverMailCodeSend),
+      Uri.parse(Links.sendEmail),
       body: {
         'email': email,
         'msg':msg,

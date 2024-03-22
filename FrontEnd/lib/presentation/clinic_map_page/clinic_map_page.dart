@@ -44,8 +44,8 @@ class _ClinicMapPageState extends State<ClinicMapPage> {
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
           target: LatLng(
-            37.43296265331129,
-            -122.08832357078792,
+            6.926778,
+            79.869406,
           ),
           zoom: 14.4746,
         ),

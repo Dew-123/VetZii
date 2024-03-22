@@ -1,6 +1,4 @@
-import 'widgets/petownercreateanaccount_item_widget.dart';
 import 'controller/pet_owner_create_an_account_controller.dart';
-import 'models/petownercreateanaccount_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/core/utils/validation_functions.dart';
@@ -11,11 +9,9 @@ import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 
-// ignore_for_file: must_be_immutable
 class PetOwnerCreateAnAccountScreen
     extends GetWidget<PetOwnerCreateAnAccountController> {
 
@@ -169,46 +165,11 @@ class PetOwnerCreateAnAccountScreen
   Widget _buildPetType() {
     return CustomTextFormField(
       controller: controller.petTypeController,
-      hintText: "pet type".tr,
+      hintText: "pet type (Ex: Dog,Cat etc.)".tr,
       hintStyle: theme.textTheme.titleSmall!,
     );
   }
 
-  /// Section Widget
-  // Widget _buildPetOwnerCreateAnAccount() {
-  //   return SizedBox(
-  //     height: 20.v,
-  //     child: Obx(
-  //       () => ListView.separated(
-  //         padding: EdgeInsets.only(
-  //           left: 20.h,
-  //           right: 28.h,
-  //         ),
-  //         scrollDirection: Axis.horizontal,
-  //         separatorBuilder: (
-  //           context,
-  //           index,
-  //         ) {
-  //           return SizedBox(
-  //             width: 29.h,
-  //           );
-  //         },
-  //         itemCount: controller.petOwnerCreateAnAccountModelObj.value
-  //             .petownercreateanaccountItemList.value.length,
-  //         itemBuilder: (context, index) {
-  //           PetownercreateanaccountItemModel model = controller
-  //               .petOwnerCreateAnAccountModelObj
-  //               .value
-  //               .petownercreateanaccountItemList
-  //               .value[index];
-  //           return PetownercreateanaccountItemWidget(
-  //             model,
-  //           );
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
   Widget _buildPetOwnerCreateAnAccount() {
     return SizedBox(
       height: 20.v,
@@ -216,10 +177,10 @@ class PetOwnerCreateAnAccountScreen
             () => Row(
           children: [
             Text(
-              'Pet\'s Gender:', // Text indicating the purpose
-              style: TextStyle(fontSize: 14), // Adjust font size as needed
+              'Pet\'s Gender:',
+              style: TextStyle(fontSize: 14),
             ),
-            SizedBox(width: 10), // Adjust spacing between text and radio buttons
+            SizedBox(width: 10),
             Radio(
               value: 'male',
               groupValue: _selectedGender.value,
@@ -228,7 +189,7 @@ class PetOwnerCreateAnAccountScreen
               },
             ),
             Text('Male'),
-            SizedBox(width: 20), // Adjust spacing between radio buttons
+            SizedBox(width: 20),
             Radio(
               value: 'female',
               groupValue: _selectedGender.value,
@@ -375,7 +336,7 @@ class PetOwnerCreateAnAccountScreen
         if (response.statusCode == 200) {
           ServerHandling server = new ServerHandling();
           List<dynamic> data = await server.fetchUserData(email, password);
-          Get.toNamed(AppRoutes.mainMenuContainerScreen, arguments: data);
+          Get.toNamed(AppRoutes.userSignInScreen, arguments: data);
         } else if (response.statusCode == 400) {
           showDialogBox(context,'Email Already in Use','The email provided is already associated with an existing account.');
         } else {
