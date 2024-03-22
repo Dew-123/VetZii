@@ -18,6 +18,27 @@ class UserData {
   static String email_vet='';
   static String mobileNumber_vet='';
 
+  // Method to reset all static variables to empty strings
+  static void reset() {
+    firstName = '';
+    lastName = '';
+    petName = '';
+    petType = '';
+    gender = '';
+    email = '';
+    mobileNumber = '';
+    password = '';
+
+    lat = '';
+    long = '';
+
+    fullName_vet = '';
+    addressOfTheClinic_vet = '';
+    fieldOfExpertise_vet = '';
+    email_vet = '';
+    mobileNumber_vet = '';
+  }
+
 }
 
 

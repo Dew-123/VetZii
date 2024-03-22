@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -37,7 +36,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              // Add logout functionality here
+              UserData.reset();
+              Get.offAllNamed(AppRoutes.petOwnerLoginScreen);
             },
           ),
         ],
@@ -217,9 +217,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
       },
     );
   }
+  
 
 
-  // void _saveChanges() async {
+
+// void _saveChanges() async {
   //   try {
   //     final response = await http.post(
   //       Uri.parse(Links.updateUserData),
