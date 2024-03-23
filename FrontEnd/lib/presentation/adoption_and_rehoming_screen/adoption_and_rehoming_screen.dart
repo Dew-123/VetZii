@@ -36,7 +36,6 @@ class AdoptionAndRehomingScreen
             }
           },
         ),
-        bottomNavigationBar: _buildBottomBar(),
       ),
     );
   }
@@ -49,51 +48,6 @@ class AdoptionAndRehomingScreen
       child: Stack(
         alignment: Alignment.topRight,
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 10.h),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.imgSearch,
-                    height: 24.adaptSize,
-                    width: 24.adaptSize,
-                    margin: EdgeInsets.only(
-                      top: 4.v,
-                      bottom: 39.v,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.h),
-                    child: SizedBox(
-                      height: 67.v,
-                      child: VerticalDivider(
-                        width: 1.h,
-                        thickness: 1.v,
-                        indent: 4.h,
-                        endIndent: 37.h,
-                      ),
-                    ),
-                  ),
-                  Opacity(
-                    opacity: 0.3,
-                    child: Container(
-                      width: 94.h,
-                      margin: EdgeInsets.only(left: 2.h),
-                      child: Text(
-                        "Search".tr,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.headlineSmall,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           GestureDetector(
             child: CustomImageView(
               imagePath: ImageConstant.imgSettingsBlack90002,
@@ -171,46 +125,5 @@ class AdoptionAndRehomingScreen
         ),
       ),
     );
-  }
-
-  /// Section Widget
-  Widget _buildBottomBar() {
-    return CustomBottomBar(
-      onChanged: (BottomBarEnum type) {
-        Get.toNamed(getCurrentRoute(type), id: 1);
-      },
-    );
-  }
-
-  ///Handling route based on bottom click actions
-  String getCurrentRoute(BottomBarEnum type) {
-    switch (type) {
-      case BottomBarEnum.Homeprimarycontainer:
-        return AppRoutes.mainMenuPage;
-      case BottomBarEnum.Linkedin:
-        return AppRoutes.clinicMapPage;
-      case BottomBarEnum.Thumbsupblack90002:
-        return AppRoutes.directoryVetsPage;
-      case BottomBarEnum.Lock:
-        return AppRoutes.myAppointmentsPage;
-      default:
-        return "/";
-    }
-  }
-
-  ///Handling page based on route
-  Widget getCurrentPage(String currentRoute) {
-    switch (currentRoute) {
-    // case AppRoutes.mainMenuPage:
-    //   return MainMenuPage();
-      case AppRoutes.clinicMapPage:
-        return ClinicMapPage();
-      case AppRoutes.directoryVetsPage:
-       // return DirectoryVetsPage();
-      case AppRoutes.myAppointmentsPage:
-        return MyAppointmentsPage();
-      default:
-        return DefaultWidget();
-    }
   }
 }

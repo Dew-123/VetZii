@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:http/http.dart' as http;
-import 'package:mihan_s_application1/http_req/links.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 class UserProfilePage extends StatefulWidget {
