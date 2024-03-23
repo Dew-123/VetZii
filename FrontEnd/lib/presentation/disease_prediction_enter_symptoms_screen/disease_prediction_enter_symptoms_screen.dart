@@ -16,6 +16,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
 
   String predictedDisease = '';
+  double probability = 0.0;
   bool showResult = false;
 
   Future<void> getPredictions() async {
@@ -50,9 +51,12 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
       print("running");
       if (response.statusCode == 200) {
-        final prediction = jsonDecode(response.body)['predictedDisease'] as String;
+        final data = jsonDecode(response.body);
+        final prediction = data['predictedDisease'] as String;
+        final prob = data['probability'] as double;
         setState(() {
           predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
+          probability = prob;
           showResult = true;
         });
 

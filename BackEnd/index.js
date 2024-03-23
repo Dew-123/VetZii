@@ -445,17 +445,20 @@ app.post('/predict', async (req, res) => {
 
   // Handle stdout data from the Python process
   let predictedDisease = '';
+  let probability = '';
   
   pythonProcess.stdout.on('data', (data) => {
       const predictions = JSON.parse(data);
       predictedDisease = predictions.predictedDisease;
+      probability = predictions.probability;
   });
 
   // Handle end of stdout data from the Python process
   pythonProcess.stdout.on('end', () => {
       // Send the predicted label to the frontend
       console.log(predictedDisease);
-      res.json({ predictedDisease }); // Send predictions back to frontend
+      console.log(probability);
+      res.json({ predictedDisease,probability }); // Send predictions back to frontend
   });
 
   // Handle stderr data from the Python process

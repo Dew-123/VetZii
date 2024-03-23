@@ -47,10 +47,16 @@ predictions = model.predict(preprocessed_input)
 
 predicted_classes = np.argmax(predictions, axis=1)
 
+# Get predicted probabilities
+probabilities = model.predict_proba(preprocessed_input)
+
 # Load the class labels
 class_labels = ['pneumonia', 'lumpy virus', 'blackleg', 'foot and mouth', 'anthrax']
 
-predicted_label = class_labels[predicted_classes[0]]
+for idx, (pred_class, probs) in enumerate(zip(predicted_classes, probabilities)):
+    predicted_label = class_labels[pred_class]
+    probability = "{:.2f}".format(probs.max() * 100)  # Convert probability to percentage
 
-# Send predictions to stdout
-sys.stdout.write(json.dumps({"predictedDisease": predicted_label}))
+# Send predictions and probability to stdout
+output_json = {"predictedDisease": predicted_label, "probability": probability}
+sys.stdout.write(json.dumps(output_json))
