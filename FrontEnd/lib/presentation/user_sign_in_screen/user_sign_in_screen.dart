@@ -88,7 +88,6 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     width: 189.h,
                     text: "Log In".tr,
                     onPressed: () async {
-                      //Get.toNamed(AppRoutes.mainMenuContainerScreen);
                       String email = controller.userNameController.text.removeAllWhitespace;
                       String password = controller.passwordController.text.removeAllWhitespace;
 
