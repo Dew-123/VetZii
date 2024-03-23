@@ -221,22 +221,46 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
               SizedBox(height: 10,),
 
               if (showResult)
-                Container(
-                  width: 100,
-                  height: 50,
-                  decoration: BoxDecoration(color: Colors.red,
-                      borderRadius: BorderRadius.circular(20)),
-                  // You can customize the color as needed
-                  child: Center(
-                    child: Text(
-                      '$predictedDisease'.toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white, // You can customize the text color as needed
-                        fontSize: 16,
+                Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '$predictedDisease'.toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                )
+                    SizedBox(height: 10,),
+                    Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '$probability'.toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
 
             ],
           ),
