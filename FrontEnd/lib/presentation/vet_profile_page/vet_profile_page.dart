@@ -264,7 +264,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
               ServerHandling serverObject = new ServerHandling();
               serverObject.deleteVetAccount(VetData.email);
               print('Account Deleted!');
-              Navigator.of(context).pop();
+              Get.offAllNamed(AppRoutes.vetSignIn);
             },
               child: Text('Yes', style: TextStyle(color: Colors.black),),
             ),
@@ -279,44 +279,4 @@ class _VetProfilePageState extends State<VetProfilePage> {
       },
     );
   }
-
-  // void _saveChanges() async {
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(Links.updateVetData),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //       body: jsonEncode({
-  //         'prevEmail': VetData.email, // Pass the current user's email
-  //         'fullName': _editedFullName.isNotEmpty ? _editedFullName : VetData.fullName,
-  //         'addressClinic': _editedAddressClinic.isNotEmpty ? _editedAddressClinic : VetData.addressClinic,
-  //         'fieldOfExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
-  //         'email': _editedEmail.isNotEmpty ? _editedEmail : VetData.email,
-  //         'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
-  //         'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
-  //         'clinic': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
-  //         'lat':0,
-  //         'long':0,
-  //       }),
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       // Handle success
-  //       print('Vet profile updated successfully');
-  //     } else {
-  //       // Handle error
-  //       print(response.body);
-  //       print('Failed to update vet profile');
-  //     }
-  //   } catch (error) {
-  //     // Handle error
-  //     print('Error updating vet profile: $error');
-  //   }
-  //
-  //   // After saving changes, set edit mode to false
-  //   setState(() {
-  //     _editMode = false;
-  //   });
-  // }
 }

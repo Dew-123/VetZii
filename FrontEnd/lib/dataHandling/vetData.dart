@@ -9,10 +9,19 @@ class VetData {
   static String password = '';
   static String mobileNumber = '';
   static String clinicName = '';
-
   static String lat = '';
   static String long = '';
 
-
+  static void reset() {
+    fullName = '';
+    addressClinic = '';
+    fieldOfExpertise = '';
+    email = '';
+    password = '';
+    mobileNumber = '';
+    clinicName = '';
+    lat = '';
+    long = '';
+  }
 
 }
