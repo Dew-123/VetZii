@@ -112,14 +112,25 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('No User Found'),
+                                title: Text('No User Found',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 content: Text('No user was found with the provided email and password.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text('OK'),
+                                    child: Text('OK',
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16, // Adjust the font size
+                                      ),
+                                    ),
                                   ),
                                 ],
                               );

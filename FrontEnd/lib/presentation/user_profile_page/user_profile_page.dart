@@ -201,7 +201,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ServerHandling serverObject = new ServerHandling();
               serverObject.deleteUserAccount(UserData.email);
               print('Account Deleted!');
-              Navigator.of(context).pop();
+              UserData.reset();
+              Get.offAllNamed(AppRoutes.petOwnerLoginScreen);
             },
                 child: Text('Yes', style: TextStyle(color: Colors.black),),
             ),
