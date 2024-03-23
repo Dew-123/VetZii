@@ -5,7 +5,11 @@ const {
     addDataVets,
     getDataVet,
     updateUserPassword,
-    updateVetPassword
+    updateVetPassword,
+    updateUserData,
+    updateVetData,
+    deleteVetAccount,
+    deleteUserAccount
 } = require("./dataBase.js");
 
 describe("Database Functions", () => {
@@ -92,6 +96,8 @@ describe("Database Functions", () => {
             email: "drsmith@example.com",
             mobilenumber: "123456789",
             password: "vetpassword",
+            lat: 40.7128,
+            long: -74.0060
         
         };
 
@@ -162,5 +168,105 @@ describe("Database Functions", () => {
             // Assert that the error message matches the expected error message
             expect(error.message).toBe("Vet not found");
         }
+    });
+
+    it("updates user data in MongoDB", async () => {
+        // Define test data for the existing user
+        const prevEmail = "john1@example.com";
+        const newData = {
+            Fname: "John",
+            Lname: "Doe",
+            nameOfThePet: "newpetname",
+            petType: "dog",
+            gender: "male",
+            email: "john1@example.com",
+            mobileNumber: "0123456789",
+            password: "newpassword",
+        };
+
+        // Call the updateUserData function with the test data
+        const result = await updateUserData(
+            prevEmail,
+            newData.Fname,
+            newData.Lname,
+            newData.nameOfThePet,
+            newData.petType,
+            newData.gender,
+            newData.email,
+            newData.mobileNumber,
+            newData.password
+        );
+
+        // Assert the result
+        expect(result.modifiedCount).toBe(1); // Check if one document was modified
+
+        // Fetch the updated user data
+        const updatedUserData = await getDataUsers(newData.email, newData.password);
+
+        // Assert that the updated data matches the new data
+        expect(updatedUserData.length).toBe(1); // Check if one document is returned
+        expect(updatedUserData[0]).toMatchObject(newData); // Check if the updated data matches the new data
+    });
+
+    it("updates vet data in MongoDB", async () => {
+        // Define test data for an existing vet
+        const prevEmail = "drsmith@example.com";
+        const newData = {
+            fullName: "Dr. John Smith",
+            addressClinic: "456 New Street",
+            fieldOfExpertise: "Surgery",
+            email: "drsmith@example.com",
+            mobileNumber: "9876543210",
+            password: "newvetpassword",
+            clinic: "New Clinic",
+            lat: 40.7128,
+            long: -74.0060
+        };
+
+        // Call the updateVetData function with the test data
+        const result = await updateVetData(
+            prevEmail,
+            newData.fullName,
+            newData.addressClinic,
+            newData.fieldOfExpertise,
+            newData.email,
+            newData.password,
+            newData.mobileNumber,
+            newData.clinic,
+            newData.lat,
+            newData.long
+        );
+
+        // Assert the result
+        expect(result.modifiedCount).toBe(1); // Check if one document was modified
+
+        // Fetch the updated vet data
+        const updatedVetData = await getDataVet(newData.email, newData.password);
+
+        // Assert that the updated data matches the new data
+        expect(updatedVetData.length).toBe(1); // Check if one document is returned
+        expect(updatedVetData[0]).toMatchObject(newData); // Check if the updated data matches the new data
+    });
+
+    it("deletes a user account from MongoDB", async () => {
+        // Define test data for an existing user to be deleted
+        const email = "john1@example.com";
+
+        // Call the deleteUserAccount function with the test data
+        const result = await deleteUserAccount(email);
+
+        // Assert the result
+        expect(result.deletedCount).toBe(1); // Check if one document was deleted
+    });
+
+    it("deletes a vet account from MongoDB", async () => {
+        // Define test data for an existing vet to be deleted
+        const email = "drsmith@example.com";
+
+        // Call the deleteVetAccount function with the test data
+        const result = await deleteVetAccount(email);
+
+        // Assert the result
+        expect(result.deletedCount).toBe(1); // Check if one document was deleted
     });
 });
