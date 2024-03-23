@@ -18,6 +18,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
   String predictedDisease = '';
   double probability = 0.0;
   bool showResult = false;
+  bool isLoading = false;
 
   Future<void> getPredictions() async {
     final age = int.tryParse(ageController.text) ?? 0;
@@ -27,6 +28,11 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
     final symptom1 = _symptom1;
     final symptom2 = _symptom2;
     final symptom3 = _symptom3;
+
+    // Set loading state to true when making the request
+    setState(() {
+      isLoading = true;
+    });
 
     print("predicting");
     final inputData = {
@@ -53,7 +59,8 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final prediction = data['predictedDisease'] as String;
-        final prob = data['probability'] as double;
+        final probString = data['probability'] as String;
+        final prob = double.tryParse(probString) ?? 0.0;
         setState(() {
           predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
           probability = prob;
@@ -66,6 +73,12 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
     } catch (error) {
       print(error);
     }
+    finally {
+      // Set loading state to false when request completes (whether success or failure)
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   String _symptom1 = "";
@@ -76,7 +89,14 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading
+        ? Scaffold(
+      backgroundColor: Colors.white, // Set background color to white
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    )
+        : Scaffold(
       appBar: AppBar(
         title: Text('Disease Prediction'),
       ),
@@ -179,6 +199,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
               SizedBox(height: 20),
               Container(
                 width: double.infinity,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: (){
                     if (ageController.text.isEmpty ||
@@ -214,17 +235,13 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 ),
               ),
 
-              SizedBox(height: 16),
-              Center(
-                child: Text('Predicted Disease '),
-              ),
               SizedBox(height: 10,),
 
               if (showResult)
                 Column(
                   children: [
                     Container(
-                      width: 100,
+                      width: 400,
                       height: 50,
                       decoration: BoxDecoration(
                         color: Colors.red,
@@ -232,7 +249,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                       ),
                       child: Center(
                         child: Text(
-                          '$predictedDisease'.toUpperCase(),
+                          'Predicted Disease: ${predictedDisease.toUpperCase()}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -242,7 +259,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     ),
                     SizedBox(height: 10,),
                     Container(
-                      width: 100,
+                      width: 300,
                       height: 50,
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
@@ -250,7 +267,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                       ),
                       child: Center(
                         child: Text(
-                          '$probability'.toUpperCase(),
+                          'Probability: ${probability.toStringAsFixed(2)}%',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -260,8 +277,6 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                     ),
                   ],
                 ),
-
-
             ],
           ),
         ),
