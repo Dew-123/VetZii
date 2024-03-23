@@ -1,3 +1,5 @@
+import 'package:mihan_s_application1/http_req/links.dart';
+
 import 'controller/pet_owner_create_an_account_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -320,7 +322,7 @@ class PetOwnerCreateAnAccountScreen
         }
 
         var response = await http.post(
-          Uri.parse('http://10.0.2.2:3000/dataAddUser'),
+          Uri.parse(Links.AddUser),
           body:{
             'Fname': firstName,
             'Lname': lastName,

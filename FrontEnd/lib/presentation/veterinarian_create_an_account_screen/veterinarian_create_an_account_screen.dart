@@ -1,3 +1,4 @@
+import '../../http_req/links.dart';
 import 'controller/veterinarian_create_an_account_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
@@ -7,6 +8,8 @@ import 'package:mihan_s_application1/widgets/app_bar/appbar_subtitle_one.dart';
 import 'package:mihan_s_application1/widgets/app_bar/custom_app_bar.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:mihan_s_application1/widgets/custom_text_form_field.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 // ignore_for_file: must_be_immutable
 class VeterinarianCreateAnAccountScreen
@@ -112,7 +115,7 @@ class VeterinarianCreateAnAccountScreen
             ),
           ),
         ),
-        bottomNavigationBar: _buildCreateAccount(),
+        bottomNavigationBar: _buildCreateAccount(context),
       ),
     );
   }
@@ -238,8 +241,9 @@ class VeterinarianCreateAnAccountScreen
   }
 
   /// Section Widget
-  Widget _buildCreateAccount() {
+  Widget _buildCreateAccount(BuildContext context) {
     return CustomElevatedButton(
+      onPressed: ()=> _createAccount(context),
       width: 189.h,
       text: "Create Account".tr,
       margin: EdgeInsets.only(
@@ -249,4 +253,80 @@ class VeterinarianCreateAnAccountScreen
       ),
     );
   }
+
+  void _createAccount(BuildContext context) async {
+    print('pressed the creaate ');
+    // Retrieve values from controllers
+    String fullName = controller.fullNameController.text;
+    String address = controller.addressController.text;
+    String fieldOfExpertise = controller.fieldOfExpertiseController.text;
+    String email = controller.emailController.text;
+    String mobileNumber = controller.mobileNumberController.text;
+    String password = controller.passwordController.text;
+    String confirmPassword = controller.confirmPasswordController.text;
+
+    try {
+      if (password == confirmPassword) {
+        // Check if any field is empty
+        if (fullName.isEmpty ||
+            address.isEmpty ||
+            fieldOfExpertise.isEmpty ||
+            email.isEmpty ||
+            mobileNumber.isEmpty ||
+            password.isEmpty ||
+            confirmPassword.isEmpty) {
+          // Show error dialog if any field is empty
+          showDialogBox(context, 'Error', 'Please fill in all fields');
+          return; // Exit the method
+        }
+
+        var response = await http.post(
+          Uri.parse(Links.AddVet),
+          body: {
+            'fullName': fullName,
+            'addressOfTheClinic': address,
+            'fieldOfExpertise': fieldOfExpertise,
+            'email': email,
+            'mobileNumber': mobileNumber,
+            'password': password,
+          },
+        );
+
+        if (response.statusCode == 200) {
+          print('done');
+        } else if (response.statusCode == 400) {
+          showDialogBox(context, 'Email Already in Use',
+              'The email provided is already associated with an existing account.');
+        } else {
+          showDialogBox(context, 'Failed to add data', 'Issue with the server');
+        }
+      } else {
+        showDialogBox(context, 'Password Mismatch', 'Passwords do not match');
+      }
+    } catch (error) {
+      // Handle any errors that might occur during the HTTP request
+      print('Error creating account: $error');
+    }
+  }
+
+  Future<void> showDialogBox(BuildContext context, String title, String content) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

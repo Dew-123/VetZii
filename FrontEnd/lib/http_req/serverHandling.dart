@@ -68,8 +68,7 @@ class ServerHandling {
     }
   }
 
-  Future<void> saveChanges(firstName, lastName, petName, petType, gender,
-      email, mobileNumber, password) async {
+  Future<void> saveChanges(firstName, lastName, petName, petType, gender, email, mobileNumber, password) async {
     try {
       final response = await http.post(
         Uri.parse(Links.updateUserData),
@@ -103,6 +102,7 @@ class ServerHandling {
       print('Error updating user profile: $error');
     };
   }
+
   Future <void> saveChangesVet(
       String fullName,
       String clinicAddress,
@@ -161,8 +161,6 @@ class ServerHandling {
       throw Exception('Failed to load data');
     }
   }
-
-
 
   Future<List<dynamic>> fetchVetData(String email, String password) async {
     final response = await http.post(

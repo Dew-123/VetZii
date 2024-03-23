@@ -17,5 +17,6 @@ class Links {
   static const String predict = baseUrl+'predict';
   static const String deleteUserAccount = baseUrl + 'deleteUserAccount';
   static const String deleteVetAccount = baseUrl + 'deleteVetAccount';
-
+  static const String AddUser=baseUrl+'dataAddUser';
+  static const String AddVet=baseUrl+'dataAddVet';
 }
