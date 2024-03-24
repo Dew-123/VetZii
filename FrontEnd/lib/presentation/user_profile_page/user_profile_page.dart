@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:http/http.dart' as http;
-import 'package:mihan_s_application1/dataHandling/hasing.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -63,7 +62,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   _buildTextFormField("Gender", UserData.gender),
                   _buildTextFormField("Email", UserData.email),
                   _buildTextFormField("Mobile number", UserData.mobileNumber),
-                  _buildTextFormField("Password", 'password', obscureText: true),
+                  _buildTextFormField("Password", UserData.password, obscureText: true),
                   SizedBox(height: 20),
                   if (!_editMode)
                     ElevatedButton(
@@ -99,7 +98,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             _editedGender,
                             _editedEmail,
                             _editedMobileNumber,
-                            HashingService.hashString(_editedPassword));
+                            _editedPassword
+                        );
                         setState(() {
                           _editMode = false;
                         });// Function to save changes to database
@@ -152,9 +152,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget _buildTextFormField(String label, String userDataValue, {bool obscureText = false}) {
     return TextFormField(
       initialValue: userDataValue,
-      enabled: _editMode,
+      enabled: _editMode, // Enable/disable based on edit mode
       obscureText: obscureText,
       onChanged: (value) {
+        // Update edited values as user types
         switch (label) {
           case 'First name':
             _editedFirstName = value;

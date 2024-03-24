@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/vetData.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
-import '../../dataHandling/hasing.dart';
 import '../vet_location_picker_page/vet_location_picker_page.dart';
 import 'vet_treatment_records.dart';
 
@@ -18,6 +17,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _editMode = false; // Track whether the vet is in edit mode
 
+  // Variables to hold edited values
   late String _editedFullName = '';
   late String _editedAddressClinic = '';
   late String _editedFieldOfExpertise = '';
@@ -59,7 +59,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
                   _buildTextFormField("Field of Expertise", VetData.fieldOfExpertise),
                   _buildTextFormField("Mobile Number", VetData.mobileNumber),
                   _buildTextFormField("Email", VetData.email),
-                  _buildTextFormField("Password", 'password', obscureText: true),
+                  _buildTextFormField("Password", VetData.password, obscureText: true),
                   _buildTextFormField("Name of the Clinic", VetData.clinicName),
                   SizedBox(height: 20),
                   Container(
@@ -130,7 +130,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
                               _editedFieldOfExpertise,
                               _editedEmail,
                               _editedMobileNumber,
-                              HashingService.hashString(_editedPassword),
+                              _editedPassword,
                               _editedClinicName,
                               );
                           setState(() {

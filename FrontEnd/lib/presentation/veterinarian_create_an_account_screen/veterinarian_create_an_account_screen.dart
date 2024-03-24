@@ -1,4 +1,3 @@
-import '../../dataHandling/hasing.dart';
 import '../../http_req/links.dart';
 import 'controller/veterinarian_create_an_account_controller.dart';
 import 'package:flutter/material.dart';
@@ -288,7 +287,7 @@ class VeterinarianCreateAnAccountScreen
             'fieldOfExpertise': fieldOfExpertise,
             'email': email,
             'mobileNumber': mobileNumber,
-            'password': HashingService.hashString(password),
+            'password': password,
           },
         );
 
