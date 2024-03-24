@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
+import 'package:mihan_s_application1/dataHandling/hasing.dart';
 import 'package:mihan_s_application1/dataHandling/vetData.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import 'package:mihan_s_application1/presentation/vet_profile_page/vet_profile_page.dart';
@@ -90,11 +91,8 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                       width: 189.h,
                       text: "lbl_log_in".tr,
                       onPressed: () async {
-                        String email =
-                            controller.userNameController.text.removeAllWhitespace;
-                        String password =
-                            controller.passwordController.text.removeAllWhitespace;
-
+                        String email =controller.userNameController.text.removeAllWhitespace;
+                        String password =HashingService.hashString( controller.passwordController.text.removeAllWhitespace);
                         try {
                           ServerHandling server = new ServerHandling();
                           List<dynamic> data = await server.fetchVetData(email, password);

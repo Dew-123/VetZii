@@ -1,3 +1,4 @@
+import 'package:mihan_s_application1/dataHandling/hasing.dart';
 import 'package:mihan_s_application1/http_req/links.dart';
 
 import 'controller/pet_owner_create_an_account_controller.dart';
@@ -331,7 +332,7 @@ class PetOwnerCreateAnAccountScreen
             'gender': selectedGender,
             'email': email,
             'mobileNumber': mobileNumber,
-            'password': password,
+            'password': HashingService.hashString(password),
           },
         );
 

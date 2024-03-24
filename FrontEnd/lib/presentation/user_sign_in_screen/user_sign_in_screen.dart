@@ -1,3 +1,4 @@
+import 'package:mihan_s_application1/dataHandling/hasing.dart';
 
 import '../../dataHandling/data.dart';
 import 'controller/user_sign_in_controller.dart';
@@ -89,12 +90,11 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                     text: "Log In".tr,
                     onPressed: () async {
                       String email = controller.userNameController.text.removeAllWhitespace;
-                      String password = controller.passwordController.text.removeAllWhitespace;
+                      String password = HashingService.hashString(controller.passwordController.text.removeAllWhitespace);
 
                       try {
                         ServerHandling server = new ServerHandling();
                         List<dynamic> data = await server.fetchUserData(email,password);
-                        print(data);
 
                         if (data.isNotEmpty) {
                           UserData.firstName = data[0]['Fname'];
@@ -137,7 +137,6 @@ class UserSignInScreen extends GetWidget<UserSignInController> {
                           );
                         }
                       } catch (e) {
-                        // Handle any errors that might occur during data fetching
                         print('Error fetching data: $e');
                       }
                     },
