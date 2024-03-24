@@ -123,6 +123,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           ServerHandling serverObject = new ServerHandling();
+                          VetData.clinicName=_editedClinicName;
                           serverObject.saveChangesVet(
                               _editedFullName,
                               _editedAddressClinic,
