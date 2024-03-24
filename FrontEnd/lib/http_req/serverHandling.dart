@@ -208,9 +208,9 @@ class ServerHandling {
     }
   }
 
-  Future<void> changeUserPassword(String email,String newPassword) async {
+  Future<void> changeVetPassword(String email,String newPassword) async {
     final response = await http.post(
-      Uri.parse(Links.changeEmailUser),
+      Uri.parse(Links.changeEmailVet),
       body: {
         'email': email,
         'password': newPassword,
