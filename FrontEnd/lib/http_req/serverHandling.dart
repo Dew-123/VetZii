@@ -104,13 +104,13 @@ class ServerHandling {
   }
 
   Future <void> saveChangesVet(
-      String fullName,
-      String clinicAddress,
-      String fieldOfExpertise,
-      String email,
-      String password,
-      String mobileNumber,
-      String clinicName)async{
+      fullName,
+      clinicAddress,
+      fieldOfExpertise,
+      email,
+      mobileNumber,
+      password,
+      clinicName)async{
     try {
       final response = await http.post(
         Uri.parse(Links.updateVetData),
@@ -120,11 +120,11 @@ class ServerHandling {
         body: jsonEncode({
           'prevEmail': VetData.email, // Pass the current user's email
           'fullName': fullName.isNotEmpty ? fullName : VetData.fullName,
-          'addressClinic': clinicAddress.isNotEmpty ? clinicAddress : VetData.addressClinic,
+          'addressOfTheClinic': clinicAddress.isNotEmpty ? clinicAddress : VetData.addressClinic,
           'fieldOfExpertise': fieldOfExpertise.isNotEmpty ? fieldOfExpertise : VetData.fieldOfExpertise,
           'email': email.isNotEmpty ? email : VetData.email,
-          'password': password.isNotEmpty ? password : VetData.password,
           'mobileNumber': mobileNumber.isNotEmpty ? mobileNumber : VetData.mobileNumber,
+          'password': password.isNotEmpty ? password : VetData.password,
           'clinic': clinicName.isNotEmpty ? clinicName : VetData.clinicName,
           'lat':VetData.lat,
           'long':VetData.long,

@@ -108,8 +108,8 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                             VetData.mobileNumber = data[0]['mobileNumber'] ?? '';
                             VetData.password = data[0]['password'] ?? '';
                             VetData.clinicName = data[0]['clinic'] ?? '';
-                            VetData.lat=data[0]['lat'];
-                            VetData.long=data[0]['long'];
+                            VetData.lat=data[0]['lat'] ?? 0.0;
+                            VetData.long=data[0]['long'] ?? 0.0;
                             Get.to(VetProfilePage());
 
                           } else {

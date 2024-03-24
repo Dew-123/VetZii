@@ -18,13 +18,13 @@ class _VetProfilePageState extends State<VetProfilePage> {
   bool _editMode = false; // Track whether the vet is in edit mode
 
   // Variables to hold edited values
-  late String _editedFullName = VetData.fullName;
-  late String _editedAddressClinic = VetData.addressClinic;
-  late String _editedFieldOfExpertise = VetData.fieldOfExpertise;
-  late String _editedMobileNumber = VetData.mobileNumber;
-  late String _editedEmail = VetData.email;
-  late String _editedPassword = VetData.password;
-  late String _editedClinicName = VetData.clinicName;
+  late String _editedFullName = '';
+  late String _editedAddressClinic = '';
+  late String _editedFieldOfExpertise = '';
+  late String _editedMobileNumber = '';
+  late String _editedEmail = '';
+  late String _editedPassword = '';
+  late String _editedClinicName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -126,11 +126,11 @@ class _VetProfilePageState extends State<VetProfilePage> {
                           serverObject.saveChangesVet(
                               _editedFullName,
                               _editedAddressClinic,
-                              _editedClinicName,
                               _editedFieldOfExpertise,
                               _editedEmail,
-                              _editedPassword,
                               _editedMobileNumber,
+                              _editedPassword,
+                              _editedClinicName,
                               );
                           setState(() {
                             _editMode = false;

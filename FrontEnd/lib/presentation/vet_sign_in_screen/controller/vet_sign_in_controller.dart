@@ -13,10 +13,4 @@ class VetSignInController extends GetxController {
 
   Rx<UserSignInModel> userSignInModelObj = UserSignInModel().obs;
 
-  @override
-  void onClose() {
-    super.onClose();
-    userNameController.dispose();
-    passwordController.dispose();
-  }
 }
