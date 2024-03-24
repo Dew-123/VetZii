@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/widgets/custom_elevated_button.dart';
 import 'package:get/get.dart';
-// ignore_for_file: must_be_immutable
+
 class VetLoginScreen extends GetWidget<VetLoginController> {
   const VetLoginScreen({Key? key})
       : super(

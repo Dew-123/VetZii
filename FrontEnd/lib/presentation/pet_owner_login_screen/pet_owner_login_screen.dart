@@ -1,8 +1,4 @@
-import 'package:mihan_s_application1/presentation/disease_prediction_enter_symptoms_screen/disease_prediction_enter_symptoms_screen.dart';
-import 'package:mihan_s_application1/presentation/pet_owner_create_an_account_screen/binding/pet_owner_create_an_account_binding.dart';
-import 'package:mihan_s_application1/presentation/pet_owner_create_an_account_screen/pet_owner_create_an_account_screen.dart';
-import 'package:mihan_s_application1/presentation/user_sign_in_screen/binding/user_sign_in_binding.dart';
-import 'package:mihan_s_application1/presentation/user_sign_in_screen/user_sign_in_screen.dart';
+
 
 import 'controller/pet_owner_login_controller.dart';
 import 'package:flutter/material.dart';

@@ -68,8 +68,7 @@ class ServerHandling {
     }
   }
 
-  Future<void> saveChanges(firstName, lastName, petName, petType, gender,
-      email, mobileNumber, password) async {
+  Future<void> saveChanges(firstName, lastName, petName, petType, gender, email, mobileNumber, password) async {
     try {
       final response = await http.post(
         Uri.parse(Links.updateUserData),
@@ -103,14 +102,15 @@ class ServerHandling {
       print('Error updating user profile: $error');
     };
   }
+
   Future <void> saveChangesVet(
-      String fullName,
-      String clinicAddress,
-      String fieldOfExpertise,
-      String email,
-      String password,
-      String mobileNumber,
-      String clinicName)async{
+      fullName,
+      clinicAddress,
+      fieldOfExpertise,
+      email,
+      mobileNumber,
+      password,
+      clinicName)async{
     try {
       final response = await http.post(
         Uri.parse(Links.updateVetData),
@@ -120,14 +120,14 @@ class ServerHandling {
         body: jsonEncode({
           'prevEmail': VetData.email, // Pass the current user's email
           'fullName': fullName.isNotEmpty ? fullName : VetData.fullName,
-          'addressClinic': clinicAddress.isNotEmpty ? clinicAddress : VetData.addressClinic,
+          'addressOfTheClinic': clinicAddress.isNotEmpty ? clinicAddress : VetData.addressClinic,
           'fieldOfExpertise': fieldOfExpertise.isNotEmpty ? fieldOfExpertise : VetData.fieldOfExpertise,
           'email': email.isNotEmpty ? email : VetData.email,
-          'password': password.isNotEmpty ? password : VetData.password,
           'mobileNumber': mobileNumber.isNotEmpty ? mobileNumber : VetData.mobileNumber,
+          'password': password.isNotEmpty ? password : VetData.password,
           'clinic': clinicName.isNotEmpty ? clinicName : VetData.clinicName,
-          'lat':0,
-          'long':0,
+          'lat':VetData.lat,
+          'long':VetData.long,
         }),
       );
 
@@ -162,8 +162,6 @@ class ServerHandling {
     }
   }
 
-
-
   Future<List<dynamic>> fetchVetData(String email, String password) async {
     final response = await http.post(
       Uri.parse(Links.dataGetVet),
@@ -175,7 +173,6 @@ class ServerHandling {
 
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
-      print(data);
       return data;
     } else {
       throw Exception('Failed to load data');
@@ -245,7 +242,7 @@ class ServerHandling {
 
   Future<String> sendEmail(String email,String heading,String msg) async {
     final response = await http.post(
-      Uri.parse(Links.recoverMailCodeSend),
+      Uri.parse(Links.sendEmail),
       body: {
         'email': email,
         'msg':msg,

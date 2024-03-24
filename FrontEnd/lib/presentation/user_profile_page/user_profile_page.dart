@@ -1,10 +1,8 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:http/http.dart' as http;
-import 'package:mihan_s_application1/http_req/links.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -37,7 +35,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              // Add logout functionality here
+              _showLogooutConfirmationBox(context);
+
             },
           ),
         ],
@@ -202,7 +201,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ServerHandling serverObject = new ServerHandling();
               serverObject.deleteUserAccount(UserData.email);
               print('Account Deleted!');
-              Navigator.of(context).pop();
+              UserData.reset();
+              Get.offAllNamed(AppRoutes.petOwnerLoginScreen);
             },
                 child: Text('Yes', style: TextStyle(color: Colors.black),),
             ),
@@ -218,43 +218,31 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
+  void _showLogooutConfirmationBox(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Confirmation', style: CustomTextStyles.headlineSmallBlack90002),
+          content: Text('Please confirm to log out.'),
+          actions: [
+            TextButton(onPressed: (){
+              UserData.reset();
+              Get.offAllNamed(AppRoutes.petOwnerLoginScreen);
+              print('Logged Out!');
+            },
+              child: Text('Yes', style: TextStyle(color: Colors.black),),
+            ),
+            TextButton(onPressed: (){
+              //close
+              Navigator.of(context).pop();
+            },
+              child: Text('No', style: TextStyle(color: Colors.black),),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-  // void _saveChanges() async {
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(Links.updateUserData),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //       body: jsonEncode({
-  //         'PrevEmail': UserData.email, // Pass the current user's email
-  //         'Fname': _editedFirstName.isNotEmpty ? _editedFirstName : UserData.firstName,
-  //         'Lname': _editedLastName.isNotEmpty ? _editedLastName : UserData.lastName,
-  //         'nameOfThePet': _editedPetName.isNotEmpty ? _editedPetName : UserData.petName,
-  //         'petType': _editedPetType.isNotEmpty ? _editedPetType : UserData.petType,
-  //         'gender': _editedGender.isNotEmpty ? _editedGender : UserData.gender,
-  //         'email': _editedEmail.isNotEmpty ? _editedEmail : UserData.email,
-  //         'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : UserData.mobileNumber,
-  //         'password': _editedPassword.isNotEmpty ? _editedPassword : UserData.password,
-  //       }),
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       // Handle success
-  //       print('User profile updated successfully');
-  //     } else {
-  //       // Handle error
-  //       print(response.body);
-  //       print('Failed to update user profile');
-  //     }
-  //   } catch (error) {
-  //     // Handle error
-  //     print('Error updating user profile: $error');
-  //   }
-  //
-  //   // After saving changes, set edit mode to false
-  //   setState(() {
-  //     _editMode = false;
-  //   });
-  // }
 }

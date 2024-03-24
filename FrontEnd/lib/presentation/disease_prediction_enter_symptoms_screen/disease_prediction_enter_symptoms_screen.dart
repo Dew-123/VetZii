@@ -16,7 +16,9 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
 
   String predictedDisease = '';
+  double probability = 0.0;
   bool showResult = false;
+  bool isLoading = false;
 
   Future<void> getPredictions() async {
     final age = int.tryParse(ageController.text) ?? 0;
@@ -26,6 +28,11 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
     final symptom1 = _symptom1;
     final symptom2 = _symptom2;
     final symptom3 = _symptom3;
+
+    // Set loading state to true when making the request
+    setState(() {
+      isLoading = true;
+    });
 
     print("predicting");
     final inputData = {
@@ -50,9 +57,13 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
       print("running");
       if (response.statusCode == 200) {
-        final prediction = jsonDecode(response.body)['predictedDisease'] as String;
+        final data = jsonDecode(response.body);
+        final prediction = data['predictedDisease'] as String;
+        final probString = data['probability'] as String;
+        final prob = double.tryParse(probString) ?? 0.0;
         setState(() {
           predictedDisease = prediction.isNotEmpty ? prediction : 'Unknown';
+          probability = prob;
           showResult = true;
         });
 
@@ -61,6 +72,12 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
       }
     } catch (error) {
       print(error);
+    }
+    finally {
+      // Set loading state to false when request completes (whether success or failure)
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -72,7 +89,14 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading
+        ? Scaffold(
+      backgroundColor: Colors.white, // Set background color to white
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    )
+        : Scaffold(
       appBar: AppBar(
         title: Text('Disease Prediction'),
       ),
@@ -175,6 +199,7 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
               SizedBox(height: 20),
               Container(
                 width: double.infinity,
+                height: 50,
                 child: ElevatedButton(
                   onPressed: (){
                     if (ageController.text.isEmpty ||
@@ -210,30 +235,48 @@ class _DiseasePredictionPageState extends State<DiseasePredictionPage> {
                 ),
               ),
 
-              SizedBox(height: 16),
-              Center(
-                child: Text('Predicted Disease '),
-              ),
               SizedBox(height: 10,),
 
               if (showResult)
-                Container(
-                  width: 100,
-                  height: 50,
-                  decoration: BoxDecoration(color: Colors.red,
-                      borderRadius: BorderRadius.circular(20)),
-                  // You can customize the color as needed
-                  child: Center(
-                    child: Text(
-                      '$predictedDisease'.toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white, // You can customize the text color as needed
-                        fontSize: 16,
+                Column(
+                  children: [
+                    Container(
+                      width: 400,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Predicted Disease: ${predictedDisease.toUpperCase()}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                )
-
+                    SizedBox(height: 10,),
+                    Container(
+                      width: 300,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Probability: ${probability.toStringAsFixed(2)}%',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
             ],
           ),
         ),

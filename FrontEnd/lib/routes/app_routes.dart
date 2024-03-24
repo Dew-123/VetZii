@@ -321,13 +321,7 @@ class AppRoutes {
         AppNavigationBinding(),
       ],
     ),
-    // GetPage(
-    //   name: vetProfileScreen,
-    //   page: () => VetProfileScreen(),
-    //   bindings: [
-    //     VetProfileBinding(),
-    //   ],
-    // ),
+
     GetPage(
       name: initialRoute,
       page: () => ForgotPasswordOneScreen(),

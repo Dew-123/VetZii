@@ -1,7 +1,5 @@
 
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
-
-import '../../dataHandling/vetData.dart';
 import 'widgets/hourstabs_item_widget.dart';
 import 'controller/book_appointment_controller.dart';
 import 'models/hourstabs_item_model.dart';
@@ -96,8 +94,8 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
         child: CalendarDatePicker2(
           config: CalendarDatePicker2Config(
             calendarType: CalendarDatePicker2Type.single,
-            firstDate: DateTime(DateTime.now().year - 5),
-            lastDate: DateTime(DateTime.now().year + 5),
+            firstDate: DateTime.now(),
+            lastDate: DateTime(DateTime.now().year + 1),
             selectedDayHighlightColor: Color(0XFFA8CE50),
             firstDayOfWeek: 0,
             weekdayLabelTextStyle: TextStyle(
@@ -235,8 +233,9 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
                 SizedBox(
                   width: 222.h,
                   child: Text(
-                    "msg_your_appointment".tr,
-                    maxLines: 3,
+                    "Your appointment has been booked for $formattedDate at $time with Dr.${UserData.fullName_vet}\n"
+                  "Clinic address:${UserData.addressOfTheClinic_vet}\n",
+                    maxLines: 10,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: CustomTextStyles.bodyMediumPoppinsGray60002.copyWith(
@@ -251,13 +250,8 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
                   buttonStyle: CustomButtonStyles.fillPrimaryTL24,
                   buttonTextStyle: theme.textTheme.titleMedium!,
                   onPressed: (){
-                    Navigator.pop(context);
+                    Get.offAllNamed(AppRoutes.mainMenuContainerScreen);
                   },
-                ),
-                SizedBox(height: 19.v),
-                Text(
-                  "msg_edit_your_appointment".tr,
-                  style: CustomTextStyles.bodyMediumGray60002,
                 ),
               ],
             ),
@@ -265,15 +259,14 @@ class BookAppointmentScreen extends GetWidget<BookAppointmentController> {
         );
       },
     );
-    String msg ="Your appointment has been booked for $formattedDate at $time with Dr.${VetData.fullName}\n"
-        "Clinic name:${VetData.clinicName}\n";
-        "Clinic location:${VetData.addressClinic}";
+    String msg ="Your appointment has been booked for $formattedDate at $time with Dr.${UserData.fullName_vet}\n"
+        "Clinic address:${UserData.addressOfTheClinic_vet}\n";
 
     ServerHandling serverHandling = new ServerHandling();
     serverHandling.sendEmail(UserData.email,"Appointment booked",msg);
 
 
-    Future.delayed(Duration(seconds: 3), ()=> {
+    Future.delayed(Duration(seconds: 100), ()=> {
       Navigator.pop(context)
     });
   }

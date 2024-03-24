@@ -2,10 +2,6 @@ import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/pet_owner_create_an_account_screen/models/pet_owner_create_an_account_model.dart';
 import 'package:flutter/material.dart';
 
-/// A controller class for the PetOwnerCreateAnAccountScreen.
-///
-/// This class manages the state of the PetOwnerCreateAnAccountScreen, including the
-/// current petOwnerCreateAnAccountModelObj
 class PetOwnerCreateAnAccountController extends GetxController {
   TextEditingController firstNameController = TextEditingController();
 

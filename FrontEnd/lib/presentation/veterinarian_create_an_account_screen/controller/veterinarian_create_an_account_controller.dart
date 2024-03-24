@@ -2,10 +2,6 @@ import 'package:mihan_s_application1/core/app_export.dart';
 import 'package:mihan_s_application1/presentation/veterinarian_create_an_account_screen/models/veterinarian_create_an_account_model.dart';
 import 'package:flutter/material.dart';
 
-/// A controller class for the VeterinarianCreateAnAccountScreen.
-///
-/// This class manages the state of the VeterinarianCreateAnAccountScreen, including the
-/// current veterinarianCreateAnAccountModelObj
 class VeterinarianCreateAnAccountController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
 

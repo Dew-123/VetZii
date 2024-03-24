@@ -20,7 +20,7 @@ const {
   addPastTreatments,
   getPastTreatments,
   deleteUserAccount,
-  deleteVetAccount
+  deleteVetAccount,
 } = require("./dataBase");
 
 const bodyParser = require("body-parser");
@@ -169,7 +169,7 @@ app.post("/dataGetVets", async (req, res) => {
   }
 });
 
-app.get("/dataAddVet", async (req, res) => {
+app.post("/dataAddVet", async (req, res) => {
   try {
     // Retrieve the data parameters from the request
     const {
@@ -179,7 +179,7 @@ app.get("/dataAddVet", async (req, res) => {
       email,
       mobileNumber,
       password,
-    } = req.query;
+    } = req.body;
 
     // Validate if all required fields are provided
     if (
@@ -197,7 +197,7 @@ app.get("/dataAddVet", async (req, res) => {
     await connectToMongoDB();
 
     // Check if the data already exists
-    const existingData = await getDataVets(email);
+    const existingData = await getDataVet(email);
     if (existingData[0]) {
       return res.status(400).json({ error: "Data already exists" });
     }
@@ -369,7 +369,7 @@ app.post("/updateVetData", async (req, res) => {
     const {
       prevEmail,
       fullName,
-      addressClinic,
+      addressOfTheClinic,
       fieldOfExpertise,
       email,
       mobileNumber,
@@ -379,15 +379,10 @@ app.post("/updateVetData", async (req, res) => {
       long,
     } = req.body;
 
-    console.log(prevEmail);
-    console.log(fullName);
-    console.log(addressClinic);
-    console.log(fieldOfExpertise);
-
     const result = await updateVetData(
       prevEmail,
       fullName,
-      addressClinic,
+      addressOfTheClinic,
       fieldOfExpertise,
       email,
       password,
@@ -424,53 +419,56 @@ app.post("/getAppointment", async (req, res) => {
 });
 
 // API endpoint to receive user inputs and get predictions
-app.post('/predict', async (req, res) => {
+app.post("/predict", async (req, res) => {
   // Extract user inputs from request body
   const { Age, Temperature, Animal, Symptom1, Symptom2, Symptom3 } = req.body;
-  
+
   // Execute Python script
-  const pythonProcess = spawn('python', ['predict.py'], { stdio: 'pipe' });
+  const pythonProcess = spawn("python", ["predict.py"], { stdio: "pipe" });
 
   // Send input data to the Python process
   const inputData = {
-      Age: Age[0],
-      Temperature: Temperature[0], 
-      Animal: Animal[0], 
-      Symptom1: Symptom1[0],
-      Symptom2: Symptom2[0], 
-      Symptom3: Symptom3[0]
+    Age: Age[0],
+    Temperature: Temperature[0],
+    Animal: Animal[0],
+    Symptom1: Symptom1[0],
+    Symptom2: Symptom2[0],
+    Symptom3: Symptom3[0],
   };
 
   pythonProcess.stdin.write(JSON.stringify(inputData));
   pythonProcess.stdin.end();
 
   // Handle stdout data from the Python process
-  let predictedDisease = '';
-  
-  pythonProcess.stdout.on('data', (data) => {
-      const predictions = JSON.parse(data);
-      predictedDisease = predictions.predictedDisease;
+  let predictedDisease = "";
+  let probability = "";
+
+  pythonProcess.stdout.on("data", (data) => {
+    const predictions = JSON.parse(data);
+    predictedDisease = predictions.predictedDisease;
+    probability = predictions.probability;
   });
 
   // Handle end of stdout data from the Python process
-  pythonProcess.stdout.on('end', () => {
-      // Send the predicted label to the frontend
-      console.log(predictedDisease);
-      res.json({ predictedDisease }); // Send predictions back to frontend
+  pythonProcess.stdout.on("end", () => {
+    // Send the predicted label to the frontend
+    console.log(predictedDisease);
+    console.log(probability);
+    res.json({ predictedDisease, probability }); // Send predictions back to frontend
   });
 
   // Handle stderr data from the Python process
-  pythonProcess.stderr.on('data', (data) => {
-      console.error(`Python stderr: ${data}`);
-      res.status(500).send('Error occurred'); // Send error response
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`Python stderr: ${data}`);
+    res.status(500).send("Error occurred"); // Send error response
   });
 
   // Handle Python process exit
-  pythonProcess.on('close', (code) => {
-      if (code !== 0) {
-          console.error(`Python process exited with code ${code}`);
-          res.status(500).send('Error occurred'); // Send error response
-      }
+  pythonProcess.on("close", (code) => {
+    if (code !== 0) {
+      console.error(`Python process exited with code ${code}`);
+      res.status(500).send("Error occurred"); // Send error response
+    }
   });
 });
 
@@ -550,40 +548,37 @@ app.post("/getPastTreatments", async (req, res) => {
   }
 });
 
-app.post("/deleteUserAccount", async(req, res) =>{
-  const {email}= req.body;
+app.post("/deleteUserAccount", async (req, res) => {
+  const { email } = req.body;
 
   try {
-    const response =await deleteUserAccount(email);
-    if(response.deletedCount===1){
-      res.status(200).send('User account deleted successfully.');
-    }
-    else{
-      res.status(500).send('No user found.');
+    const response = await deleteUserAccount(email);
+    if (response.deletedCount === 1) {
+      res.status(200).send("User account deleted successfully.");
+    } else {
+      res.status(500).send("No user found.");
     }
   } catch (error) {
-    console.error('Error deleting user account:', error);
-    res.status(500).send('Error deleting user account.');
+    console.error("Error deleting user account:", error);
+    res.status(500).send("Error deleting user account.");
   }
-})
+});
 
-app.post("/deleteVetAccount", async(req, res) =>{
-  const {email}= req.body;
+app.post("/deleteVetAccount", async (req, res) => {
+  const { email } = req.body;
 
   try {
-    const response =await deleteVetAccount(email);
-    if(response.deletedCount===1){
-      res.status(200).send('Vet account deleted successfully.');
-    }
-    else{
-      res.status(500).send('No vet found.');
+    const response = await deleteVetAccount(email);
+    if (response.deletedCount === 1) {
+      res.status(200).send("Vet account deleted successfully.");
+    } else {
+      res.status(500).send("No vet found.");
     }
   } catch (error) {
-    console.error('Error deleting vet account:', error);
-    res.status(500).send('Error deleting vet account.');
+    console.error("Error deleting vet account:", error);
+    res.status(500).send("Error deleting vet account.");
   }
-})
-
+});
 
 app.post("/sendEmail", async (req, res) => {
   const { email, msg, heading } = req.body;

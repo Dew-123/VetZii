@@ -1,10 +1,7 @@
-import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
-import 'package:mihan_s_application1/dataHandling/data.dart';
 import 'package:mihan_s_application1/dataHandling/vetData.dart';
-import 'package:http/http.dart' as http;
-import 'package:mihan_s_application1/http_req/links.dart';
 import 'package:mihan_s_application1/http_req/serverHandling.dart';
 import '../vet_location_picker_page/vet_location_picker_page.dart';
 import 'vet_treatment_records.dart';
@@ -21,13 +18,13 @@ class _VetProfilePageState extends State<VetProfilePage> {
   bool _editMode = false; // Track whether the vet is in edit mode
 
   // Variables to hold edited values
-  late String _editedFullName = VetData.fullName;
-  late String _editedAddressClinic = VetData.addressClinic;
-  late String _editedFieldOfExpertise = VetData.fieldOfExpertise;
-  late String _editedMobileNumber = VetData.mobileNumber;
-  late String _editedEmail = VetData.email;
-  late String _editedPassword = VetData.password;
-  late String _editedClinicName = VetData.clinicName;
+  late String _editedFullName = '';
+  late String _editedAddressClinic = '';
+  late String _editedFieldOfExpertise = '';
+  late String _editedMobileNumber = '';
+  late String _editedEmail = '';
+  late String _editedPassword = '';
+  late String _editedClinicName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -126,14 +123,16 @@ class _VetProfilePageState extends State<VetProfilePage> {
                       child: ElevatedButton(
                         onPressed: () {
                           ServerHandling serverObject = new ServerHandling();
+                          VetData.clinicName=_editedClinicName;
                           serverObject.saveChangesVet(
                               _editedFullName,
-                              _editedClinicName,
+                              _editedAddressClinic,
                               _editedFieldOfExpertise,
                               _editedEmail,
-                              _editedPassword,
                               _editedMobileNumber,
-                              _editedClinicName);
+                              _editedPassword,
+                              _editedClinicName,
+                              );
                           setState(() {
                             _editMode = false;
                           });
@@ -218,10 +217,10 @@ class _VetProfilePageState extends State<VetProfilePage> {
   Widget _buildTextFormField(String label, String userDataValue, {bool obscureText = false}) {
     return TextFormField(
       initialValue: userDataValue,
-      enabled: _editMode, // Enable/disable based on edit mode
+      enabled: _editMode,
       obscureText: obscureText,
       onChanged: (value) {
-        // Update edited values as user types
+
         switch (label) {
           case 'Full name':
             _editedFullName = value;
@@ -264,7 +263,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
               ServerHandling serverObject = new ServerHandling();
               serverObject.deleteVetAccount(VetData.email);
               print('Account Deleted!');
-              Navigator.of(context).pop();
+              Get.offAllNamed(AppRoutes.vetSignIn);
             },
               child: Text('Yes', style: TextStyle(color: Colors.black),),
             ),
@@ -279,44 +278,4 @@ class _VetProfilePageState extends State<VetProfilePage> {
       },
     );
   }
-
-  // void _saveChanges() async {
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(Links.updateVetData),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //       },
-  //       body: jsonEncode({
-  //         'prevEmail': VetData.email, // Pass the current user's email
-  //         'fullName': _editedFullName.isNotEmpty ? _editedFullName : VetData.fullName,
-  //         'addressClinic': _editedAddressClinic.isNotEmpty ? _editedAddressClinic : VetData.addressClinic,
-  //         'fieldOfExpertise': _editedFieldOfExpertise.isNotEmpty ? _editedFieldOfExpertise : VetData.fieldOfExpertise,
-  //         'email': _editedEmail.isNotEmpty ? _editedEmail : VetData.email,
-  //         'password': _editedPassword.isNotEmpty ? _editedPassword : VetData.password,
-  //         'mobileNumber': _editedMobileNumber.isNotEmpty ? _editedMobileNumber : VetData.mobileNumber,
-  //         'clinic': _editedClinicName.isNotEmpty ? _editedClinicName : VetData.clinicName,
-  //         'lat':0,
-  //         'long':0,
-  //       }),
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       // Handle success
-  //       print('Vet profile updated successfully');
-  //     } else {
-  //       // Handle error
-  //       print(response.body);
-  //       print('Failed to update vet profile');
-  //     }
-  //   } catch (error) {
-  //     // Handle error
-  //     print('Error updating vet profile: $error');
-  //   }
-  //
-  //   // After saving changes, set edit mode to false
-  //   setState(() {
-  //     _editMode = false;
-  //   });
-  // }
 }

@@ -1,5 +1,7 @@
 class Links {
-  static const String baseUrl = 'http://10.0.2.2:3000/';
+  static const String  api ='http://13.48.137.45/api/';
+  static const String local='http://10.0.2.2:3000/';
+  static const String baseUrl = local;
   static const String dataGetUser = baseUrl + 'dataGetUser';
   static const String dataGetVet = baseUrl + 'dataGetVet';
   static const String dataGetVets = baseUrl + 'dataGetVets';
@@ -17,5 +19,6 @@ class Links {
   static const String predict = baseUrl+'predict';
   static const String deleteUserAccount = baseUrl + 'deleteUserAccount';
   static const String deleteVetAccount = baseUrl + 'deleteVetAccount';
-
+  static const String AddUser=baseUrl+'dataAddUser';
+  static const String AddVet=baseUrl+'dataAddVet';
 }

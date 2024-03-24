@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mihan_s_application1/core/app_export.dart';
 
-// ignore: must_be_immutable
 class Userprofile1ItemWidget extends StatelessWidget {
   Userprofile1ItemWidget(
       this.userprofile1ItemModelObj, {
@@ -39,7 +38,6 @@ class Userprofile1ItemWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.h),
                 color: Colors.grey[300], // Placeholder color
-                // You can use BoxDecoration to apply custom styling like border or shadows if needed
               ),
               child: userprofile1ItemModelObj.userImage != null
                   ? Image.memory(

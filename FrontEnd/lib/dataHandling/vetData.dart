@@ -6,13 +6,11 @@ class VetData {
   static String addressClinic = '';
   static String fieldOfExpertise = '';
   static String email = '';
-  static String password = '';
   static String mobileNumber = '';
+  static String password = '';
   static String clinicName = '';
-
-  static String lat = '';
-  static String long = '';
-
+  static double lat=0.0 ;
+  static double long=0.0 ;
 
 
 }
