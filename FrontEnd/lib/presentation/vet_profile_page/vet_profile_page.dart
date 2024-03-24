@@ -24,7 +24,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
   late String _editedMobileNumber = '';
   late String _editedEmail = '';
   late String _editedPassword = '';
-  late String _editedClinicName = '';
+  late String _editedClinicName = VetData.clinicName ??'';
 
   @override
   Widget build(BuildContext context) {

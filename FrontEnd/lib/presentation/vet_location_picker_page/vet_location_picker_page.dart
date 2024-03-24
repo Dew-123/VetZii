@@ -109,7 +109,7 @@ class _MapPageState extends State<MapPage> {
                   body: jsonEncode({
                     'prevEmail': VetData.email,
                     'fullName': VetData.fullName,
-                    'addressClinic': VetData.addressClinic,
+                    'addressOfTheClinic': VetData.addressClinic,
                     'fieldOfExpertise': VetData.fieldOfExpertise,
                     'email': VetData.email,
                     'mobileNumber': VetData.mobileNumber,

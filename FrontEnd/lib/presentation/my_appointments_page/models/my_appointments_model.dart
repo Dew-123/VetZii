@@ -18,7 +18,7 @@ class MyAppointmentsModel {
 
       Rx<String> time = Rx(data["appointment"]["dateTime"]);
       Rx<String> doctorName = Rx(data["vet"][0]["fullName"]);
-      Rx<String> clinicName = Rx(data["vet"][0]["addressOfTheClinic"]);
+      Rx<String> clinicName = Rx(data["vet"][0]["addressOfTheClinic"]??'');
 
       AppointmentcardItemModel userModel =
       AppointmentcardItemModel(
