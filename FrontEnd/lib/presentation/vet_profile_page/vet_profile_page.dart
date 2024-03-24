@@ -35,7 +35,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              // Add logout functionality here
+              Navigator.pop(context);
             },
           ),
         ],

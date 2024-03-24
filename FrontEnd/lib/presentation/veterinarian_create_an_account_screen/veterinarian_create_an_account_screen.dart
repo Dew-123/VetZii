@@ -257,7 +257,7 @@ class VeterinarianCreateAnAccountScreen
 
   void _createAccount(BuildContext context) async {
     print('pressed the creaate ');
-    // Retrieve values from controllers
+
     String fullName = controller.fullNameController.text;
     String address = controller.addressController.text;
     String fieldOfExpertise = controller.fieldOfExpertiseController.text;
@@ -268,7 +268,7 @@ class VeterinarianCreateAnAccountScreen
 
     try {
       if (password == confirmPassword) {
-        // Check if any field is empty
+
         if (fullName.isEmpty ||
             address.isEmpty ||
             fieldOfExpertise.isEmpty ||
@@ -276,9 +276,8 @@ class VeterinarianCreateAnAccountScreen
             mobileNumber.isEmpty ||
             password.isEmpty ||
             confirmPassword.isEmpty) {
-          // Show error dialog if any field is empty
           showDialogBox(context, 'Error', 'Please fill in all fields');
-          return; // Exit the method
+          return;
         }
 
         var response = await http.post(
@@ -294,18 +293,20 @@ class VeterinarianCreateAnAccountScreen
         );
 
         if (response.statusCode == 200) {
+          Navigator.pop(context);
           print('done');
         } else if (response.statusCode == 400) {
+          print(response.body);
           showDialogBox(context, 'Email Already in Use',
               'The email provided is already associated with an existing account.');
         } else {
+          print(response.body);
           showDialogBox(context, 'Failed to add data', 'Issue with the server');
         }
       } else {
         showDialogBox(context, 'Password Mismatch', 'Passwords do not match');
       }
     } catch (error) {
-      // Handle any errors that might occur during the HTTP request
       print('Error creating account: $error');
     }
   }

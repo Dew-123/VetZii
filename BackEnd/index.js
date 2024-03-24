@@ -169,7 +169,7 @@ app.post("/dataGetVets", async (req, res) => {
   }
 });
 
-app.get("/dataAddVet", async (req, res) => {
+app.post("/dataAddVet", async (req, res) => {
   try {
     // Retrieve the data parameters from the request
     const {
@@ -179,7 +179,7 @@ app.get("/dataAddVet", async (req, res) => {
       email,
       mobileNumber,
       password,
-    } = req.query;
+    } = req.body;
 
     // Validate if all required fields are provided
     if (
