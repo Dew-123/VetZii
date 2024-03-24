@@ -368,7 +368,7 @@ app.post("/updateVetData", async (req, res) => {
     const {
       prevEmail,
       fullName,
-      addressClinic,
+      addressOfTheClinic,
       fieldOfExpertise,
       email,
       mobileNumber,
@@ -381,7 +381,7 @@ app.post("/updateVetData", async (req, res) => {
     const result = await updateVetData(
       prevEmail,
       fullName,
-      addressClinic,
+      addressOfTheClinic,
       fieldOfExpertise,
       email,
       password,

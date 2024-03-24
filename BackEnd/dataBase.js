@@ -344,7 +344,7 @@ async function updateUserData(
 async function updateVetData(
   prevEmail,
   fullName,
-  addressClinic,
+  addressOfTheClinic,
   fieldOfExpertise,
   email,
   password,
@@ -367,7 +367,7 @@ async function updateVetData(
       {
         $set: {
           fullName,
-          addressClinic,
+          addressOfTheClinic,
           fieldOfExpertise,
           email,
           mobileNumber,
