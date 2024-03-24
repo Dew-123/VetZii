@@ -13,6 +13,16 @@ class VetData {
   static double lat=0.0 ;
   static double long=0.0 ;
 
-
+  static void reset() {
+    fullName = '';
+    addressClinic = '';
+    fieldOfExpertise = '';
+    email = '';
+    password = '';
+    mobileNumber = '';
+    clinicName = '';
+    lat = '';
+    long = '';
+  }
 
 }

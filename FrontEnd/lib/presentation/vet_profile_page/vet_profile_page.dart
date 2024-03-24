@@ -261,7 +261,7 @@ class _VetProfilePageState extends State<VetProfilePage> {
               ServerHandling serverObject = new ServerHandling();
               serverObject.deleteVetAccount(VetData.email);
               print('Account Deleted!');
-              Navigator.of(context).pop();
+              Get.offAllNamed(AppRoutes.vetSignIn);
             },
               child: Text('Yes', style: TextStyle(color: Colors.black),),
             ),
@@ -276,5 +276,4 @@ class _VetProfilePageState extends State<VetProfilePage> {
       },
     );
   }
-
 }
