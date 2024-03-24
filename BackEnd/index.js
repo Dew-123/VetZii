@@ -378,11 +378,6 @@ app.post("/updateVetData", async (req, res) => {
       long,
     } = req.body;
 
-    console.log(prevEmail);
-    console.log(fullName);
-    console.log(addressClinic);
-    console.log(fieldOfExpertise);
-
     const result = await updateVetData(
       prevEmail,
       fullName,

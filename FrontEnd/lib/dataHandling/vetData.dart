@@ -10,8 +10,8 @@ class VetData {
   static String mobileNumber = '';
   static String clinicName = '';
 
-  static String lat = '';
-  static String long = '';
+  static double lat=0.0 ;
+  static double long=0.0 ;
 
 
 

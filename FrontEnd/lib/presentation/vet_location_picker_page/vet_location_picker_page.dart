@@ -98,6 +98,8 @@ class _MapPageState extends State<MapPage> {
           ElevatedButton(
             onPressed: () async {
               print('Latitude: ${_pinPosition.latitude}, Longitude: ${_pinPosition.longitude}');
+              VetData.long=_pinPosition.longitude;
+              VetData.lat=_pinPosition.latitude;
               try {
                 final response = await http.post(
                   Uri.parse(Links.updateVetData),

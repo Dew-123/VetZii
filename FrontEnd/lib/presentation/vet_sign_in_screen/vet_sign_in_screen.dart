@@ -98,7 +98,7 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                         try {
                           ServerHandling server = new ServerHandling();
                           List<dynamic> data = await server.fetchVetData(email, password);
-
+                          print('done');
                           if (data.isNotEmpty) {
                             //VetData.getLocation();
                             VetData.fullName = data[0]['fullName'] ?? '';
@@ -108,6 +108,8 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                             VetData.mobileNumber = data[0]['mobileNumber'] ?? '';
                             VetData.password = data[0]['password'] ?? '';
                             VetData.clinicName = data[0]['clinic'] ?? '';
+                            VetData.lat=data[0]['lat'];
+                            VetData.long=data[0]['long'];
                             Get.to(VetProfilePage());
 
                           } else {
