@@ -125,12 +125,13 @@ class _VetProfilePageState extends State<VetProfilePage> {
                           ServerHandling serverObject = new ServerHandling();
                           serverObject.saveChangesVet(
                               _editedFullName,
+                              _editedAddressClinic,
                               _editedClinicName,
                               _editedFieldOfExpertise,
                               _editedEmail,
                               _editedPassword,
                               _editedMobileNumber,
-                              _editedClinicName);
+                              );
                           setState(() {
                             _editMode = false;
                           });
