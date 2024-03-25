@@ -87,7 +87,7 @@ class ForgotPasswordThreeScreen
                         if(newPassword == confirmPassword){
 
                           ServerHandling serverHandling = new ServerHandling();
-                          await serverHandling.changeVetPassword(email,newPassword);
+                          await serverHandling.changeUserPassword(email,newPassword);
                           _showResetSuccessPopup(context);
                         }}
                     ),

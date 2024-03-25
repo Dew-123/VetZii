@@ -224,6 +224,23 @@ class ServerHandling {
     }
   }
 
+  Future<void> changeUserPassword(String email,String newPassword) async {
+    final response = await http.post(
+      Uri.parse(Links.changeEmailUser),
+      body: {
+        'email': email,
+        'password': newPassword,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+
   Future<List<dynamic>> fetchAppointments(String email) async {
     final response = await http.post(
         Uri.parse(Links.getAppointment),
