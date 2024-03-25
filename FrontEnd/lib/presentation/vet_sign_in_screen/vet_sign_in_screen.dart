@@ -95,45 +95,52 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                         String password =
                             controller.passwordController.text.removeAllWhitespace;
 
-                        try {
-                          ServerHandling server = new ServerHandling();
-                          List<dynamic> data = await server.fetchVetData(email, password);
+                        if(email.isNotEmpty && password.isNotEmpty){
+                          try {
+                            ServerHandling server = new ServerHandling();
+                            List<dynamic> data =
+                                await server.fetchVetData(email, password);
 
-                          if (data.isNotEmpty) {
-                            VetData.fullName = data[0]['fullName'] ?? '';
-                            VetData.addressClinic = data[0]['addressOfTheClinic'] ?? '';
-                            VetData.fieldOfExpertise = data[0]['fieldOfExpertise'] ?? '';
-                            VetData.email = data[0]['email'] ?? '';
-                            VetData.mobileNumber = data[0]['mobileNumber'] ?? '';
-                            VetData.password = data[0]['password'] ?? '';
-                            VetData.clinicName = data[0]['clinic'] ?? '';
-                            VetData.lat=data[0]['lat'] ?? 0.001;
-                            VetData.long=data[0]['long'] ?? 0.001;
-                            Get.to(VetProfilePage());
-
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('No User Found'),
-                                  content: Text(
-                                      'No user was found with the provided email and password.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            if (data.isNotEmpty) {
+                              VetData.fullName = data[0]['fullName'] ?? '';
+                              VetData.addressClinic =
+                                  data[0]['addressOfTheClinic'] ?? '';
+                              VetData.fieldOfExpertise =
+                                  data[0]['fieldOfExpertise'] ?? '';
+                              VetData.email = data[0]['email'] ?? '';
+                              VetData.mobileNumber =
+                                  data[0]['mobileNumber'] ?? '';
+                              VetData.password = data[0]['password'] ?? '';
+                              VetData.clinicName = data[0]['clinic'] ?? '';
+                              VetData.lat = data[0]['lat'] ?? 0.001;
+                              VetData.long = data[0]['long'] ?? 0.001;
+                              Get.to(VetProfilePage());
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('No User Found'),
+                                    content: Text(
+                                        'No user was found with the provided email and password.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          } catch (e) {
+                            // Handle any errors that might occur during data fetching
+                            print('Error fetching data: $e');
                           }
-                        } catch (e) {
-                          // Handle any errors that might occur during data fetching
-                          print('Error fetching data: $e');
+                        }else{
+                          print('password ');
                         }
                       },
                     ),
