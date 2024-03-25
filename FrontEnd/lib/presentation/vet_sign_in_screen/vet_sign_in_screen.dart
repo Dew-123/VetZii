@@ -78,11 +78,11 @@ class VetSignInScreen extends GetWidget<VetSignInController> {
                     SizedBox(height: 27.v),
                     GestureDetector(
                       child: Text(
-                        "msg_forgot_password".tr,
+                        "contact admin".tr,
                         style: CustomTextStyles.titleSmallBlack90002,
                       ),
                       onTap: () {
-                        Get.toNamed(AppRoutes.forgotPasswordOneScreen);
+                       // Get.toNamed(AppRoutes.forgotPasswordOneScreen);
                       },
                     ),
                     SizedBox(height: 22.v),

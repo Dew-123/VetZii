@@ -85,7 +85,6 @@ class ForgotPasswordThreeScreen
                         String email = Get.arguments;
                         print(email);
                         if(newPassword == confirmPassword){
-
                           ServerHandling serverHandling = new ServerHandling();
                           await serverHandling.changeUserPassword(email,newPassword);
                           _showResetSuccessPopup(context);
